@@ -1,10 +1,10 @@
-package com.example.RiteshFirstProject.Controller;
+package com.example.banking_app.Controller;
 
-import com.example.RiteshFirstProject.forms.TransactionForm;
-import com.example.RiteshFirstProject.models.CustomerModel;
-import com.example.RiteshFirstProject.models.TransactionModel;
-import com.example.RiteshFirstProject.repo.CustomerRepository;
-import com.example.RiteshFirstProject.repo.TransactionRepository;
+import com.example.banking_app.forms.TransactionForm;
+import com.example.banking_app.models.CustomerModel;
+import com.example.banking_app.models.TransactionModel;
+import com.example.banking_app.repo.CustomerRepository;
+import com.example.banking_app.repo.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 

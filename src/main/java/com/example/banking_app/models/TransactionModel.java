@@ -1,6 +1,4 @@
-package com.example.RiteshFirstProject.models;
-
-import org.springframework.web.bind.annotation.GetMapping;
+package com.example.banking_app.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
