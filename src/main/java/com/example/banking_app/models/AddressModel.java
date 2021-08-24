@@ -1,16 +1,20 @@
-package com.example.RiteshFirstProject.models;
+package com.example.banking_app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "address")
-public class Address {
+public class AddressModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String line1;
     private int zipCode;
     private String city;
     private  String state;
     private String country;
+    @OneToOne(mappedBy = "permanentAddress")
+    private CustomerModel customerModel;
 
     public String getCountry() {
         return country;
@@ -53,4 +57,19 @@ public class Address {
         this.state = state;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public CustomerModel getCustomerModel() {
+        return customerModel;
+    }
+
+    public void setCustomerModel(CustomerModel customerModel) {
+        this.customerModel = customerModel;
+    }
 }

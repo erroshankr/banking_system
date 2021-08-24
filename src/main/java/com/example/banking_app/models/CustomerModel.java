@@ -16,16 +16,17 @@ public class CustomerModel {
     private String lastName;
     private String password;
     private int phoneNumber;
-    private Address address;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id",referencedColumnName = "id")
+    private AddressModel permanentAddress;
 
-    public Address getAddress() {
-        return address;
+    public AddressModel getPermanentAddress() {
+        return permanentAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setPermanentAddress(AddressModel permanentAddress) {
+        this.permanentAddress = permanentAddress;
     }
-
 
     public String getFirstName() {
         return firstName;
