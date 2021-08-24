@@ -1,6 +1,6 @@
-package com.example.RiteshFirstProject.repo;
+package com.example.banking_app.repo;
 
-import com.example.RiteshFirstProject.models.CustomerModel;
+import com.example.banking_app.models.CustomerModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepository extends JpaRepository<CustomerModel,Integer> {
