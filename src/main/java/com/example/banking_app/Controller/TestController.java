@@ -33,6 +33,12 @@ public class TestController {
         return "home";
     }
 
+    @GetMapping("/register")
+    public String getregistration(){
+        return "registration";
+    }
+
+
     @GetMapping("/userDetails")
     public String getDetails(Model model){
         List<CustomerModel> customers = customerRepository.findAll();
