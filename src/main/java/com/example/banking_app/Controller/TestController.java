@@ -33,9 +33,13 @@ public class TestController {
         return "home";
     }
 
-    @GetMapping("/register")
-    public String getregistration(){
+    @GetMapping("/registration")
+    public String getregistration(Model model){
         return "registration";
+    }
+    @PostMapping("/register")
+    public String submitRegistration(Model model){
+        model.addAttribute("customers",);
     }
 
 

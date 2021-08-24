@@ -47,9 +47,9 @@ hr {
 </style>
 </head>
 <body>
-<form action="/register">
+<form:form action="/register" method="post">
   <div class="container">
-  <center>  <h1> Student Registeration Form</h1> </center>
+  <center>  <h1>Registeration Form</h1> </center>
   <hr>
   <label> Firstname </label>
 <input type="text" name="firstname" placeholder= "Firstname" size="15" required />
@@ -57,21 +57,6 @@ hr {
 <input type="text" name="middlename" placeholder="Middlename" size="15" required />
 <label> Lastname: </label>
 <input type="text" name="lastname" placeholder="Lastname" size="15"required />
-<div>
-<label>
-Course :
-</label>
-
-<select>
-<option value="Course">Course</option>
-<option value="BCA">BCA</option>
-<option value="BBA">BBA</option>
-<option value="B.Tech">B.Tech</option>
-<option value="MBA">MBA</option>
-<option value="MCA">MCA</option>
-<option value="M.Tech">M.Tech</option>
-</select>
-</div>
 <div>
 <label>
 Gender :
@@ -86,9 +71,20 @@ Phone :
 </label>
 <input type="text" name="country code" placeholder="Country Code"  value="+91" size="2"/>
 <input type="text" name="phone" placeholder="phone no." size="10"/ required>
-Current Address :
+<b>Current Address :</b>
+ Line 1:
 <textarea cols="80" rows="5" placeholder="Current Address" value="address" required>
 </textarea>
+Line 2:
+<textarea cols="80" rows="5" placeholder="Current Address" value="address" required>
+</textarea>
+Pincode :
+<input type="text" placeholder="Enter Pincode" name="pincode" required><br>
+City:
+<input type="text" placeholder="Enter City" name="city" required>
+ State:
+ <input type="text" placeholder="Enter State" name="state" required>
+ Country:<input type="text" placeholder="Enter Country" name="country" required>
  <label for="email"><b>Email</b></label>
  <input type="text" placeholder="Enter Email" name="email" required>
 
@@ -98,6 +94,6 @@ Current Address :
     <label for="psw-repeat"><b>Re-type Password</b></label>
     <input type="password" placeholder="Retype Password" name="psw-repeat" required>
     <button type="submit" class="registerbtn">Register</button>
-</form>
+</form:form>
 </body>
 </html>
