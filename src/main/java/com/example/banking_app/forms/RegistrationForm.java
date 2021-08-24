@@ -6,14 +6,36 @@ public class RegistrationForm {
     private String lastName;
     private String email;
     private String password;
-    private int mobileNumber;
+    private long mobileNumber;
     private  String line1;
     private String line2;
     private int zipCode;
     private String city;
     private String State;
     private String country;
+    private enum Gender{
+        MALE,
+        FEMALE,
+        OTHERS
 
+    };
+    private Gender gender;
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setMobileNumber(long mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public long getMobileNumber() {
+        return mobileNumber;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -53,14 +75,6 @@ public class RegistrationForm {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(int mobileNumber) {
-        this.mobileNumber = mobileNumber;
     }
 
     public String getLine1() {

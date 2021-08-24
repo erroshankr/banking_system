@@ -1,5 +1,6 @@
 package com.example.banking_app.Controller;
 
+import com.example.banking_app.forms.RegistrationForm;
 import com.example.banking_app.forms.TransactionForm;
 import com.example.banking_app.models.CustomerModel;
 import com.example.banking_app.models.TransactionModel;
@@ -33,14 +34,15 @@ public class TestController {
         return "home";
     }
 
-    @GetMapping("/registration")
+    @GetMapping("/register")
     public String getregistration(Model model){
+        model.addAttribute("registerForm",new RegistrationForm());
         return "registration";
     }
-    @PostMapping("/register")
-    public String submitRegistration(Model model){
-        model.addAttribute("customers",);
-    }
+//    @PostMapping("/register")
+//    public String submitRegistration(Model model){
+//        model.addAttribute("customers",);
+//    }
 
 
     @GetMapping("/userDetails")

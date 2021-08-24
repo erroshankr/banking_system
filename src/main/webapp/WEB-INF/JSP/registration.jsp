@@ -47,7 +47,7 @@ hr {
 </style>
 </head>
 <body>
-<form:form action="/register" method="post">
+<form:form action="/submitregistration" method="post" modelAttribute="registerForm">
   <div class="container">
   <center>  <h1>Registeration Form</h1> </center>
   <hr>
@@ -93,7 +93,8 @@ City:
 
     <label for="psw-repeat"><b>Re-type Password</b></label>
     <input type="password" placeholder="Retype Password" name="psw-repeat" required>
-    <button type="submit" class="registerbtn">Register</button>
+    <input type="submit" value="Register" class="button">
+
 </form:form>
 </body>
 </html>
