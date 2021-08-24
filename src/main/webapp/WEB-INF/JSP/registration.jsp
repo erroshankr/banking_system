@@ -52,6 +52,11 @@ hr {
 </head>
 <body>
 <form:form action="/submitregistration" method="post" modelAttribute="registerForm">
+<div class="error">
+  <c:if test="${passwordError eq 'NOT_EQUAL'}">
+      <p>Passwords did not match !!</p>
+  </c:if>
+</div>
   <div class="container">
   <center>  <h1>Registration Form</h1></center>
   <hr>

@@ -2,6 +2,7 @@ package com.example.banking_app.Controller;
 
 import com.example.banking_app.forms.RegistrationForm;
 import com.example.banking_app.forms.TransactionForm;
+import com.example.banking_app.models.AddressModel;
 import com.example.banking_app.models.CustomerModel;
 import com.example.banking_app.models.TransactionModel;
 import com.example.banking_app.repo.CustomerRepository;
@@ -41,6 +42,30 @@ public class TestController {
     }
     @PostMapping("/submitregistration")
     public String submitRegistration(@ModelAttribute RegistrationForm registrationForm, Model model){
+        if(!registrationForm.getPassword().equals(registrationForm.getReTypePassword())) {
+          model.addAttribute("passwordError","NOT_EQUAL");
+          model.addAttribute("registerForm",new RegistrationForm());
+          return "registration";
+        }
+        CustomerModel customerModel=new CustomerModel();
+        AddressModel addressModel=new AddressModel();
+        addressModel.setCity(registrationForm.getCity());
+        addressModel.setCountry(registrationForm.getCountry());
+        addressModel.setZipCode(registrationForm.getZipCode());
+        addressModel.setState(registrationForm.getState());
+        addressModel.setLine1(registrationForm.getLine1());
+        addressModel.setLine2(registrationForm.getLine2());
+        customerModel.setFirstName(registrationForm.getFirstName());
+        customerModel.setMiddleName(registrationForm.getMiddleName());
+        customerModel.setLastName(registrationForm.getLastName());
+        customerModel.setEmail(registrationForm.getEmail());
+        customerModel.setPhoneNumber(registrationForm.getMobileNumber());
+        customerModel.setDateOfBirth(registrationForm.getDateofbirth());
+        customerModel.setGender(registrationForm.getGender());
+        customerModel.setPassword(registrationForm.getPassword());
+        customerModel.setPermanentAddress(addressModel);
+        customerModel.setName(registrationForm.getFirstName() + " " + registrationForm.getMiddleName() + " " +registrationForm.getLastName());
+        customerRepository.save(customerModel);
         return "home";
    }
 

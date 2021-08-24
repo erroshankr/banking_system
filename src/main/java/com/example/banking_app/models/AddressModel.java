@@ -9,6 +9,7 @@ public class AddressModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String line1;
+    private String line2;
     private int zipCode;
     private String city;
     private  String state;
@@ -71,5 +72,13 @@ public class AddressModel {
 
     public void setCustomerModel(CustomerModel customerModel) {
         this.customerModel = customerModel;
+    }
+
+    public String getLine2() {
+        return line2;
+    }
+
+    public void setLine2(String line2) {
+        this.line2 = line2;
     }
 }

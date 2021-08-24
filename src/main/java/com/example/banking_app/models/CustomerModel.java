@@ -1,6 +1,10 @@
 package com.example.banking_app.models;
 
+import com.example.banking_app.enums.Gender;
+
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="customers")
@@ -15,7 +19,11 @@ public class CustomerModel {
     private String middleName;
     private String lastName;
     private String password;
-    private int phoneNumber;
+    private long phoneNumber;
+    private Date dateOfBirth;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id",referencedColumnName = "id")
     private AddressModel permanentAddress;
@@ -60,11 +68,11 @@ public class CustomerModel {
         this.password = password;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -74,6 +82,14 @@ public class CustomerModel {
 
     public int getSerialNo() {
         return serialNo;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public void setSerialNo(int serialNo) {
@@ -108,5 +124,13 @@ public class CustomerModel {
 
     public void setCurrentBalance(double currentBalance) {
         this.currentBalance = currentBalance;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
