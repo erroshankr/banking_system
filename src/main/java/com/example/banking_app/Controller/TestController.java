@@ -39,10 +39,10 @@ public class TestController {
         model.addAttribute("registerForm",new RegistrationForm());
         return "registration";
     }
-//    @PostMapping("/register")
-//    public String submitRegistration(Model model){
-//        model.addAttribute("customers",);
-//    }
+    @PostMapping("/submitregistration")
+    public String submitRegistration(@ModelAttribute RegistrationForm registrationForm, Model model){
+        return "home";
+   }
 
 
     @GetMapping("/userDetails")
