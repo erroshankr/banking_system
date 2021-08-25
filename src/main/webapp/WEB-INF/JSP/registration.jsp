@@ -68,7 +68,7 @@ hr {
             <form:input type="text" class="recieve" path="lastName" id="lastName" name="lastName" placeholder="Enter last name"></form:input><br>
 <div>
 <form:label path="email" class="font">Email:</form:label>
-            <form:input type="text" class="recieve" path="email" id="email" name="email" placeholder="Enter Your Email"></form:input><br>
+<form:input type="text" class="recieve" path="email" id="email" name="email" placeholder="Enter Your Email"></form:input><br>
 </div>
 
 <form:label path="mobileNumber" class="font">Mobile Number:</form:label>
