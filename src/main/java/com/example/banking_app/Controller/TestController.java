@@ -1,5 +1,6 @@
 package com.example.banking_app.Controller;
 
+import com.example.banking_app.forms.ForgotPasswordForm;
 import com.example.banking_app.forms.RegistrationForm;
 import com.example.banking_app.forms.TransactionForm;
 import com.example.banking_app.models.AddressModel;
@@ -40,6 +41,7 @@ public class TestController {
         model.addAttribute("registerForm",new RegistrationForm());
         return "registration";
     }
+
     @PostMapping("/submitregistration")
     public String submitRegistration(@ModelAttribute RegistrationForm registrationForm, Model model){
         if(!registrationForm.getPassword().equals(registrationForm.getReTypePassword())) {
@@ -69,6 +71,29 @@ public class TestController {
         return "home";
    }
 
+    @GetMapping("/forgotPassword")
+    public String getForgotPassword(Model model){
+        model.addAttribute("forgotPasswordForm",new ForgotPasswordForm());
+        return "forgottPassword";
+    }
+    @PostMapping("/submitForgotPassword")
+    public String submitForgotPassword(@ModelAttribute ForgotPasswordForm forgotPasswordForm,Model model){
+        final CustomerModel user=customerRepository.findByEmail(forgotPasswordForm.getEmail());
+        if(user == null){
+            model.addAttribute("userNameError","NOT_FOUND_USER");
+            model.addAttribute("forgotPasswordForm",new ForgotPasswordForm());
+            return "forgottPassword";
+
+        }
+        else if(!forgotPasswordForm.getNewPassword().equals(forgotPasswordForm.getRepeatPassword())){
+            model.addAttribute("passwordError","PASSWORD_NOT_SAME");
+            model.addAttribute("forgotPasswordForm",new ForgotPasswordForm());
+            return "forgottPassword";
+        }
+        user.setPassword(forgotPasswordForm.getNewPassword());
+        customerRepository.save(user);
+        return "home";
+    }
 
     @GetMapping("/userDetails")
     public String getDetails(Model model){
