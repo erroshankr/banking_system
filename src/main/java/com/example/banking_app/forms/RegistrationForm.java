@@ -1,9 +1,7 @@
 package com.example.banking_app.forms;
 
 import com.example.banking_app.enums.Gender;
-import com.example.banking_app.models.CustomerModel;
 import org.springframework.format.annotation.DateTimeFormat;
-import sun.util.calendar.BaseCalendar;
 
 import java.util.Date;
 
@@ -23,9 +21,17 @@ public class RegistrationForm {
     private String State;
     private String country;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateofbirth;
+    private Date dateOfBirth;
 
     private Gender gender;
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
 
     public Gender getGender() {
         return gender;
@@ -129,14 +135,6 @@ public class RegistrationForm {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public Date getDateofbirth() {
-        return dateofbirth;
-    }
-
-    public void setDateofbirth(Date dateofbirth) {
-        this.dateofbirth = dateofbirth;
     }
 
     public String getReTypePassword() {
