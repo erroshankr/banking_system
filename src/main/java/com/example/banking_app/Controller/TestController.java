@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-
 public class TestController {
 
     @Autowired
@@ -40,6 +39,7 @@ public class TestController {
         model.addAttribute("registerForm",new RegistrationForm());
         return "registration";
     }
+
     @PostMapping("/submitregistration")
     public String submitRegistration(@ModelAttribute RegistrationForm registrationForm, Model model){
         if(!registrationForm.getPassword().equals(registrationForm.getReTypePassword())) {
@@ -60,7 +60,7 @@ public class TestController {
         customerModel.setLastName(registrationForm.getLastName());
         customerModel.setEmail(registrationForm.getEmail());
         customerModel.setPhoneNumber(registrationForm.getMobileNumber());
-        customerModel.setDateOfBirth(registrationForm.getDateofbirth());
+        customerModel.setDateOfBirth(registrationForm.getDateOfBirth());
         customerModel.setGender(registrationForm.getGender());
         customerModel.setPassword(registrationForm.getPassword());
         customerModel.setPermanentAddress(addressModel);
