@@ -1,5 +1,6 @@
 package com.example.banking_app.Controller;
 
+import com.example.banking_app.forms.LoginForm;
 import com.example.banking_app.forms.RegistrationForm;
 import com.example.banking_app.forms.TransactionForm;
 import com.example.banking_app.models.AddressModel;
@@ -68,6 +69,27 @@ public class TestController {
         customerRepository.save(customerModel);
         return "home";
    }
+    @GetMapping("/Login")
+    public String getLogin(Model model){
+        model.addAttribute("loginForm",new LoginForm());
+        return "Login";
+    }
+    @PostMapping("/submitLogin")
+    public String login(@ModelAttribute LoginForm loginForm,Model model){
+        final CustomerModel user = customerRepository.findByEmail(loginForm.getEmail());
+        if (null==user){
+            model.addAttribute("NullUser","NOT_EQUAL");
+            model.addAttribute("loginForm",new LoginForm());
+              return "Login";
+        }
+        else if (!loginForm.getPassword().equals(user.getPassword())){
+            model.addAttribute("PasswordError","wrongpass");
+            model.addAttribute("loginForm",new LoginForm());
+            return "Login";
+        }
+        else
+        return "home";
+    }
 
 
     @GetMapping("/userDetails")
