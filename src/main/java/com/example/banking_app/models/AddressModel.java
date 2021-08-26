@@ -15,7 +15,7 @@ public class AddressModel {
     private  String state;
     private String country;
     @OneToOne(mappedBy = "permanentAddress")
-    private CustomerModel customerModel;
+    private UserModel customerModel;
 
     public String getCountry() {
         return country;
@@ -66,11 +66,11 @@ public class AddressModel {
         this.id = id;
     }
 
-    public CustomerModel getCustomerModel() {
+    public UserModel getCustomerModel() {
         return customerModel;
     }
 
-    public void setCustomerModel(CustomerModel customerModel) {
+    public void setCustomerModel(UserModel customerModel) {
         this.customerModel = customerModel;
     }
 
