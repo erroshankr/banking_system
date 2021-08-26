@@ -4,10 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "address")
-public class AddressModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+public class AddressModel extends BaseEntity{
+
     private String line1;
     private String line2;
     private int zipCode;
@@ -58,13 +56,7 @@ public class AddressModel {
         this.state = state;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public CustomerModel getCustomerModel() {
         return customerModel;

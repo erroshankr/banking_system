@@ -139,7 +139,7 @@ public class TestController {
             form.setCurrentBalance(c.getCurrentBalance());
             form.setSender(c.getName());
             form.setSenderEmail(c.getEmail());
-            form.setSerialNo(c.getSerialNo());
+         //   form.setSerialNo(c.getPK());
             formList.add(form);
         }
         model.addAttribute("forms",formList);
@@ -158,7 +158,7 @@ public class TestController {
         final CustomerModel user = customerRepository.findByEmail(email);
         TransactionForm transactionForm = new TransactionForm();
         transactionForm.setSenderEmail(user.getEmail());
-        transactionForm.setSerialNo(user.getSerialNo());
+       // transactionForm.setSerialNo(user.getSerialNo());
         transactionForm.setSender(user.getName());
         transactionForm.setCurrentBalance(user.getCurrentBalance());
         List<CustomerModel> userList = customerRepository.findAll();

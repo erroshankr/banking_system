@@ -8,9 +8,8 @@ import java.util.Date;
 
 @Entity
 @Table(name="customers")
-public class CustomerModel {
-    @Id @GeneratedValue
-    private int serialNo;
+public class CustomerModel extends BaseEntity{
+
     private String name;
     @Column(unique = true)
     private String email;
@@ -24,8 +23,9 @@ public class CustomerModel {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id",referencedColumnName = "id")
+    @JoinColumn(name = "address_id",referencedColumnName = "PK")
     private AddressModel permanentAddress;
 
     public AddressModel getPermanentAddress() {
@@ -80,9 +80,7 @@ public class CustomerModel {
     public CustomerModel() {
     }
 
-    public int getSerialNo() {
-        return serialNo;
-    }
+
 
     public Gender getGender() {
         return gender;
@@ -92,9 +90,7 @@ public class CustomerModel {
         this.gender = gender;
     }
 
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
-    }
+
 
     public CustomerModel(String name, String email, double currentBalance) {
         this.name = name;
