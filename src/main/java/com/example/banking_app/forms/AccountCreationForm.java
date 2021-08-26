@@ -1,8 +1,5 @@
 package com.example.banking_app.forms;
 
-import com.example.banking_app.enums.AccountType;
-import com.example.banking_app.enums.IdentityProof;
-
 public class AccountCreationForm {
     private Long ApplicationId;
     private String AccountHolderName;
