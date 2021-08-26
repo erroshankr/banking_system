@@ -1,5 +1,6 @@
 package com.example.banking_app.Controller;
 
+import com.example.banking_app.forms.LoginForm;
 import com.example.banking_app.forms.RegistrationForm;
 import com.example.banking_app.forms.TransactionForm;
 import com.example.banking_app.models.AddressModel;
@@ -65,10 +66,36 @@ public class TestController {
         customerModel.setPassword(registrationForm.getPassword());
         customerModel.setPermanentAddress(addressModel);
         customerModel.setName(registrationForm.getFirstName() + " " + registrationForm.getMiddleName() + " " +registrationForm.getLastName());
-        customerRepository.save(customerModel);
+        try {
+            customerRepository.save(customerModel);
+        }catch (Exception e){
+            model.addAttribute("regError","exits");
+            model.addAttribute("registerForm",new RegistrationForm());
+        }
         return "home";
    }
 
+    @GetMapping("/login")
+    public String getLogin(Model model){
+        model.addAttribute("loginForm",new LoginForm());
+        return "login";
+    }
+    @PostMapping("/submitLogin")
+    public String login(@ModelAttribute LoginForm loginForm,Model model){
+        final CustomerModel user = customerRepository.findByEmail(loginForm.getEmail());
+        if (null==user){
+            model.addAttribute("NullUser","NOT_EQUAL");
+            model.addAttribute("loginForm",new LoginForm());
+            return "login";
+        }
+        else if (!loginForm.getPassword().equals(user.getPassword())){
+            model.addAttribute("PasswordError","wrongpass");
+            model.addAttribute("loginForm",new LoginForm());
+            return "login";
+        }
+        else
+            return "home";
+    }
 
     @GetMapping("/userDetails")
     public String getDetails(Model model){
