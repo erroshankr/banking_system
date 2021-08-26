@@ -1,0 +1,11 @@
+package com.example.banking_app.enums;
+
+public enum Status {
+    REQUESTED,
+    PENDINGVERIFICATION,
+    KYCVERIFIED,
+    DEBITCARDCREATIONINPROGRESS,
+    CREDITCARDCREATIONINPROGRESS,
+    REJECTED,
+    APPROVED
+}

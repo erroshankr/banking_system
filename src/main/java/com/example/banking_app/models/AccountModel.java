@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "accounts")
 public class AccountModel extends BaseEntity{
+    @Column(unique = true)
     private Long applicationId;
     private String accountHolderName;
     @Enumerated(EnumType.STRING)
@@ -24,10 +25,23 @@ public class AccountModel extends BaseEntity{
     private Long creditCardNumber;
     private String branch;
     private String ifscCode;
+
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CardModel> cards;
     private double currentBalance;
     private boolean terms_conditions;
+
+    public AccountCreationStatusModel getAccountCreationStatus() {
+        return accountCreationStatus;
+    }
+
+    public void setAccountCreationStatus(AccountCreationStatusModel accountCreationStatus) {
+        this.accountCreationStatus = accountCreationStatus;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Status",referencedColumnName = "applicationId")
+    private AccountCreationStatusModel accountCreationStatus;
 
     public Long getApplicationId() {
         return applicationId;
