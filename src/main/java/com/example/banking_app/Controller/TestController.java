@@ -1,5 +1,6 @@
 package com.example.banking_app.Controller;
 
+import com.example.banking_app.forms.ForgotPasswordForm;
 import com.example.banking_app.forms.LoginForm;
 import com.example.banking_app.forms.RegistrationForm;
 import com.example.banking_app.forms.TransactionForm;
@@ -95,6 +96,38 @@ public class TestController {
         }
         else
             return "home";
+    }
+
+    @GetMapping("/forgotPassword")
+    public String getForgotPassword(Model model){
+        model.addAttribute("forgotPasswordForm",new ForgotPasswordForm());
+        return "forgotPassword";
+    }
+    @PostMapping("/submitForgotPassword")
+    public String submitForgotPassword(@ModelAttribute ForgotPasswordForm forgotPasswordForm,Model model){
+        final CustomerModel user=customerRepository.findByEmail(forgotPasswordForm.getEmail());
+        if(user == null){
+            model.addAttribute("userNameError","NOT_FOUND_USER");
+            model.addAttribute("forgotPasswordForm",new ForgotPasswordForm());
+            return "forgotPassword";
+
+        }
+        else if(!forgotPasswordForm.getNewPassword().equals(forgotPasswordForm.getRepeatPassword())){
+            model.addAttribute("passwordError","PASSWORD_NOT_SAME");
+            model.addAttribute("forgotPasswordForm",new ForgotPasswordForm());
+            return "forgotPassword";
+        }
+        user.setPassword(forgotPasswordForm.getNewPassword());
+        try {
+            customerRepository.save(user);
+        }catch (Exception e){
+            model.addAttribute("errorInForgotPassword");
+            model.addAttribute("forgotPasswordForm",new ForgotPasswordForm());
+            return "forgotPassword";
+        }
+        model.addAttribute("forgotPassSuccess","SUCCESS");
+        model.addAttribute("loginForm",new LoginForm());
+        return "login";
     }
 
     @GetMapping("/userDetails")
