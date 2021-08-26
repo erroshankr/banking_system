@@ -1,12 +1,12 @@
 package com.example.banking_app.Controller;
 
-import com.example.banking_app.forms.ForgotPasswordForm;
-import com.example.banking_app.forms.LoginForm;
-import com.example.banking_app.forms.RegistrationForm;
-import com.example.banking_app.forms.TransactionForm;
+import com.example.banking_app.enums.IdentityProof;
+import com.example.banking_app.forms.*;
+import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.AddressModel;
 import com.example.banking_app.models.CustomerModel;
 import com.example.banking_app.models.TransactionModel;
+import com.example.banking_app.repo.AccountRepository;
 import com.example.banking_app.repo.CustomerRepository;
 import com.example.banking_app.repo.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,6 +128,29 @@ public class TestController {
         model.addAttribute("forgotPassSuccess","SUCCESS");
         model.addAttribute("loginForm",new LoginForm());
         return "login";
+    }
+
+    @GetMapping("/accountCreation")
+    public String getAccountCreation( Model model){
+        AccountCreationForm form = new AccountCreationForm();
+        form.setApplicationId(getRandomNumber());
+        model.addAttribute("accountCreationForm",form );
+        List<IdentityProof> identityProofs = new ArrayList<>();
+        identityProofs.add(IdentityProof.DRIVING_LISENCE);
+        identityProofs.add(IdentityProof.AADHAR_CARD);
+        identityProofs.add(IdentityProof.PANCARD);
+        identityProofs.add(IdentityProof.VOTERID_CARD);
+        model.addAttribute("identityProofs",identityProofs);
+        return "AccountCreation";
+    }
+
+    public long getRandomNumber() {
+        return (long) ((Math.random() * (Long.MAX_VALUE - Long.MIN_VALUE)) + Long.MIN_VALUE);
+    }
+
+    @PostMapping("/accountCreationSubmit")
+    public String submitaccountCreation(@ModelAttribute AccountCreationForm accountCreationForm,Model model){
+        return "home";
     }
 
     @GetMapping("/userDetails")
