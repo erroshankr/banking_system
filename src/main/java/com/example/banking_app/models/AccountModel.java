@@ -20,27 +20,20 @@ public class AccountModel extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private IdentityProof identityProof;
     private Long uniqueIdNumber;
+    @Column(unique = true)
     private Long accountNumber;
+    @Column(unique = true)
     private Long debitCardNumber;
+    @Column(unique = true)
     private Long creditCardNumber;
     private String branch;
     private String ifscCode;
-
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CardModel> cards;
     private double currentBalance;
     private boolean terms_conditions;
-
-    public AccountCreationStatusModel getAccountCreationStatus() {
-        return accountCreationStatus;
-    }
-
-    public void setAccountCreationStatus(AccountCreationStatusModel accountCreationStatus) {
-        this.accountCreationStatus = accountCreationStatus;
-    }
-
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Status",referencedColumnName = "applicationId")
+    @JoinColumn(name = "app_id",referencedColumnName = "applicationId")
     private AccountCreationStatusModel accountCreationStatus;
 
     public String getApplicationId() {
@@ -67,6 +60,13 @@ public class AccountModel extends BaseEntity{
         this.accountType = accountType;
     }
 
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
     public IdentityProof getIdentityProof() {
         return identityProof;
@@ -144,17 +144,16 @@ public class AccountModel extends BaseEntity{
         return terms_conditions;
     }
 
-
     public void setTerms_conditions(boolean terms_conditions) {
         this.terms_conditions = terms_conditions;
     }
 
-    public Integer getAge() {
-        return age;
+    public AccountCreationStatusModel getAccountCreationStatus() {
+        return accountCreationStatus;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setAccountCreationStatus(AccountCreationStatusModel accountCreationStatus) {
+        this.accountCreationStatus = accountCreationStatus;
     }
 }
 

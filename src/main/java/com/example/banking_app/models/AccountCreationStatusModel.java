@@ -1,25 +1,18 @@
 package com.example.banking_app.models;
 
-import com.example.banking_app.enums.Status;
+import com.example.banking_app.enums.ApplicationStatus;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Status")
+@Table(name = "account_status")
 public class AccountCreationStatusModel extends BaseEntity {
+    @Column(unique = true)
     private Long applicationId;
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private ApplicationStatus applicationStatus;
     @OneToOne(mappedBy = "accountCreationStatus")
-    private AccountModel accountStatus;
-
-    public AccountModel getAccountStatus() {
-        return accountStatus;
-    }
-
-    public void setAccountStatus(AccountModel accountStatus) {
-        this.accountStatus = accountStatus;
-    }
+    private AccountModel account;
 
     public Long getApplicationId() {
         return applicationId;
@@ -29,11 +22,19 @@ public class AccountCreationStatusModel extends BaseEntity {
         this.applicationId = applicationId;
     }
 
-    public Status getStatus() {
-        return status;
+    public ApplicationStatus getApplicationStatus() {
+        return applicationStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setApplicationStatus(ApplicationStatus applicationStatus) {
+        this.applicationStatus = applicationStatus;
+    }
+
+    public AccountModel getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountModel account) {
+        this.account = account;
     }
 }

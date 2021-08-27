@@ -7,13 +7,9 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="customers")
-public class CustomerModel extends BaseEntity{
-
 @Table(name="users")
-public class UserModel {
-    @Id @GeneratedValue
-    private int serialNo;
+public class UserModel extends BaseEntity{
+
     private String name;
     @Column(unique = true)
     private String username;

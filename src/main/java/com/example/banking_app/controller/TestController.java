@@ -2,17 +2,15 @@ package com.example.banking_app.controller;
 
 import com.example.banking_app.enums.CardType;
 import com.example.banking_app.enums.IdentityProof;
-import com.example.banking_app.forms.*;
-import com.example.banking_app.models.*;
-import com.example.banking_app.repo.AccountRepository;
-import com.example.banking_app.repo.CustomerRepository;
-import com.example.banking_app.repo.TransactionRepository;
+import com.example.banking_app.forms.AccountCreationForm;
 import com.example.banking_app.forms.ForgotPasswordForm;
 import com.example.banking_app.forms.LoginForm;
 import com.example.banking_app.forms.RegistrationForm;
-import com.example.banking_app.forms.TransactionForm;
+import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.AddressModel;
+import com.example.banking_app.models.CardModel;
 import com.example.banking_app.models.UserModel;
+import com.example.banking_app.repo.AccountRepository;
 import com.example.banking_app.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -23,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -32,10 +29,11 @@ import java.util.List;
 @Controller
 public class TestController {
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @GetMapping("/")
@@ -151,7 +149,7 @@ public class TestController {
         return "login";
     }
 
-    @GetMapping("/accountCreation")
+    @GetMapping("/user/account/create")
     public String getAccountCreation( Model model){
         AccountCreationForm form = new AccountCreationForm();
         List<IdentityProof> identityProofs = new ArrayList<>();
@@ -164,7 +162,7 @@ public class TestController {
         return "accountCreation";
     }
 
-    @PostMapping("/accountCreationSubmit")
+    @PostMapping("/user/account/submit")
     public String submitAccountCreation(@ModelAttribute AccountCreationForm accountCreationForm,Model model){
         AccountModel account=new AccountModel();
         AddressModel address=new AddressModel();
@@ -200,51 +198,11 @@ public class TestController {
             model.addAttribute("accountCreationForm",new AccountCreationForm());
         }catch (Exception e){
             model.addAttribute("accountCreationForm",new AccountCreationForm());
-            return "AccountCreation";
+            return "accountCreation";
         }
         return "home";
     }
     public String getRandomNumber(AccountCreationForm form) {
         return form.getAccountHolderName().split(" ")[0].toUpperCase()+ (Math.abs((int)Math.random()) + 100000);
-    }
-
-    @GetMapping("/userDetails")
-    public String getDetails(Model model){
-        List<UserModel> customers = userRepository.findAll();
-        List<TransactionForm> formList= new ArrayList<>();
-        for(UserModel c:customers) {
-            TransactionForm form = new TransactionForm();
-            form.setCurrentBalance(c.getCurrentBalance());
-            form.setSender(c.getName());
-            form.setSenderEmail(c.getUsername());
-            form.setSerialNo(c.getSerialNo());
-            form.setSenderEmail(c.getEmail());
-         //   form.setSerialNo(c.getPK());
-            formList.add(form);
-        }
-        model.addAttribute("forms",formList);
-        model.addAttribute("transactionForm", new TransactionForm());
-        return "customers";
-    }
-
-    @PostMapping("/initiateTxn")
-    public String submitForm(@RequestParam("email") String email, Model model) {
-        final UserModel user = userRepository.findByUsername(email);
-        TransactionForm transactionForm = new TransactionForm();
-        transactionForm.setSenderEmail(user.getUsername());
-        transactionForm.setSerialNo(user.getSerialNo());
-        transactionForm.setSenderEmail(user.getEmail());
-       // transactionForm.setSerialNo(user.getSerialNo());
-        transactionForm.setSender(user.getName());
-        transactionForm.setCurrentBalance(user.getCurrentBalance());
-        List<UserModel> userList = userRepository.findAll();
-        userList.remove(user);
-        List<String> userNames = new ArrayList<>();
-        for (UserModel u:userList) {
-            userNames.add(u.getName() + " - " + u.getUsername());
-        }
-        model.addAttribute("users",userNames);
-        model.addAttribute("txnForm",transactionForm);
-        return "transaction";
     }
 }

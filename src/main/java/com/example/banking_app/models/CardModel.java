@@ -9,6 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name = "cards")
 public class CardModel extends BaseEntity{
+    @Column(unique = true)
     private Long cardNumber;
     private String cardHolderName;
     private int cvv;
