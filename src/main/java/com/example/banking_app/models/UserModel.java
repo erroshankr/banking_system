@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name="customers")
+public class CustomerModel extends BaseEntity{
+
 @Table(name="users")
 public class UserModel {
     @Id @GeneratedValue
@@ -27,7 +30,7 @@ public class UserModel {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id",referencedColumnName = "id")
+    @JoinColumn(name = "address_id",referencedColumnName = "PK")
     private AddressModel permanentAddress;
 
     public AddressModel getPermanentAddress() {
@@ -82,9 +85,7 @@ public class UserModel {
     public UserModel() {
     }
 
-    public int getSerialNo() {
-        return serialNo;
-    }
+
 
     public Gender getGender() {
         return gender;
@@ -94,9 +95,7 @@ public class UserModel {
         this.gender = gender;
     }
 
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
-    }
+
 
     public String getName() {
         return name;

@@ -16,7 +16,7 @@ public class RegistrationForm {
     private long mobileNumber;
     private  String line1;
     private String line2;
-    private int zipCode;
+    private Long zipCode;
     private String city;
     private String State;
     private String country;
@@ -105,11 +105,11 @@ public class RegistrationForm {
         this.line2 = line2;
     }
 
-    public int getZipCode() {
+    public Long getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(Long zipCode) {
         this.zipCode = zipCode;
     }
 
