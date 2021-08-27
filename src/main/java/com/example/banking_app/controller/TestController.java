@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+   import java.util.UUID;
 
 @Controller
 public class TestController {
@@ -69,23 +70,25 @@ public class TestController {
         userModel.setPassword(registrationForm.getPassword());
         userModel.setPermanentAddress(addressModel);
         userModel.setName(registrationForm.getFirstName() + " " + registrationForm.getMiddleName() + " " +registrationForm.getLastName());
+        userModel.setRoles("ROLE_USER");
+        userModel.setActive(Boolean.TRUE);
         try {
             userRepository.save(userModel);
         }catch (Exception e){
             model.addAttribute("regError","exits");
             model.addAttribute("registerForm",new RegistrationForm());
         }
-        return "home";
+        model.addAttribute("loginForm", new LoginForm());
+        return "redirect:/login";
    }
 
     @GetMapping("/login")
-    public String getLogin(Model model, RedirectAttributes redirectModel){
+    public String getLogin(Model model){
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication == null || authentication instanceof AnonymousAuthenticationToken){
             model.addAttribute("loginForm",new LoginForm());
             return "login";
         }
-        redirectModel.addAttribute("username",authentication.getName());
        return "redirect:/";
     }
     @PostMapping("/login")

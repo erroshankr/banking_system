@@ -30,6 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
               http
                       .csrf().disable()
                       .authorizeRequests()
+                      .antMatchers("/register/**")
+                      .permitAll()
                       .antMatchers("/admin/**").hasRole("ADMIN")
                       .antMatchers("/user/**").hasAnyRole("ADMIN","USER")
                       .antMatchers("/")
@@ -40,6 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                       .and()
                       .logout()
                       .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                      .logoutUrl("/app/logout")
                       .logoutSuccessUrl("/login");
     }
 
