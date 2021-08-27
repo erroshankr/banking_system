@@ -4,37 +4,38 @@ import com.example.banking_app.enums.AccountType;
 import com.example.banking_app.enums.IdentityProof;
 
 public class AccountCreationForm {
-    private Long ApplicationId;
-    private String AccountHolderName;
+
+    private String accountHolderName;
     private AccountType accountType;
-    private int age;
+    private Integer age;
     private IdentityProof identityProof;
-    private Long UniqueIdentityfication;
+    private Long uniqueIdentityfication;
     private boolean debitCard;
     private boolean creditCard;
     private Long mobileNumber;
     private String line1;
     private String line2;
-    private int zipCode;
+    private Long zipCode;
     private String city;
     private String State;
     private String country;
     private boolean termsCondition;
+    private String applicationId;
 
-    public Long getApplicationId() {
-        return ApplicationId;
+    public String getApplicationId() {
+        return applicationId;
     }
 
-    public void setApplicationId(Long applicationId) {
-        ApplicationId = applicationId;
+    public void setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
     }
 
     public String getAccountHolderName() {
-        return AccountHolderName;
+        return accountHolderName;
     }
 
     public void setAccountHolderName(String accountHolderName) {
-        AccountHolderName = accountHolderName;
+        this.accountHolderName = accountHolderName;
     }
 
     public AccountType getAccountType() {
@@ -45,11 +46,11 @@ public class AccountCreationForm {
         this.accountType = accountType;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -62,11 +63,11 @@ public class AccountCreationForm {
     }
 
     public Long getUniqueIdentityfication() {
-        return UniqueIdentityfication;
+        return uniqueIdentityfication;
     }
 
     public void setUniqueIdentityfication(Long uniqueIdentityfication) {
-        UniqueIdentityfication = uniqueIdentityfication;
+        this.uniqueIdentityfication = uniqueIdentityfication;
     }
 
     public boolean isDebitCard() {
@@ -109,11 +110,11 @@ public class AccountCreationForm {
         this.line2 = line2;
     }
 
-    public int getZipCode() {
+    public Long getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(Long zipCode) {
         this.zipCode = zipCode;
     }
 

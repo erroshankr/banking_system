@@ -12,11 +12,11 @@ import java.util.Set;
 @Table(name = "accounts")
 public class AccountModel extends BaseEntity{
     @Column(unique = true)
-    private Long applicationId;
+    private String applicationId;
     private String accountHolderName;
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
-    private int age;
+    private Integer age;
     @Enumerated(EnumType.STRING)
     private IdentityProof identityProof;
     private Long uniqueIdNumber;
@@ -43,11 +43,11 @@ public class AccountModel extends BaseEntity{
     @JoinColumn(name = "Status",referencedColumnName = "applicationId")
     private AccountCreationStatusModel accountCreationStatus;
 
-    public Long getApplicationId() {
+    public String getApplicationId() {
         return applicationId;
     }
 
-    public void setApplicationId(Long applicationId) {
+    public void setApplicationId(String applicationId) {
         this.applicationId = applicationId;
     }
 
@@ -67,13 +67,6 @@ public class AccountModel extends BaseEntity{
         this.accountType = accountType;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public IdentityProof getIdentityProof() {
         return identityProof;
@@ -151,7 +144,17 @@ public class AccountModel extends BaseEntity{
         return terms_conditions;
     }
 
+
     public void setTerms_conditions(boolean terms_conditions) {
         this.terms_conditions = terms_conditions;
     }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 }
+

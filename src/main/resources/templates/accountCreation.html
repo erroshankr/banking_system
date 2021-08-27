@@ -15,23 +15,21 @@
   <section class="signup">
     <div class="container">
       <div>
-        <h2 style="text-align: center; color: red;" th:if="${regError}">Registration Failed !!</h2>
+        <h2 style="text-align: center; color: red;" th:if="${successfull}">Account Successfully Registered !!</h2>
       </div>
       <div class="signup-content">
         <div class="signup-form">
           <h2 class="form-title">Open Bank Account</h2>
           <form method="POST" class="register-form" id="register-form" th:action="@{/accountCreationSubmit}" th:object="${accountCreationForm}">
+
             <div class="form-group">
-              <label for="ApplicationId"><i class="zmdi zmdi-account material-icons-name"></i></label>
-              <input type="text" name="ApplicationId" id="ApplicationId" readonly th:field="*{ApplicationId}" placeholder="Application Id" th:required="true"/>
+              <label for="accountHolderName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+              <input type="text" name="accountHolderName" id="accountHolderName" th:field="*{accountHolderName}" placeholder="Account Holder Name"/>
             </div>
             <div class="form-group">
-              <label for="AccountHolderName"><i class="zmdi zmdi-account material-icons-name"></i></label>
-              <input type="text" name="AccountHolderName" id="AccountHolderName" th:field="*{AccountHolderName}" placeholder="Account Holder Name"/>
-            </div>
-            <div class="form-group">
+              <h3>Account Type: </h3><br>
               <div class="form-group">
-                Account Type: <input class="form-check-input" name="accountType" th:field="*{accountType}" type="radio" id="option1" value="SAVINGS">
+                <input class="form-check-input" name="accountType" th:field="*{accountType}" type="radio" id="option1" value="SAVINGS">
                 <label class="form-check-label" for="option1">SAVINGS</label>
               </div>
               <div class="form-group">
@@ -44,49 +42,55 @@
               Your Age: <input type="text" name="age" id="age" th:field="*{age}" placeholder="Age" th:required="true"/>
             </div>
             <div class="form-group">
+              <h3>Identity Proof: </h3><br>
               <select th:field="*{identityProof}">
                 <option value="">Select Identity Proof</option>
                 <option th:each="identityProof : ${identityProofs}" th:value="${identityProof}" th:text="${identityProof}"></option>
               </select>
             </div>
             <div class="form-group">
-              <label for="UniqueIdentityfication"><i class="zmdi zmdi-lock"></i></label>
-              <input type="text" name="UniqueIdentityfication" th:field="*{UniqueIdentityfication}" id="UniqueIdentityfication" placeholder="Unique Identification Number" th:required="true"/>
+              <label for="uniqueIdentityfication"><i class=""></i></label>
+              <input type="text" name="uniqueIdentityfication" th:field="*{uniqueIdentityfication}" id="uniqueIdentityfication" placeholder="Unique Identification Number" th:required="true"/>
             </div>
             <div class="form-group">
-              <input type="checkbox" name="debitCard" id="debitCard" class="debitCard" />
-              <label for="debitCard" class="label-agree-term">Do you need a Debit card?</label>
+              <h3>Cards Available: </h3><br>
+              <div class="form-group">
+                <input type="checkbox" name="debitCard" id="debitCard" class="agree-term" />
+                <label for="debitCard" class="label-agree-term"><span><span></span></span>Debit Card</label>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" name="crditCard" id="creditCard" class="agree-term" />
+                <label for="creditCard" class="label-agree-term"><span><span></span></span>Credit Card</label>
+              </div>
+
             </div>
             <div class="form-group">
-              <input type="checkbox" name="creditCard" id="creditCard" class="creditCard" />
-              <label for="creditCard" class="label-agree-term">Do you need a Credit card?</label>
-            </div>
-            <div class="form-group">
-              <label for="line1"><i class="zmdi zmdi-lock-outline"></i></label>
+              <h3>Permanent Address: </h3><br>
+              <label for="line1"><i class=""></i></label>
               <input type="text" name="line1" id="line1" th:field="*{line1}" placeholder="Line 1" th:required="true"/>
             </div>
             <div class="form-group">
-              <label for="line2"><i class="zmdi zmdi-lock-outline"></i></label>
+              <label for="line2"><i class=""></i></label>
               <input type="text" name="line2" id="line2" th:field="*{line2}" placeholder="Line 2"/>
             </div>
             <div class="form-group">
-              <label for="zipCode"><i class="zmdi zmdi-lock-outline"></i></label>
+              <label for="zipCode"><i class=" "></i></label>
               <input type="text" name="zipCode" id="zipCode" th:field="*{zipCode}" placeholder="Zip code" th:required="true"/>
             </div>
             <div class="form-group">
-              <label for="city"><i class="zmdi zmdi-lock-outline"></i></label>
+              <label for="city"><i class=" "></i></label>
               <input type="text" name="city" id="city" th:field="*{city}" placeholder="City" th:required="true"/>
             </div>
             <div class="form-group">
-              <label for="state"><i class="zmdi zmdi-lock-outline"></i></label>
-              <input type="text" name="state" id="state" th:field="*{state}" placeholder="State" th:required="true"/>
+              <label for="State"><i class=" "></i></label>
+              <input type="text" name="State" id="State" th:field="*{State}" placeholder="State" th:required="true"/>
             </div>
             <div class="form-group">
-              <label for="country"><i class="zmdi zmdi-lock-outline"></i></label>
+              <label for="country"><i class=""></i></label>
               <input type="text" name="country" id="country" th:field="*{country}" placeholder="country" th:required="true"/>
             </div>
             <div class="form-group">
-              <label for="mobileNumber"><i class="zmdi zmdi-lock-outline"></i></label>
+              <label for="mobileNumber"><i class=""></i></label>
               <input type="text" name="mobileNumber" id="mobileNumber" th:field="*{mobileNumber}" placeholder="Mobile Number" th:required="true"/>
             </div>
             <div class="form-group">

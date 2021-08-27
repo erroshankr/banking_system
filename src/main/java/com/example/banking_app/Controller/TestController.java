@@ -1,11 +1,9 @@
 package com.example.banking_app.Controller;
 
+import com.example.banking_app.enums.CardType;
 import com.example.banking_app.enums.IdentityProof;
 import com.example.banking_app.forms.*;
-import com.example.banking_app.models.AccountModel;
-import com.example.banking_app.models.AddressModel;
-import com.example.banking_app.models.CustomerModel;
-import com.example.banking_app.models.TransactionModel;
+import com.example.banking_app.models.*;
 import com.example.banking_app.repo.AccountRepository;
 import com.example.banking_app.repo.CustomerRepository;
 import com.example.banking_app.repo.TransactionRepository;
@@ -30,6 +28,8 @@ public class TestController {
     private CustomerRepository customerRepository;
     @Autowired
     private TransactionRepository transactionRepository;
+    @Autowired
+    private AccountRepository accountRepository;
 
     @GetMapping("/")
     public String getHome(){
@@ -133,24 +133,58 @@ public class TestController {
     @GetMapping("/accountCreation")
     public String getAccountCreation( Model model){
         AccountCreationForm form = new AccountCreationForm();
-        form.setApplicationId(getRandomNumber());
-        model.addAttribute("accountCreationForm",form );
         List<IdentityProof> identityProofs = new ArrayList<>();
         identityProofs.add(IdentityProof.DRIVING_LISENCE);
         identityProofs.add(IdentityProof.AADHAR_CARD);
         identityProofs.add(IdentityProof.PANCARD);
         identityProofs.add(IdentityProof.VOTERID_CARD);
         model.addAttribute("identityProofs",identityProofs);
-        return "AccountCreation";
-    }
-
-    public long getRandomNumber() {
-        return (long) ((Math.random() * (Long.MAX_VALUE - Long.MIN_VALUE)) + Long.MIN_VALUE);
+        model.addAttribute("accountCreationForm",form);
+        return "accountCreation";
     }
 
     @PostMapping("/accountCreationSubmit")
-    public String submitaccountCreation(@ModelAttribute AccountCreationForm accountCreationForm,Model model){
+    public String submitAccountCreation(@ModelAttribute AccountCreationForm accountCreationForm,Model model){
+        AccountModel account=new AccountModel();
+        AddressModel address=new AddressModel();
+        account.setAccountHolderName(accountCreationForm.getAccountHolderName());
+        account.setAccountType(accountCreationForm.getAccountType());
+        account.setIdentityProof(accountCreationForm.getIdentityProof());
+        account.setAge(accountCreationForm.getAge());
+        account.setUniqueIdNumber(accountCreationForm.getUniqueIdentityfication());
+        address.setLine1(accountCreationForm.getLine1());
+        address.setLine2(accountCreationForm.getLine2());
+        address.setState(accountCreationForm.getState());
+        address.setZipCode(accountCreationForm.getZipCode());
+        address.setCountry(accountCreationForm.getCountry());
+        address.setCity(accountCreationForm.getCity());
+        List<CardModel> cards=new ArrayList<>();
+        if (accountCreationForm.isDebitCard()){
+            CardModel card=new CardModel();
+            card.setCardType(CardType.DEBITCARD);
+            cards.add(card);
+        }
+        if (accountCreationForm.isCreditCard()){
+            CardModel card=new CardModel();
+            card.setCardType(CardType.CREDITCARD);
+            cards.add(card);
+        }
+        account.setCards(cards);
+        String applicationID =getRandomNumber(accountCreationForm);
+        account.setApplicationId(applicationID);
+        try {
+            accountRepository.save(account);
+            model.addAttribute("applicationID",applicationID);
+            model.addAttribute("successfull","exits");
+            model.addAttribute("accountCreationForm",new AccountCreationForm());
+        }catch (Exception e){
+            model.addAttribute("accountCreationForm",new AccountCreationForm());
+            return "AccountCreation";
+        }
         return "home";
+    }
+    public String getRandomNumber(AccountCreationForm form) {
+        return form.getAccountHolderName().split(" ")[0].toUpperCase()+ (Math.abs((int)Math.random()) + 100000);
     }
 
     @GetMapping("/userDetails")
