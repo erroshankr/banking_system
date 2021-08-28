@@ -20,7 +20,7 @@
             <div class="signup-content">
                 <div class="signup-form">
                     <h2 class="form-title">Correspondance Details</h2>
-                    <form method="POST" class="register-form" id="register-form" th:action="@{/submitregistration}" th:object="${registerForm}">
+                    <form method="POST" class="register-form" id="register-form" th:action="@{/submitRegister2}" th:object="${registerForm2}">
                         <div class="form-group">
                             <label for="line1"><i class="zmdi zmdi-lock-outline"></i></label>
                             <input type="text" name="line1" id="line1" th:field="*{line1}" placeholder="Line 1" th:required="true"/>

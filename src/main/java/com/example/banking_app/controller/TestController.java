@@ -9,7 +9,6 @@ import com.example.banking_app.models.AddressModel;
 import com.example.banking_app.models.CardModel;
 import com.example.banking_app.models.UserModel;
 import com.example.banking_app.repo.AccountRepository;
-import com.example.banking_app.repo.AddressRepository;
 import com.example.banking_app.repo.UserRepository;
 import com.example.banking_app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +32,6 @@ public class TestController {
 
     @Autowired
     private AccountRepository accountRepository;
-
-    @Autowired
-    private  AddressRepository addressRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -63,11 +59,10 @@ public class TestController {
     public String submitRegistration1(@ModelAttribute RegistrationForm1 registrationForm1, Model model){
         if(!registrationForm1.getPassword().equals(registrationForm1.getReTypePassword())) {
           model.addAttribute("passwordError","NOT_EQUAL");
-          model.addAttribute("registerForm",new RegistrationForm1());
+          model.addAttribute("registerForm1",new RegistrationForm1());
           return "registration";
         }
         UserModel userModel =new UserModel();
-        AddressModel addressModel=new AddressModel();
         userModel.setFirstName(registrationForm1.getFirstName());
         userModel.setMiddleName(registrationForm1.getMiddleName());
         userModel.setLastName(registrationForm1.getLastName());
@@ -75,7 +70,6 @@ public class TestController {
         userModel.setDateOfBirth(registrationForm1.getDateOfBirth());
         userModel.setGender(registrationForm1.getGender());
         userModel.setPassword(registrationForm1.getPassword());
-        userModel.setPermanentAddress(addressModel);
         userModel.setPhoneNumber(registrationForm1.getMobileNumber());
         userModel.setName(registrationForm1.getFirstName() + " " + registrationForm1.getMiddleName() + " " +registrationForm1.getLastName());
         userModel.setRoles("ROLE_USER");
@@ -84,9 +78,9 @@ public class TestController {
             userRepository.save(userModel);
         }catch (Exception e){
             model.addAttribute("regError","exits");
-            model.addAttribute("registerForm",new RegistrationForm1());
+            model.addAttribute("registerForm1",new RegistrationForm1());
         }
-        model.addAttribute("loginForm", new RegistrationForm2());
+        model.addAttribute("registerForm2", new RegistrationForm2());
         model.addAttribute("email",registrationForm1.getEmail());
         return "redirect:/registrationPage2";
    }
@@ -99,14 +93,16 @@ public class TestController {
 
    @PostMapping("/submitRegister2")
    public String submitRegistration2(@ModelAttribute RegistrationForm2 registrationForm2, Model model, @RequestParam String email){
-        AddressModel addressModel=
+        final UserModel user = userRepository.findByUsername(email);
+        AddressModel addressModel= new AddressModel();
         addressModel.setLine1(registrationForm2.getLine1());
         addressModel.setLine2(registrationForm2.getLine2());
         addressModel.setZipCode(registrationForm2.getZipCode());
         addressModel.setCity(registrationForm2.getCity());
         addressModel.setState(registrationForm2.getState());
         addressModel.setCountry(registrationForm2.getCountry());
-        addressRepository.save(addressModel);
+        user.setPermanentAddress(addressModel);
+        userRepository.save(user);
         model.addAttribute("loginForm", new LoginForm());
         return "login";
    }
