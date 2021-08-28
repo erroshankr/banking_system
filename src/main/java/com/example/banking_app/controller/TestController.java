@@ -6,7 +6,7 @@ import com.example.banking_app.exception.UserNotFoundException;
 import com.example.banking_app.forms.AccountCreationForm;
 import com.example.banking_app.forms.ForgotPasswordForm;
 import com.example.banking_app.forms.LoginForm;
-import com.example.banking_app.forms.RegistrationForm;
+import com.example.banking_app.forms.RegistrationForm1;
 import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.AddressModel;
 import com.example.banking_app.models.CardModel;
@@ -53,15 +53,15 @@ public class TestController {
 
     @GetMapping("/register")
     public String getregistration(Model model){
-        model.addAttribute("registerForm",new RegistrationForm());
+        model.addAttribute("registerForm",new RegistrationForm1());
         return "registration";
     }
 
     @PostMapping("/submitregistration")
-    public String submitRegistration(@ModelAttribute RegistrationForm registrationForm, Model model){
+    public String submitRegistration(@ModelAttribute RegistrationForm1 registrationForm, Model model){
         if(!registrationForm.getPassword().equals(registrationForm.getReTypePassword())) {
           model.addAttribute("passwordError","NOT_EQUAL");
-          model.addAttribute("registerForm",new RegistrationForm());
+          model.addAttribute("registerForm",new RegistrationForm1());
           return "registration";
         }
         UserModel userModel =new UserModel();
@@ -88,7 +88,7 @@ public class TestController {
             userRepository.save(userModel);
         }catch (Exception e){
             model.addAttribute("regError","exits");
-            model.addAttribute("registerForm",new RegistrationForm());
+            model.addAttribute("registerForm",new RegistrationForm1());
         }
         model.addAttribute("loginForm", new LoginForm());
         return "redirect:/login";

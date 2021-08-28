@@ -15,54 +15,12 @@
     <section class="signup">
         <div class="container">
             <div>
-            <h2 style="text-align: center; color: red;" th:if="${regError}">Registration Failed !!</h2>
+                <h2 style="text-align: center; color: red;" th:if="${regError}">Registration Failed !!</h2>
             </div>
             <div class="signup-content">
                 <div class="signup-form">
-                    <h2 class="form-title">Sign up</h2>
+                    <h2 class="form-title">Correspondance Details</h2>
                     <form method="POST" class="register-form" id="register-form" th:action="@{/submitregistration}" th:object="${registerForm}">
-                        <div class="form-group">
-                            <label for="firstName"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="firstName" id="firstName" th:field="*{firstName}" placeholder="First Name" th:required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="middleName"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="middleName" id="middleName" th:field="*{middleName}" placeholder="Middle Name"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="lastName" id="lastName" th:field="*{lastName}" placeholder="Last Name" th:required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-group">
-                                <input class="form-check-input" name="gender" th:field="*{gender}" type="radio" id="option1" value="MALE">
-                                <label class="form-check-label" for="option1">Male</label>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-check-input" type="radio" th:field="*{gender}" id="option2" value="FEMALE">
-                                <label class="form-check-label" for="option2">Female</label>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-check-input" type="radio" th:field="*{gender}" id="option3" value="OTHERS">
-                                <label class="form-check-label" for="option3">Female</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><i class="zmdi zmdi-email"></i></label>
-                            <input type="email" name="email" id="email" th:field="*{email}" placeholder="Your Email" th:required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="dateOfBirth"><i class="zmdi zmdi-email"></i></label>
-                            <input type="date" name="dateOfBirth" class="form-control" th:field="*{dateOfBirth}" placeholder="yyyy-MM-dd" id="dateOfBirth" th:required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password" th:field="*{password}" id="password" placeholder="Password" th:required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="reTypePassword"><i class="zmdi zmdi-lock-outline"></i></label>
-                            <input type="password" name="reTypePassword" th:field="*{reTypePassword}" id="reTypePassword" placeholder="Repeat your password" th:required="true"/>
-                        </div>
                         <div class="form-group">
                             <label for="line1"><i class="zmdi zmdi-lock-outline"></i></label>
                             <input type="text" name="line1" id="line1" th:field="*{line1}" placeholder="Line 1" th:required="true"/>
