@@ -2,6 +2,7 @@ package com.example.banking_app.controller;
 
 import com.example.banking_app.enums.CardType;
 import com.example.banking_app.enums.IdentityProof;
+import com.example.banking_app.exception.UserNotFoundException;
 import com.example.banking_app.forms.AccountCreationForm;
 import com.example.banking_app.forms.ForgotPasswordForm;
 import com.example.banking_app.forms.LoginForm;
@@ -12,6 +13,7 @@ import com.example.banking_app.models.CardModel;
 import com.example.banking_app.models.UserModel;
 import com.example.banking_app.repo.AccountRepository;
 import com.example.banking_app.repo.UserRepository;
+import com.example.banking_app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,6 +37,9 @@ public class TestController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/")
     public String getHome(){
@@ -100,20 +105,20 @@ public class TestController {
     }
     @PostMapping("/login")
     public String login(@ModelAttribute LoginForm loginForm, Model model, RedirectAttributes redirectModel){
-        final UserModel user = userRepository.findByUsername(loginForm.getUsername());
-        if (null==user){
+        try {
+            final boolean res = userService.validateUser(loginForm.getUsername(), loginForm.getPassword());
+            if(res){
+                model.addAttribute("PasswordError","wrongpass");
+                model.addAttribute("loginForm",new LoginForm());
+                return "login";
+            }else{
+                return "home";
+            }
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
             model.addAttribute("NullUser","NOT_EQUAL");
             model.addAttribute("loginForm",new LoginForm());
             return "login";
-        }
-        else if (!loginForm.getPassword().equals(user.getPassword())){
-            model.addAttribute("PasswordError","wrongpass");
-            model.addAttribute("loginForm",new LoginForm());
-            return "login";
-        }
-        else {
-            model.addAttribute("username", user.getName());
-            return "home";
         }
     }
 
