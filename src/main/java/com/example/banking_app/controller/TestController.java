@@ -80,9 +80,10 @@ public class TestController {
             model.addAttribute("regError","exits");
             model.addAttribute("registerForm1",new RegistrationForm1());
         }
-        model.addAttribute("registerForm2", new RegistrationForm2());
-        model.addAttribute("email",registrationForm1.getEmail());
-        return "redirect:/registrationPage2";
+        final RegistrationForm2 registrationForm2 = new RegistrationForm2();
+        registrationForm2.setEmail(registrationForm1.getEmail());
+        model.addAttribute("registerForm2", registrationForm2);
+        return "registrationPage2";
    }
 
    /*@GetMapping("/register2")
@@ -92,8 +93,8 @@ public class TestController {
    }*/
 
    @PostMapping("/submitRegister2")
-   public String submitRegistration2(@ModelAttribute RegistrationForm2 registrationForm2, Model model, @RequestParam String email){
-        final UserModel user = userRepository.findByUsername(email);
+   public String submitRegistration2(@ModelAttribute RegistrationForm2 registrationForm2, Model model){
+        final UserModel user = userRepository.findByUsername(registrationForm2.getEmail());
         AddressModel addressModel= new AddressModel();
         addressModel.setLine1(registrationForm2.getLine1());
         addressModel.setLine2(registrationForm2.getLine2());

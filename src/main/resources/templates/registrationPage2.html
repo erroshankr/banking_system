@@ -45,7 +45,7 @@
                             <label for="country"><i class="zmdi zmdi-lock-outline"></i></label>
                             <input type="text" name="country" id="country" th:field="*{country}" placeholder="country" th:required="true"/>
                         </div>
-                        <input type="hidden" th:field="*{email}" id="email">
+                        <input type="hidden" name="email" id="email" th:field="*{email}"/>
                         <div class="form-group">
                             <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
                             <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a th:href="@{~/forms#}" class="term-service">Terms of service</a></label>

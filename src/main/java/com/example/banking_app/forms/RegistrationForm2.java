@@ -1,6 +1,7 @@
 package com.example.banking_app.forms;
 
 public class RegistrationForm2 {
+    private  String email;
     private String line1;
     private String line2;
     private Long zipCode;
@@ -8,6 +9,14 @@ public class RegistrationForm2 {
     private  String state;
     private String country;
     private Long mobileNumber;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getLine1() {
         return line1;
