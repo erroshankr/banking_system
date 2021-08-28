@@ -1,13 +1,14 @@
 package com.example.banking_app.enums;
 
-public enum Gender{
-        MALE("Male"),
-        FEMALE("Female"),
-        OTHERS("Others");
+public enum IdentityProof {
+    AADHAR_CARD("Aadhar Card"),
+    PANCARD("Pan Card"),
+    VOTERID_CARD("Voter ID Card"),
+    DRIVING_LISENCE("Driving Licence");
 
     private String name;
 
-    Gender(String s) {
+    IdentityProof(String s) {
         name = s;
     }
 
@@ -26,5 +27,4 @@ public enum Gender{
     public String toString() {
         return this.name;
     }
-
-    };
+};

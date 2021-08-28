@@ -1,13 +1,22 @@
 package com.example.banking_app.enums;
 
-public enum Gender{
-        MALE("Male"),
-        FEMALE("Female"),
-        OTHERS("Others");
+public enum Month {
+    JANUARY("JAN"),
+    FEBRUARY("FEB"),
+    MARCH("MAR"),
+    APRIL("APR"),
+    MAY("MAY"),
+    JUNE("JUN"),
+    JULY("JUL"),
+    AUGUST("AUG"),
+    SEPTEMBER("SEP"),
+    OCTOBER("OCT"),
+    NOVEMBER("NOV"),
+    DECEMBER("DEC");
 
     private String name;
 
-    Gender(String s) {
+    Month(String s) {
         name = s;
     }
 
@@ -27,4 +36,4 @@ public enum Gender{
         return this.name;
     }
 
-    };
+};

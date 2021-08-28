@@ -1,13 +1,12 @@
 package com.example.banking_app.enums;
 
-public enum Gender{
-        MALE("Male"),
-        FEMALE("Female"),
-        OTHERS("Others");
+public enum CardType {
+    DEBITCARD("Debit Card"),
+    CREDITCARD("Credit Card");
 
     private String name;
 
-    Gender(String s) {
+    CardType(String s) {
         name = s;
     }
 
@@ -26,5 +25,4 @@ public enum Gender{
     public String toString() {
         return this.name;
     }
-
-    };
+}

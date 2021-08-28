@@ -1,13 +1,17 @@
 package com.example.banking_app.enums;
 
-public enum Gender{
-        MALE("Male"),
-        FEMALE("Female"),
-        OTHERS("Others");
+public enum ApplicationStatus {
+    REQUESTED("Requested"),
+    PENDING_VERIFICATION("PENDING VERIFICATION"),
+    KYC_VERIFIED("KYC VERIFIED"),
+    PROCESSING_DEBITCARD("PROCESSING DEBIT CARD"),
+    PROCESSING_CREDITCARD("PROCESSING CREDIT CARD"),
+    REJECTED("REJECTED"),
+    APPROVED("APPROVED");
 
     private String name;
 
-    Gender(String s) {
+    ApplicationStatus(String s) {
         name = s;
     }
 
@@ -26,5 +30,4 @@ public enum Gender{
     public String toString() {
         return this.name;
     }
-
-    };
+}

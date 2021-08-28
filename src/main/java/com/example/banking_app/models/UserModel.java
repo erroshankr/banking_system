@@ -7,13 +7,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="customers")
-public class CustomerModel {
-    @Id @GeneratedValue
-    private int serialNo;
+@Table(name="users")
+public class UserModel extends BaseEntity{
+
     private String name;
     @Column(unique = true)
-    private String email;
+    private String username;
     private double currentBalance;
     private String firstName;
     private String middleName;
@@ -21,11 +20,13 @@ public class CustomerModel {
     private String password;
     private long phoneNumber;
     private Date dateOfBirth;
+    private String roles;
+    private boolean active;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id",referencedColumnName = "id")
+    @JoinColumn(name = "address_id",referencedColumnName = "PK")
     private AddressModel permanentAddress;
 
     public AddressModel getPermanentAddress() {
@@ -77,12 +78,10 @@ public class CustomerModel {
     }
 
 
-    public CustomerModel() {
+    public UserModel() {
     }
 
-    public int getSerialNo() {
-        return serialNo;
-    }
+
 
     public Gender getGender() {
         return gender;
@@ -92,15 +91,7 @@ public class CustomerModel {
         this.gender = gender;
     }
 
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
-    }
 
-    public CustomerModel(String name, String email, double currentBalance) {
-        this.name = name;
-        this.email = email;
-        this.currentBalance = currentBalance;
-    }
 
     public String getName() {
         return name;
@@ -110,12 +101,12 @@ public class CustomerModel {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public double getCurrentBalance() {
@@ -132,5 +123,21 @@ public class CustomerModel {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
