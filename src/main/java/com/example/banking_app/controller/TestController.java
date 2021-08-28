@@ -3,15 +3,13 @@ package com.example.banking_app.controller;
 import com.example.banking_app.enums.CardType;
 import com.example.banking_app.enums.IdentityProof;
 import com.example.banking_app.exception.UserNotFoundException;
-import com.example.banking_app.forms.AccountCreationForm;
-import com.example.banking_app.forms.ForgotPasswordForm;
-import com.example.banking_app.forms.LoginForm;
-import com.example.banking_app.forms.RegistrationForm1;
+import com.example.banking_app.forms.*;
 import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.AddressModel;
 import com.example.banking_app.models.CardModel;
 import com.example.banking_app.models.UserModel;
 import com.example.banking_app.repo.AccountRepository;
+import com.example.banking_app.repo.AddressRepository;
 import com.example.banking_app.repo.UserRepository;
 import com.example.banking_app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -34,6 +33,9 @@ public class TestController {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private  AddressRepository addressRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -51,37 +53,31 @@ public class TestController {
         return "error";
     }
 
-    @GetMapping("/register")
-    public String getregistration(Model model){
-        model.addAttribute("registerForm",new RegistrationForm1());
-        return "registration";
+    @GetMapping("/register1")
+    public String getregistration1(Model model){
+        model.addAttribute("registerForm1",new RegistrationForm1());
+        return "registrationPage1";
     }
 
-    @PostMapping("/submitregistration")
-    public String submitRegistration(@ModelAttribute RegistrationForm1 registrationForm, Model model){
-        if(!registrationForm.getPassword().equals(registrationForm.getReTypePassword())) {
+    @PostMapping("/submitRegister1")
+    public String submitRegistration1(@ModelAttribute RegistrationForm1 registrationForm1, Model model){
+        if(!registrationForm1.getPassword().equals(registrationForm1.getReTypePassword())) {
           model.addAttribute("passwordError","NOT_EQUAL");
           model.addAttribute("registerForm",new RegistrationForm1());
           return "registration";
         }
         UserModel userModel =new UserModel();
         AddressModel addressModel=new AddressModel();
-        addressModel.setCity(registrationForm.getCity());
-        addressModel.setCountry(registrationForm.getCountry());
-        addressModel.setZipCode(registrationForm.getZipCode());
-        addressModel.setState(registrationForm.getState());
-        addressModel.setLine1(registrationForm.getLine1());
-        addressModel.setLine2(registrationForm.getLine2());
-        userModel.setFirstName(registrationForm.getFirstName());
-        userModel.setMiddleName(registrationForm.getMiddleName());
-        userModel.setLastName(registrationForm.getLastName());
-        userModel.setUsername(registrationForm.getEmail());
-        userModel.setPhoneNumber(registrationForm.getMobileNumber());
-        userModel.setDateOfBirth(registrationForm.getDateOfBirth());
-        userModel.setGender(registrationForm.getGender());
-        userModel.setPassword(registrationForm.getPassword());
+        userModel.setFirstName(registrationForm1.getFirstName());
+        userModel.setMiddleName(registrationForm1.getMiddleName());
+        userModel.setLastName(registrationForm1.getLastName());
+        userModel.setUsername(registrationForm1.getEmail());
+        userModel.setDateOfBirth(registrationForm1.getDateOfBirth());
+        userModel.setGender(registrationForm1.getGender());
+        userModel.setPassword(registrationForm1.getPassword());
         userModel.setPermanentAddress(addressModel);
-        userModel.setName(registrationForm.getFirstName() + " " + registrationForm.getMiddleName() + " " +registrationForm.getLastName());
+        userModel.setPhoneNumber(registrationForm1.getMobileNumber());
+        userModel.setName(registrationForm1.getFirstName() + " " + registrationForm1.getMiddleName() + " " +registrationForm1.getLastName());
         userModel.setRoles("ROLE_USER");
         userModel.setActive(Boolean.TRUE);
         try {
@@ -90,8 +86,29 @@ public class TestController {
             model.addAttribute("regError","exits");
             model.addAttribute("registerForm",new RegistrationForm1());
         }
+        model.addAttribute("loginForm", new RegistrationForm2());
+        model.addAttribute("email",registrationForm1.getEmail());
+        return "redirect:/registrationPage2";
+   }
+
+   /*@GetMapping("/register2")
+   public String getRegistration2(Model model){
+        model.addAttribute("registerForm2",new RegistrationForm2());
+        return "registrationPage2";
+   }*/
+
+   @PostMapping("/submitRegister2")
+   public String submitRegistration2(@ModelAttribute RegistrationForm2 registrationForm2, Model model, @RequestParam String email){
+        AddressModel addressModel=
+        addressModel.setLine1(registrationForm2.getLine1());
+        addressModel.setLine2(registrationForm2.getLine2());
+        addressModel.setZipCode(registrationForm2.getZipCode());
+        addressModel.setCity(registrationForm2.getCity());
+        addressModel.setState(registrationForm2.getState());
+        addressModel.setCountry(registrationForm2.getCountry());
+        addressRepository.save(addressModel);
         model.addAttribute("loginForm", new LoginForm());
-        return "redirect:/login";
+        return "login";
    }
 
     @GetMapping("/login")

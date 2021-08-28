@@ -11,6 +11,7 @@ public class RegistrationForm1 {
     private String middleName;
     private String lastName;
     private String email;
+    private  Long mobileNumber;
     private String password;
     private  String reTypePassword;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -65,6 +66,14 @@ public class RegistrationForm1 {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(Long mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     public String getPassword() {

@@ -56,6 +56,10 @@
                             <input type="date" name="dateOfBirth" class="form-control" th:field="*{dateOfBirth}" placeholder="yyyy-MM-dd" id="dateOfBirth" th:required="true"/>
                         </div>
                         <div class="form-group">
+                            <label for="mobileNumber"><i class="zmdi zmdi-lock-outline"></i></label>
+                            <input type="text" name="mobileNumber" id="mobileNumber" th:field="*{mobileNumber}" placeholder="Mobile Number" th:required="true"/>
+                        </div>
+                        <div class="form-group">
                             <label for="password"><i class="zmdi zmdi-lock"></i></label>
                             <input type="password" name="password" th:field="*{password}" id="password" placeholder="Password" th:required="true"/>
                         </div>
