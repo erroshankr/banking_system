@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--====== Required meta tags ======-->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--====== Title ======-->
+    <title>Smart - Multi-purpose Landing Page Template</title>
+
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" th:href="@{~/home/images/favicon.png}" type="image/png">
+
+    <!--====== Bootstrap css ======-->
+    <link rel="stylesheet" th:href="@{~/home/css/bootstrap.min.css}">
+
+    <!--====== Line Icons css ======-->
+    <link rel="stylesheet" th:href="@{~/home/css/LineIcons.css}">
+
+    <!--====== Magnific Popup css ======-->
+    <link rel="stylesheet" th:href="@{~/home/css/magnific-popup.css}">
+
+    <!--====== Slick css ======-->
+    <link rel="stylesheet" th:href="@{~/home/css/slick.css}">
+
+    <!--====== Animate css ======-->
+    <link rel="stylesheet" th:href="@{~/home/css/animate.css}">
+
+    <!--====== Default css ======-->
+    <link rel="stylesheet" th:href="@{~/home/css/default.css}">
+
+    <!--====== Style css ======-->
+    <link rel="stylesheet" th:href="@{~/home/css/style.css}">
+
+
+</head>
+
+<body>
+
+<!--====== PRELOADER PART START ======-->
+
+<div class="preloader">
+    <div class="loader">
+        <div class="ytp-spinner">
+            <div class="ytp-spinner-container">
+                <div class="ytp-spinner-rotator">
+                    <div class="ytp-spinner-left">
+                        <div class="ytp-spinner-circle"></div>
+                    </div>
+                    <div class="ytp-spinner-right">
+                        <div class="ytp-spinner-circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--====== PRELOADER PART ENDS ======-->
+
+<!--====== NAVBAR PART START ======-->
+
+<section class="header-area">
+    <div class="navbar-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand" href="#">
+                            <img th:src="@{~/home/images/logo.png}" alt="Logo">
+                        </a>
+
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarEight" aria-controls="navbarEight" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarEight">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item active">
+                                    <a class="page-scroll" href="#home">HOME</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="#about">ABOUT</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="#portfolio">PORTFOLIO</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="#pricing">PRICING</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="#testimonial">CLIENTS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="#contact">CONTACT</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="navbar-btn d-none mt-15 d-lg-inline-block">
+                            <a class="menu-bar" href="#side-menu-right"><i class="lni-menu"></i></a>
+                        </div>
+                        <div sec:authorize="isAuthenticated()">
+                            <div><span th:text="${#authentication.getPrincipal().getName()}"></span></div>
+                            <div>
+                                <a href="javascript: document.logoutForm.submit()" class="dropdown-toggle">Sign out</a>
+                                <form name="logoutForm" th:action="@{/login}" method="post" th:hidden="true">
+                                    <input hidden type="submit" value="Sign Out" />
+                                </form>
+                            </div>
+                        </div>
+                    </nav> <!-- navbar -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </div> <!-- navbar area -->
+
+    <div id="home" class="slider-area">
+        <div class="bd-example">
+            <div id="carouselOne" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselOne" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselOne" data-slide-to="1"></li>
+                    <li data-target="#carouselOne" data-slide-to="2"></li>
+                </ol>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item bg_cover active" style="background-image: url(home/images/slider-1.jpg)">
+                        <div class="carousel-caption">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-6 col-lg-7 col-sm-10">
+                                        <h2 class="carousel-title">Refreshing Design & Easy to Customize</h2>
+                                        <ul class="carousel-btn rounded-buttons">
+                                            <li><a class="main-btn rounded-three" href="/user/account/create">CREATE ACCOUNT</a></li>
+                                            <li><a class="main-btn rounded-one" href="/user/account/view">VIEW ACCOUNTS</a></li>
+                                        </ul>
+                                    </div>
+                                </div> <!-- row -->
+                            </div> <!-- container -->
+                        </div> <!-- carousel caption -->
+                    </div> <!-- carousel-item -->
+
+                    <div class="carousel-item bg_cover" style="background-image: url(home/images/slider-2.jpg)">
+                        <div class="carousel-caption">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-6 col-lg-7 col-sm-10">
+                                        <h2 class="carousel-title">Based on Latest Bootstrap & HTML5</h2>
+                                        <ul class="carousel-btn rounded-buttons">
+                                            <li><a class="main-btn rounded-three" href="/user/account/create">CREATE ACCOUNT</a></li>
+                                            <li><a class="main-btn rounded-one" href="/user/account/view">VIEW ACCOUNTS</a></li>
+                                        </ul>
+                                    </div>
+                                </div> <!-- row -->
+                            </div> <!-- container -->
+                        </div> <!-- carousel caption -->
+                    </div> <!-- carousel-item -->
+
+                    <div class="carousel-item bg_cover" style="background-image: url(home/images/slider-3.jpg)">
+                        <div class="carousel-caption">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-6 col-lg-7 col-sm-10">
+                                        <h2 class="carousel-title">Multi-purpose Landing Page Template</h2>
+                                        <ul class="carousel-btn rounded-buttons">
+                                            <li><a class="main-btn rounded-three" href="/user/account/create">CREATE ACCOUNT</a></li>
+                                            <li><a class="main-btn rounded-one" href="/user/account/view">VIEW ACCOUNTS</a></li>
+                                        </ul>
+                                    </div>
+                                </div> <!-- row -->
+                            </div> <!-- container -->
+                        </div> <!-- carousel caption -->
+                    </div> <!-- carousel-item -->
+                </div> <!-- carousel-inner -->
+
+                <a class="carousel-control-prev" href="#carouselOne" role="button" data-slide="prev">
+                    <i class="lni-arrow-left-circle"></i>
+                </a>
+
+                <a class="carousel-control-next" href="#carouselOne" role="button" data-slide="next">
+                    <i class="lni-arrow-right-circle"></i>
+                </a>
+            </div> <!-- carousel -->
+        </div> <!-- bd-example -->
+    </div>
+
+</section>
+
+<!--====== NAVBAR PART ENDS ======-->
+
+<!--====== SAIDEBAR PART START ======-->
+
+<div class="sidebar-right">
+    <div class="sidebar-close">
+        <a class="close" href="#close"><i class="lni-close"></i></a>
+    </div>
+    <div class="sidebar-content">
+        <div class="sidebar-logo text-center">
+            <a href="#"><img th:src="@{~/home/images/logo-alt.png}" alt="Logo"></a>
+        </div> <!-- logo -->
+        <div class="sidebar-menu">
+            <ul>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="#">SERVICES</a></li>
+                <li><a href="#">RESOURCES</a></li>
+                <li><a href="#">CONTACT</a></li>
+            </ul>
+        </div> <!-- menu -->
+        <div class="sidebar-social d-flex align-items-center justify-content-center">
+            <span>FOLLOW US</span>
+            <ul>
+                <li><a href="#"><i class="lni-twitter-original"></i></a></li>
+                <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
+            </ul>
+        </div> <!-- sidebar social -->
+    </div> <!-- content -->
+</div>
+<div class="overlay-right"></div>
+<section id="call-action" class="call-action-area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5">
+                <div class="call-action-content mt-45">
+                    <h3 class="action-title">Get latest updates!</h3>
+                    <p class="text">We never spam your email</p>
+                </div> <!-- call action content -->
+            </div>
+            <div class="col-lg-7">
+                <div class="call-action-form mt-50">
+                    <form action="#">
+                        <input type="text" placeholder="Enter your email">
+                        <div class="action-btn rounded-buttons">
+                            <button class="main-btn rounded-three">subscribe</button>
+                        </div>
+                    </form>
+                </div> <!-- call action form -->
+            </div>
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+<!--====== CALL TO ACTION TWO PART ENDS ======-->
+
+<!--====== TESTIMONIAL THREE PART START ======-->
+
+<section id="testimonial" class="testimonial-area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="section-title text-center pb-20">
+                    <h3 class="title">Testimonial</h3>
+                    <p class="text">Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed!</p>
+                </div> <!-- section title -->
+            </div>
+        </div> <!-- row -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row testimonial-active">
+                    <div class="col-lg-4">
+                        <div class="single-testimonial mt-30 mb-30 text-center">
+                            <div class="testimonial-image">
+                                <img th:src="@{~/home/images/author-3.jpg}" alt="Author">
+                            </div>
+                            <div class="testimonial-content">
+                                <p class="text">Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed! Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed!</p>
+                                <h6 class="author-name">Isabela Moreira</h6>
+                                <span class="sub-title">CEO, GrayGrids</span>
+                            </div>
+                        </div> <!-- single testimonial -->
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="single-testimonial mt-30 mb-30 text-center">
+                            <div class="testimonial-image">
+                                <img th:src="@{~/home/images/author-1.jpg}" alt="Author">
+                            </div>
+                            <div class="testimonial-content">
+                                <p class="text">Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed! Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed!</p>
+                                <h6 class="author-name">Fiona</h6>
+                                <span class="sub-title">Lead Designer, UIdeck</span>
+                            </div>
+                        </div> <!-- single testimonial -->
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="single-testimonial mt-30 mb-30 text-center">
+                            <div class="testimonial-image">
+                                <img th:src="@{~/home/images/author-2.jpg}" alt="Author">
+                            </div>
+                            <div class="testimonial-content">
+                                <p class="text">Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed! Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed!</p>
+                                <h6 class="author-name">Elon Musk</h6>
+                                <span class="sub-title">CEO, SpaceX</span>
+                            </div>
+                        </div> <!-- single testimonial -->
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="single-testimonial mt-30 mb-30 text-center">
+                            <div class="testimonial-image">
+                                <img th:src="@{~/home/images/author-4.jpg}" alt="Author">
+                            </div>
+                            <div class="testimonial-content">
+                                <p class="text">Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed! Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed!</p>
+                                <h6 class="author-name">Fajar Siddiq</h6>
+                                <span class="sub-title">CEO, MakerFlix</span>
+                            </div>
+                        </div> <!-- single testimonial -->
+                    </div>
+                </div> <!-- row -->
+            </div>
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+<!--====== TESTIMONIAL THREE PART ENDS ======-->
+
+<!--====== CLIENT LOGO PART START ======-->
+
+<section id="client" class="client-logo-area">
+    <div class="container">
+        <div class="row client-active">
+            <div class="col-lg-3">
+                <div class="single-client text-center">
+                    <img th:src="@{~/home/images/client_logo_01.png}" alt="Logo">
+                </div> <!-- single client -->
+            </div>
+            <div class="col-lg-3">
+                <div class="single-client text-center">
+                    <img th:src="@{~/home/images/client_logo_02.png}" alt="Logo">
+                </div> <!-- single client -->
+            </div>
+            <div class="col-lg-3">
+                <div class="single-client text-center">
+                    <img th:src="@{~/home/images/client_logo_03.png}" alt="Logo">
+                </div> <!-- single client -->
+            </div>
+            <div class="col-lg-3">
+                <div class="single-client text-center">
+                    <img th:src="@{~/home/images/client_logo_04.png}" alt="Logo">
+                </div> <!-- single client -->
+            </div>
+            <div class="col-lg-3">
+                <div class="single-client text-center">
+                    <img th:src="@{~/home/images/client_logo_05.png}" alt="Logo">
+                </div> <!-- single client -->
+            </div>
+            <div class="col-lg-3">
+                <div class="single-client text-center">
+                    <img th:src="@{~/home/images/client_logo_06.png}" alt="Logo">
+                </div> <!-- single client -->
+            </div>
+            <div class="col-lg-3">
+                <div class="single-client text-center">
+                    <img th:src="@{~/home/images/client_logo_07.png}" alt="Logo">
+                </div> <!-- single client -->
+            </div>
+            <div class="col-lg-3">
+                <div class="single-client text-center">
+                    <img th:src="@{~/home/images/client_logo_08.png}" alt="Logo">
+                </div> <!-- single client -->
+            </div>
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+<!--====== CLIENT LOGO PART ENDS ======-->
+
+<!--====== CONTACT TWO PART START ======-->
+
+<section id="contact" class="contact-area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="section-title text-center pb-20">
+                    <h3 class="title">Get in touch</h3>
+                    <p class="text">Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed!</p>
+                </div> <!-- section title -->
+            </div>
+        </div> <!-- row -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="contact-two mt-50 wow fadeIn" data-wow-duration="1.5s" data-wow-delay="0.2s">
+                    <h4 class="contact-title">Lets talk about the project</h4>
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam unde repellendus delectus facilis quia consequatur maxime perferendis! Sequi, modi consequatur.</p>
+                    <ul class="contact-info">
+                        <li><i class="lni-money-location"></i> Elizabeth St, Melbourne, Australia</li>
+                        <li><i class="lni-phone-handset"></i> +333 789-321-654</li>
+                        <li><i class="lni-envelope"></i> hello@ayroui.com</li>
+                    </ul>
+                </div> <!-- contact two -->
+            </div>
+            <div class="col-lg-6">
+                <div class="contact-form form-style-one mt-35 wow fadeIn" data-wow-duration="1.5s" data-wow-delay="0.5s">
+                    <form  id="contact-form" action="home/contact.php" method="post">
+                        <div class="form-input mt-15">
+                            <label>Name</label>
+                            <div class="input-items default">
+                                <input type="text" placeholder="Name" name="name">
+                                <i class="lni-user"></i>
+                            </div>
+                        </div> <!-- form input -->
+                        <div class="form-input mt-15">
+                            <label>Email</label>
+                            <div class="input-items default">
+                                <input type="email" placeholder="Email" name="email">
+                                <i class="lni-envelope"></i>
+                            </div>
+                        </div> <!-- form input -->
+                        <div class="form-input mt-15">
+                            <label>Message</label>
+                            <div class="input-items default">
+                                <textarea placeholder="Message" name="message"></textarea>
+                                <i class="lni-pencil-alt"></i>
+                            </div>
+                        </div> <!-- form input -->
+                        <p class="form-message"></p>
+                        <div class="form-input rounded-buttons mt-20">
+                            <button type="submit" class="main-btn rounded-three">Submit</button>
+                        </div> <!-- form input -->
+                    </form>
+                </div> <!-- contact form -->
+            </div>
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+<!--====== CONTACT TWO PART ENDS ======-->
+
+<!--====== FOOTER FOUR PART START ======-->
+
+<footer id="footer" class="footer-area">
+    <div class="footer-widget">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-link">
+                        <h6 class="footer-title">Company</h6>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Profile</a></li>
+                        </ul>
+                    </div> <!-- footer link -->
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-link">
+                        <h6 class="footer-title">Solutions</h6>
+                        <ul>
+                            <li><a href="#">Facilities Services</a></li>
+                            <li><a href="#">Workplace Staffing</a></li>
+                            <li><a href="#">Project Management</a></li>
+                        </ul>
+                    </div> <!-- footer link -->
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-link">
+                        <h6 class="footer-title">Product & Services</h6>
+                        <ul>
+                            <li><a href="#">Products</a></li>
+                            <li><a href="#">Business</a></li>
+                            <li><a href="#">Developer</a></li>
+                        </ul>
+                    </div> <!-- footer link -->
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-link">
+                        <h6 class="footer-title">Help & Suuport</h6>
+                        <ul>
+                            <li><a href="#">Support Center</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Terms & Conditions</a></li>
+                        </ul>
+                    </div> <!-- footer link -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </div> <!-- footer widget -->
+
+    <div class="footer-copyright">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <div class="copyright text-center text-lg-left mt-10">
+                        <p class="text">Crafted by <a style="color: #38f9d7" rel="nofollow" href="https://uideck.con">UIdeck</a> and UI Elements from <a style="color: #38f9d7" rel="nofollow" href="https://ayroui.com">Ayro UI</a></p>
+                    </div> <!--  copyright -->
+                </div>
+                <div class="col-lg-2">
+                    <div class="footer-logo text-center mt-10">
+                        <a href="index.html"><img th:src="@{~/home/images/logo-2.svg}" alt="Logo"></a>
+                    </div> <!-- footer logo -->
+                </div>
+                <div class="col-lg-5">
+                    <ul class="social text-center text-lg-right mt-10">
+                        <li><a href="https://facebook.com/uideckHQ"><i class="lni-facebook-filled"></i></a></li>
+                        <li><a href="https://twitter.com/uideckHQ"><i class="lni-twitter-original"></i></a></li>
+                        <li><a href="https://instagram.com/uideckHQ"><i class="lni-instagram-original"></i></a></li>
+                        <li><a href="#"><i class="lni-linkedin-original"></i></a></li>
+                    </ul> <!-- social -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </div> <!-- footer copyright -->
+</footer>
+
+<!--====== FOOTER FOUR PART ENDS ======-->
+
+<!--====== BACK TOP TOP PART START ======-->
+
+<a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
+
+
+
+
+
+
+
+
+
+
+
+<!--====== jquery js ======-->
+<script th:src="@{~/home/js/vendor/modernizr-3.6.0.min.js}"></script>
+<script th:src="@{~/home/js/vendor/jquery-1.12.4.min.js}"></script>
+
+<!--====== Bootstrap js ======-->
+<script th:src="@{~/home/js/bootstrap.min.js}"></script>
+<script th:src="@{~/home/js/popper.min.js}"></script>
+
+<!--====== Slick js ======-->
+<script th:src="@{~/home/js/slick.min.js}"></script>
+
+<!--====== Isotope js ======-->
+<script th:src="@{~/home/js/isotope.pkgd.min.js}"></script>
+
+<!--====== Images Loaded js ======-->
+<script th:src="@{~/home/js/imagesloaded.pkgd.min.js}"></script>
+
+<!--====== Magnific Popup js ======-->
+<script th:src="@{~/home/js/jquery.magnific-popup.min.js}"></script>
+
+<!--====== Scrolling js ======-->
+<script th:src="@{~/home/js/scrolling-nav.js}"></script>
+<script th:src="@{~/home/js/jquery.easing.min.js}"></script>
+
+<!--====== wow js ======-->
+<script th:src="@{~/home/js/wow.min.js}"></script>
+
+<!--====== Main js ======-->
+<script th:src="@{~/home/js/main.js}"></script>
+
+</body>
+
+</html>
