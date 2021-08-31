@@ -6,20 +6,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 
-public class RegistrationForm {
+public class RegistrationForm1 {
     private String firstName;
     private String middleName;
     private String lastName;
     private String email;
+    private  Long mobileNumber;
     private String password;
     private  String reTypePassword;
-    private long mobileNumber;
-    private  String line1;
-    private String line2;
-    private Long zipCode;
-    private String city;
-    private String State;
-    private String country;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
@@ -41,13 +35,6 @@ public class RegistrationForm {
         this.gender = gender;
     }
 
-    public void setMobileNumber(long mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public long getMobileNumber() {
-        return mobileNumber;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -81,60 +68,20 @@ public class RegistrationForm {
         this.email = email;
     }
 
+    public Long getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(Long mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getLine1() {
-        return line1;
-    }
-
-    public void setLine1(String line1) {
-        this.line1 = line1;
-    }
-
-    public String getLine2() {
-        return line2;
-    }
-
-    public void setLine2(String line2) {
-        this.line2 = line2;
-    }
-
-    public Long getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(Long zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return State;
-    }
-
-    public void setState(String state) {
-        State = state;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getReTypePassword() {
