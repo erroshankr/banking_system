@@ -1,5 +1,6 @@
 package com.example.banking_app.models;
 
+import com.example.banking_app.enums.CardType;
 import com.example.banking_app.enums.Month;
 
 import javax.persistence.*;
@@ -8,10 +9,12 @@ import java.util.Set;
 @Entity
 @Table(name = "cards")
 public class CardModel extends BaseEntity{
+    @Column(unique = true)
     private Long cardNumber;
     private String cardHolderName;
     private int cvv;
-    private String cardType;
+    @Enumerated(EnumType.STRING)
+    private CardType cardType;
     @Enumerated(EnumType.STRING)
     private Month month;
     private int year;
@@ -42,12 +45,20 @@ public class CardModel extends BaseEntity{
         this.cvv = cvv;
     }
 
-    public String getCardType() {
+    public CardType getCardType() {
         return cardType;
     }
 
-    public void setCardType(String cardType) {
+    public void setCardType(CardType cardType) {
         this.cardType = cardType;
+    }
+
+    public AccountModel getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountModel account) {
+        this.account = account;
     }
 
     public Month getMonth() {

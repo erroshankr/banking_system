@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Register</title>
+  <link rel="stylesheet" th:href="@{~/forms/fonts/material-icon/css/material-design-iconic-font.min.css}">
+  <link rel="stylesheet" th:href="@{~/forms/css/style.css}">
+
+</head>
+<body>
+<div class="main">
+  <!-- Sign up form -->
+  <section class="signup">
+    <div class="container">
+      <div>
+        <h2 style="text-align: center; color: red;" th:if="${successfull}">Account Successfully Registered !!</h2>
+      </div>
+      <div class="signup-content">
+        <div class="signup-form">
+          <h2 class="form-title">Open Bank Account</h2>
+          <form method="POST" class="register-form" id="register-form" th:action="@{/user/account/submit}" th:object="${accountCreationForm}">
+
+            <div class="form-group">
+              <label for="accountHolderName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+              <input type="text" name="accountHolderName" id="accountHolderName" th:field="*{accountHolderName}" placeholder="Account Holder Name"/>
+            </div>
+            <div class="form-group">
+              <h3>Account Type: </h3><br>
+              <div class="form-group">
+                <input class="form-check-input" name="accountType" th:field="*{accountType}" type="radio" id="option1" value="SAVINGS">
+                <label class="form-check-label" for="option1">SAVINGS</label>
+              </div>
+              <div class="form-group">
+                <input class="form-check-input" type="radio" th:field="*{accountType}" id="option2" value="CURRENT">
+                <label class="form-check-label" for="option2">CURRENT</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="age"><i class="age"></i></label>
+              Your Age: <input type="text" name="age" id="age" th:field="*{age}" placeholder="Age" th:required="true"/>
+            </div>
+            <div class="form-group">
+              <h3>Identity Proof: </h3><br>
+              <select th:field="*{identityProof}">
+                <option value="">Select Identity Proof</option>
+                <option th:each="identityProof : ${identityProofs}" th:value="${identityProof}" th:text="${identityProof}"></option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="uniqueIdentityfication"><i class=""></i></label>
+              <input type="text" name="uniqueIdentityfication" th:field="*{uniqueIdentityfication}" id="uniqueIdentityfication" placeholder="Unique Identification Number" th:required="true"/>
+            </div>
+            <div class="form-group">
+              <h3>Cards Available: </h3><br>
+              <div class="form-group">
+                <input type="checkbox" name="debitCard" id="debitCard" class="agree-term" />
+                <label for="debitCard" class="label-agree-term"><span><span></span></span>Debit Card</label>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" name="crditCard" id="creditCard" class="agree-term" />
+                <label for="creditCard" class="label-agree-term"><span><span></span></span>Credit Card</label>
+              </div>
+
+            </div>
+            <div class="form-group">
+              <h3>Permanent Address: </h3><br>
+              <label for="line1"><i class=""></i></label>
+              <input type="text" name="line1" id="line1" th:field="*{line1}" placeholder="Line 1" th:required="true"/>
+            </div>
+            <div class="form-group">
+              <label for="line2"><i class=""></i></label>
+              <input type="text" name="line2" id="line2" th:field="*{line2}" placeholder="Line 2"/>
+            </div>
+            <div class="form-group">
+              <label for="zipCode"><i class=" "></i></label>
+              <input type="text" name="zipCode" id="zipCode" th:field="*{zipCode}" placeholder="Zip code" th:required="true"/>
+            </div>
+            <div class="form-group">
+              <label for="city"><i class=" "></i></label>
+              <input type="text" name="city" id="city" th:field="*{city}" placeholder="City" th:required="true"/>
+            </div>
+            <div class="form-group">
+              <label for="State"><i class=" "></i></label>
+              <input type="text" name="State" id="State" th:field="*{state}" placeholder="State" th:required="true"/>
+            </div>
+            <div class="form-group">
+              <label for="country"><i class=""></i></label>
+              <input type="text" name="country" id="country" th:field="*{country}" placeholder="country" th:required="true"/>
+            </div>
+            <div class="form-group">
+              <label for="mobileNumber"><i class=""></i></label>
+              <input type="text" name="mobileNumber" id="mobileNumber" th:field="*{mobileNumber}" placeholder="Mobile Number" th:required="true"/>
+            </div>
+            <div class="form-group">
+              <input type="checkbox" name="termsCondition" id="termsCondition" class="agree-term" />
+              <label for="termsCondition" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+            </div>
+            <div class="form-group form-button">
+              <input type="submit" name="createAccount" id="createAccount" class="form-submit" value="Create Account"/>
+            </div>
+          </form>
+        </div>
+        <div class="signup-image">
+          <figure><img th:src="@{~/forms/images/signup-image.jpg}" alt="sing up image"></figure>
+          <a href="/login" class="signup-image-link">I already member</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- JS -->
+<script th:src="@{~/forms/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{~/forms/js/main.js}"></script>
+<script>
+    $(function() {
+        $("#dateOfBirth").datepicker({dateFormat:"yyyy-MM-dd"});
+    });
+</script>
+</body>
+</html>

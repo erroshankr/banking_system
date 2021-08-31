@@ -1,28 +1,22 @@
-package com.example.banking_app.models;
+package com.example.banking_app.forms;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "address")
-public class AddressModel extends BaseEntity{
-
+public class RegistrationForm2 {
+    private  String email;
     private String line1;
     private String line2;
     private Long zipCode;
     private String city;
     private  String state;
     private String country;
-    @OneToOne(mappedBy = "permanentAddress")
-    private UserModel customerModel;
+    private Long mobileNumber;
 
-    public String getCountry() {
-        return country;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setEmail(String email) {
+        this.email = email;
     }
-
 
     public String getLine1() {
         return line1;
@@ -30,6 +24,14 @@ public class AddressModel extends BaseEntity{
 
     public void setLine1(String line1) {
         this.line1 = line1;
+    }
+
+    public String getLine2() {
+        return line2;
+    }
+
+    public void setLine2(String line2) {
+        this.line2 = line2;
     }
 
     public Long getZipCode() {
@@ -56,21 +58,19 @@ public class AddressModel extends BaseEntity{
         this.state = state;
     }
 
-
-
-    public UserModel getCustomerModel() {
-        return customerModel;
+    public String getCountry() {
+        return country;
     }
 
-    public void setCustomerModel(UserModel customerModel) {
-        this.customerModel = customerModel;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public String getLine2() {
-        return line2;
+    public Long getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setLine2(String line2) {
-        this.line2 = line2;
+    public void setMobileNumber(Long mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

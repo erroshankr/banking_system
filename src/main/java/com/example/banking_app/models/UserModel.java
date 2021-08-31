@@ -7,12 +7,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="customers")
-public class CustomerModel extends BaseEntity{
+@Table(name="users")
+public class UserModel extends BaseEntity{
 
     private String name;
     @Column(unique = true)
-    private String email;
+    private String username;
     private double currentBalance;
     private String firstName;
     private String middleName;
@@ -20,10 +20,11 @@ public class CustomerModel extends BaseEntity{
     private String password;
     private long phoneNumber;
     private Date dateOfBirth;
+    private String roles;
+    private boolean active;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id",referencedColumnName = "PK")
     private AddressModel permanentAddress;
@@ -77,7 +78,7 @@ public class CustomerModel extends BaseEntity{
     }
 
 
-    public CustomerModel() {
+    public UserModel() {
     }
 
 
@@ -92,12 +93,6 @@ public class CustomerModel extends BaseEntity{
 
 
 
-    public CustomerModel(String name, String email, double currentBalance) {
-        this.name = name;
-        this.email = email;
-        this.currentBalance = currentBalance;
-    }
-
     public String getName() {
         return name;
     }
@@ -106,12 +101,12 @@ public class CustomerModel extends BaseEntity{
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public double getCurrentBalance() {
@@ -128,5 +123,21 @@ public class CustomerModel extends BaseEntity{
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

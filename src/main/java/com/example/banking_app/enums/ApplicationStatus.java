@@ -1,22 +1,17 @@
 package com.example.banking_app.enums;
 
-public enum Month {
-    JANUARY("JAN"),
-    FEBRUARY("FEB"),
-    MARCH("MAR"),
-    APRIL("APR"),
-    MAY("MAY"),
-    JUNE("JUN"),
-    JULY("JUL"),
-    AUGUST("AUG"),
-    SEPTEMBER("SEP"),
-    OCTOBER("OCT"),
-    NOVEMBER("NOV"),
-    DECEMBER("DEC");
+public enum ApplicationStatus {
+    REQUESTED("Requested"),
+    PENDING_VERIFICATION("PENDING VERIFICATION"),
+    KYC_VERIFIED("KYC VERIFIED"),
+    PROCESSING_DEBITCARD("PROCESSING DEBIT CARD"),
+    PROCESSING_CREDITCARD("PROCESSING CREDIT CARD"),
+    REJECTED("REJECTED"),
+    APPROVED("APPROVED");
 
     private String name;
 
-    Month(String s) {
+    ApplicationStatus(String s) {
         name = s;
     }
 
@@ -35,5 +30,4 @@ public enum Month {
     public String toString() {
         return this.name;
     }
-
-};
+}
