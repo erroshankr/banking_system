@@ -14,6 +14,16 @@ public class AddressModel extends BaseEntity{
     private String country;
     @OneToOne(mappedBy = "permanentAddress")
     private UserModel customerModel;
+    @OneToOne(mappedBy = "address")
+    private AccountModel account;
+
+    public AccountModel getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountModel account) {
+        this.account = account;
+    }
 
     public String getCountry() {
         return country;

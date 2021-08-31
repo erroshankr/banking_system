@@ -8,17 +8,17 @@ import javax.persistence.*;
 @Table(name = "account_status")
 public class AccountCreationStatusModel extends BaseEntity {
     @Column(unique = true)
-    private Long applicationId;
+    private String applicationId;
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
     @OneToOne(mappedBy = "accountCreationStatus")
     private AccountModel account;
 
-    public Long getApplicationId() {
+    public String getApplicationId() {
         return applicationId;
     }
 
-    public void setApplicationId(Long applicationId) {
+    public void setApplicationId(String applicationId) {
         this.applicationId = applicationId;
     }
 

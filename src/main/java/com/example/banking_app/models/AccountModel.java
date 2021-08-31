@@ -35,6 +35,17 @@ public class AccountModel extends BaseEntity{
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "app_id",referencedColumnName = "applicationId")
     private AccountCreationStatusModel accountCreationStatus;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id",referencedColumnName = "PK")
+    private AddressModel address;
+
+    public AddressModel getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressModel address) {
+        this.address = address;
+    }
 
     public String getApplicationId() {
         return applicationId;
