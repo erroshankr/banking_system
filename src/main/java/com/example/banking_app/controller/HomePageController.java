@@ -154,7 +154,7 @@ public class HomePageController {
 
     @GetMapping("/test")
     public  String getTestPage(){
-        return "templatePage";
+        return "template";
     }
 
 }
