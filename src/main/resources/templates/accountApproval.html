@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <style>
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    width: 100%;
+    height:auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+</style>
+</head>
+<table class="styled-table">
+    <thead>
+    <tr>
+        <th>Application Id</th>
+        <th>Account Holder Name</th>
+        <th>Age</th>
+        <th>Account Type</th>
+        <th>UniqueIdentification Id</th>
+        <th>UniqueIdentification Id Number</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="data:${forms}">
+        <form action="#" method="post" modelAttribute="${#}">
+            <td th:text="${appId}"></td>
+            <td th:text="${forms.accountHolderName}"></td>
+            <td th:text="${forms.age}"></td>
+            <td th:text="${forms.accountType}"></td>
+            <td th:text="${forms.identityProof}"></td>
+            <td th:text="${forms.uniqueIdentityfication}"></td>
+            <td th:text="${}"></td>
+            <input type="submit" name="approve" id="approve" class="form-submit" value="Approve"/>
+            <input type="submit" name="reject" id="reject" class="form-submit" value="Reject"/>
+        </form>
+    </tr>
+    </tbody>
+</table>
+</html>
