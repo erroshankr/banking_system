@@ -63,14 +63,13 @@
     <tbody>
 
     <tr th:each="data:${forms}">
-        <form action="#" method="post" modelAttribute="${#}">
-            <td th:text="${appId}"></td>
-            <td th:text="${forms.accountHolderName}"></td>
-            <td th:text="${forms.age}"></td>
-            <td th:text="${forms.accountType}"></td>
-            <td th:text="${forms.identityProof}"></td>
-            <td th:text="${forms.uniqueIdentityfication}"></td>
-            <td th:text="${}"></td>
+        <form action="#" method="post" modelAttribute="${form}">
+            <td th:text="${data.appId}"></td>
+            <td th:text="${data.accountHolderName}"></td>
+            <td th:text="${data.age}"></td>
+            <td th:text="${data.accountType}"></td>
+            <td th:text="${data.identityProof}"></td>
+            <td th:text="${data.uniqueIdentityfication}"></td>
             <input type="submit" name="approve" id="approve" class="form-submit" value="Approve"/>
             <input type="submit" name="reject" id="reject" class="form-submit" value="Reject"/>
         </form>

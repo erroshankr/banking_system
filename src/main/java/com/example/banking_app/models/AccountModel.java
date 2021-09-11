@@ -4,9 +4,7 @@ import com.example.banking_app.enums.AccountType;
 import com.example.banking_app.enums.IdentityProof;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "accounts")
@@ -33,7 +31,7 @@ public class AccountModel extends BaseEntity{
     private double currentBalance;
     private boolean terms_conditions;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "app_id",referencedColumnName = "applicationId")
+    @JoinColumn(name = "app_id",referencedColumnName = "PK")
     private AccountCreationStatusModel accountCreationStatus;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id",referencedColumnName = "PK")
