@@ -10,6 +10,8 @@ import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.AddressModel;
 import com.example.banking_app.models.CardModel;
 import com.example.banking_app.repo.AccountRepository;
+import com.example.banking_app.repo.CardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,8 @@ public class AccountController {
 
     @Resource
     private AccountRepository accountRepository;
+    @Autowired
+    private CardRepository cardRepository;
 
     @GetMapping("/user/account/create")
     public String getAccountCreation( Model model){
@@ -52,12 +56,16 @@ public class AccountController {
         List<CardModel> cards=new ArrayList<>();
         if (accountCreationForm1.isDebitCard()){
             CardModel card=new CardModel();
+            card.setAccount(account);
             card.setCardType(CardType.DEBITCARD);
+            cardRepository.save(card);
             cards.add(card);
         }
         if (accountCreationForm1.isCreditCard()){
             CardModel card=new CardModel();
+            card.setAccount(account);
             card.setCardType(CardType.CREDITCARD);
+            cardRepository.save(card);
             cards.add(card);
         }
         account.setCards(cards);
