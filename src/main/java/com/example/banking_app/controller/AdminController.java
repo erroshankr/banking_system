@@ -1,8 +1,10 @@
 package com.example.banking_app.controller;
 
+import com.example.banking_app.enums.ApplicationStatus;
 import com.example.banking_app.forms.AccountCreationForm1;
 import com.example.banking_app.forms.AccountCreationForm2;
 import com.example.banking_app.forms.RegistrationForm2;
+import com.example.banking_app.models.AccountCreationStatusModel;
 import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.UserModel;
 import com.example.banking_app.repo.AccountRepository;
@@ -10,7 +12,7 @@ import com.example.banking_app.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +35,28 @@ public class AdminController {
             form.setAge(a.getAge());
             form.setIdentityProof(a.getIdentityProof());
             form.setUniqueIdentityfication(a.getUniqueIdNumber());
+            form.setStatus(a.getAccountCreationStatus().getApplicationStatus());
             formList.add(form);
         }
         model.addAttribute("forms",formList);
         model.addAttribute("form",new AccountCreationForm1());
         return "accountApproval";
     }
+    @RequestMapping(value = "/submitStatus", method = RequestMethod.POST, params = "Approve")
+    public String getApproved(@RequestParam AccountCreationForm1 accountCreationForm1, Model model){
+       final AccountModel user=accountRepository.findByApplicationId(accountCreationForm1.getApplicationId());
+       AccountCreationStatusModel accountCreationStatusModel=new AccountCreationStatusModel();
+       accountCreationForm1.setStatus(ApplicationStatus.APPROVED);
+      accountRepository.save(user);
+      return "accountApproval";
+   }
+    @RequestMapping(value = "/submitStatus", method = RequestMethod.POST, params = "Reject")
+    public String getRejected(@RequestParam AccountCreationForm1 accountCreationForm1, Model model){
+        final AccountModel user=accountRepository.findByApplicationId(accountCreationForm1.getApplicationId());
+        AccountCreationStatusModel accountCreationStatusModel=new AccountCreationStatusModel();
+        accountCreationForm1.setStatus(ApplicationStatus.REJECTED);
+        accountRepository.save(user);
+        return "accountApproval";
+    }
+
 }

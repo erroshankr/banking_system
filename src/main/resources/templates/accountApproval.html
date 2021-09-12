@@ -55,23 +55,25 @@
         <th>Account Holder Name</th>
         <th>Age</th>
         <th>Account Type</th>
-        <th>UniqueIdentification Id</th>
-        <th>UniqueIdentification Id Number</th>
+        <th>UId</th>
+        <th>UId Number</th>
+        <th>Status</th>
         <th>Action</th>
     </tr>
     </thead>
     <tbody>
 
     <tr th:each="data:${forms}">
-        <form action="#" method="post" modelAttribute="${form}">
-            <td th:text="${data.appId}"></td>
+        <form action ="${pageContext.request.contextPath}/submitStatus" method="post" modelAttribute="${form}">
+            <td th:text="${data.applicationId}"></td>
             <td th:text="${data.accountHolderName}"></td>
             <td th:text="${data.age}"></td>
             <td th:text="${data.accountType}"></td>
             <td th:text="${data.identityProof}"></td>
             <td th:text="${data.uniqueIdentityfication}"></td>
-            <input type="submit" name="approve" id="approve" class="form-submit" value="Approve"/>
-            <input type="submit" name="reject" id="reject" class="form-submit" value="Reject"/>
+            <td th:text="${data.status}"></td>
+            <td><input type="submit" name="approve" id="approve" class="form-submit" value="Approve"/>
+                <input type="submit" name="reject" id="reject" class="form-submit" value="Reject"/></td>
         </form>
     </tr>
     </tbody>
