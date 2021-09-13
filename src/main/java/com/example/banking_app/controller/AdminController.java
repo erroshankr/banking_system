@@ -62,15 +62,18 @@ public class AdminController {
         int nextIndex = 0;
         if(status.equals(ApplicationStatus.KYC_VERIFIED)){
             if(account.getCards() != null && !account.getCards().isEmpty()){
-                if(account.getCards().contains(CardType.DEBITCARD) && !account.getCards().contains(CardType.CREDITCARD)){
+                if(account.getCards().stream().anyMatch(c -> c.getCardType().equals(CardType.DEBITCARD)) && !account.getCards().stream().anyMatch(c -> c.getCardType().equals(CardType.CREDITCARD))){
                     nextIndex = currentIndex + 1;
-                }else if(!account.getCards().contains(CardType.DEBITCARD) && account.getCards().contains(CardType.CREDITCARD)){
+                }else if(!account.getCards().stream().anyMatch(c -> c.getCardType().equals(CardType.DEBITCARD)) && account.getCards().stream().anyMatch(c -> c.getCardType().equals(CardType.CREDITCARD))){
                     nextIndex = currentIndex + 2;
+                }
+                else{
+                    nextIndex = currentIndex + 1;
                 }
             }else{
                 nextIndex = currentIndex + 3;
             }
-        }else if(status.equals(ApplicationStatus.PROCESSING_DEBITCARD) && !account.getCards().contains(CardType.CREDITCARD)){
+        }else if(status.equals(ApplicationStatus.PROCESSING_DEBITCARD) && !account.getCards().stream().anyMatch(c -> c.getCardType().equals(CardType.CREDITCARD))){
             nextIndex = currentIndex + 2;
         }else{
             nextIndex = currentIndex + 1;
