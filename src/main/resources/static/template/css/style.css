@@ -8190,7 +8190,7 @@ h1, h2, h3, h4, h5,
   #sidebar.active {
     margin-left: -300px; }
     #sidebar.active .custom-menu {
-      margin-right: -50px; }
+      margin-right: -40px; }
     #sidebar.active .btn.btn-primary:before {
       content: "\f053";
       font-family: "FontAwesome";
@@ -8372,7 +8372,8 @@ a[data-toggle="collapse"] {
 .header {
   overflow: hidden;
   background-color: #f1f1f1;
-  padding: 20px 10px;
+  padding: 10px 5px;
+  margin-top:-24px;
 }
 
 .header a {
@@ -8384,7 +8385,6 @@ a[data-toggle="collapse"] {
   font-size: 18px;
   line-height: 25px;
   border-radius: 4px;
-  margin-top: -25px;
 }
 
 .header a.logo {
@@ -8398,8 +8398,7 @@ a[data-toggle="collapse"] {
 }
 
 .header a.active {
-  background-color: dodgerblue;
-  color: white;
+  color: black;
 }
 
 .header-right {
@@ -8419,10 +8418,10 @@ a[data-toggle="collapse"] {
 }
 
 .footer {
-  overflow: hidden;
   background-color: #f1f1f1;
-  padding: 20px 10px;
+  width:72%;
   bottom: 0px;
+  position: fixed;
 }
 
 .footer a {
@@ -8447,8 +8446,7 @@ a[data-toggle="collapse"] {
 }
 
 .footer a.active {
-  background-color: dodgerblue;
-  color: white;
+  color: black;
 }
 
 .footer-right {
