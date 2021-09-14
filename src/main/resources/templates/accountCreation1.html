@@ -58,12 +58,12 @@
                         <div class="form-group">
                             <h3>Cards Available: </h3><br>
                             <div class="form-group">
-                                <input type="checkbox" name="debitCard" id="debitCard" class="agree-term" />
-                                <label for="debitCard" class="label-agree-term"><span><span></span></span>Debit Card</label>
+                                <input class="form-check-input" name="debitCard" th:field="*{debitCard}" type="radio" id="option3" value="true">
+                                <label class="form-check-label" for="option3">DEBIT CARD</label>
                             </div>
                             <div class="form-group">
-                                <input type="checkbox" name="crditCard" id="creditCard" class="agree-term" />
-                                <label for="creditCard" class="label-agree-term"><span><span></span></span>Credit Card</label>
+                                <input class="form-check-input" name="creditCard" th:field="*{creditCard}" type="radio" id="option4" value="true">
+                                <label class="form-check-label" for="option3">CREDIT CARD</label>
                             </div>
 
                         </div>

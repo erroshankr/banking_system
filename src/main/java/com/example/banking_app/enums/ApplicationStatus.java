@@ -1,7 +1,7 @@
 package com.example.banking_app.enums;
 
 public enum ApplicationStatus {
-    REQUESTED("Requested"),
+    REQUESTED("REQUESTED"),
     PENDING_VERIFICATION("PENDING VERIFICATION"),
     KYC_VERIFIED("KYC VERIFIED"),
     PROCESSING_DEBITCARD("PROCESSING DEBIT CARD"),

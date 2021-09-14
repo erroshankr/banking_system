@@ -152,4 +152,9 @@ public class HomePageController {
         return "error";
     }
 
+    @GetMapping("/test")
+    public  String getTestPage(){
+        return "template";
+    }
+
 }

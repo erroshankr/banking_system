@@ -1,9 +1,12 @@
 package com.example.banking_app.forms;
 
 import com.example.banking_app.enums.AccountType;
+import com.example.banking_app.enums.ApplicationStatus;
 import com.example.banking_app.enums.IdentityProof;
+import com.example.banking_app.models.AccountCreationStatusModel;
 
 public class AccountCreationForm1 {
+    private  String applicationId;
     private String accountHolderName;
     private AccountType accountType;
     private Integer age;
@@ -12,6 +15,23 @@ public class AccountCreationForm1 {
     private boolean debitCard;
     private boolean creditCard;
     private Long mobileNumber;
+    private ApplicationStatus status;
+
+    public ApplicationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ApplicationStatus status) {
+        this.status = status;
+    }
+
+    public String getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
+    }
 
     public String getAccountHolderName() {
         return accountHolderName;

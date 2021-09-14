@@ -10,6 +10,9 @@ import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.AddressModel;
 import com.example.banking_app.models.CardModel;
 import com.example.banking_app.repo.AccountRepository;
+import com.example.banking_app.repo.CardRepository;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +29,8 @@ public class AccountController {
 
     @Resource
     private AccountRepository accountRepository;
+    @Autowired
+    private CardRepository cardRepository;
 
     @GetMapping("/user/account/create")
     public String getAccountCreation( Model model){
@@ -50,19 +55,26 @@ public class AccountController {
         account.setUniqueIdNumber(accountCreationForm1.getUniqueIdentityfication());
 
         List<CardModel> cards=new ArrayList<>();
-        if (accountCreationForm1.isDebitCard()){
+        if ((accountCreationForm1.isDebitCard())){
             CardModel card=new CardModel();
+            card.setAccount(account);
             card.setCardType(CardType.DEBITCARD);
             cards.add(card);
         }
         if (accountCreationForm1.isCreditCard()){
             CardModel card=new CardModel();
+            card.setAccount(account);
             card.setCardType(CardType.CREDITCARD);
             cards.add(card);
         }
         account.setCards(cards);
-        String applicationID =accountCreationForm1.getAccountHolderName().split(" ")[0].toUpperCase()+ UUID.randomUUID().toString().toLowerCase();
+        String applicationID = RandomStringUtils.randomAlphanumeric(8).toUpperCase();
         account.setApplicationId(applicationID);
+        AccountCreationStatusModel accStatus = new AccountCreationStatusModel();
+        accStatus.setAccount(account);
+        accStatus.setApplicationId(account.getApplicationId());
+        accStatus.setApplicationStatus(ApplicationStatus.REQUESTED);
+        account.setAccountCreationStatus(accStatus);
         try {
             accountRepository.save(account);
             model.addAttribute("applicationID",applicationID);
@@ -87,11 +99,6 @@ public class AccountController {
         address.setCountry(accountCreationForm2.getCountry());
         address.setCity(accountCreationForm2.getCity());
         account.setAddress(address);
-        AccountCreationStatusModel accStatus = new AccountCreationStatusModel();
-        accStatus.setAccount(account);
-        accStatus.setApplicationId(account.getApplicationId());
-        accStatus.setApplicationStatus(ApplicationStatus.REQUESTED);
-        account.setAccountCreationStatus(accStatus);
         accountRepository.save(account);
         return "home";
 
