@@ -1,5 +1,4 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="headercss">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,22 +10,7 @@
     <link rel="stylesheet" th:href="@{~/forms/css/style.css}">
     <link rel="stylesheet" th:ref="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{~/template/css/style.css}">
+    <link rel="stylesheet" th:href="@{~/forms/fonts/material-icon/css/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{~/forms/css/style.css}">
 </head>
-<body>
-
-<div class="wrapper d-flex align-items-stretch">
-    <div th:replace="fragments/navbar :: navbar"/>
-    <!-- Page Content  -->
-        <div id="content" class="p-4 p-md-5 pt-5">
-            <div th:replace="fragments/header :: header"></div>
-        </div>
 </div>
-
-<script th:src="@{~/template/js/jquery.min.js}"></script>
-<script th:src="@{~/template/js/popper.js}"></script>
-<script th:src="@{~/template/js/bootstrap.min.js}"></script>
-<script th:src="@{~/template/js/main.js}"></script>
-<script th:src="@{~/forms/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{~/forms/js/main.js}"></script>
-</body>
-</html>

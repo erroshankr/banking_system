@@ -1,8 +1,51 @@
 <div th:fragment="navbar">
-<div class="sidebar">
-    <a class="active" href="#home">Home</a>
-    <a href="#news">News</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
-</div>
+    <nav id="sidebar">
+        <div class="custom-menu">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary"></button>
+        </div>
+        <div class="img bg-wrap text-center py-4" style="background-image: url(template/images/bg_1.jpg);">
+            <div class="user-logo">
+                <div class="img" style="background-image: url(template/images/logo.jpg);"></div>
+                <div sec:authorize="isAuthenticated()">
+                    <div><span th:text="${#authentication.getPrincipal().getName()}"></span></div>
+                </div>
+            </div>
+        </div>
+        <ul class="list-unstyled components mb-5">
+            <li class="active">
+                <div sec:authorize="isAnonymous()">
+                    <a href="/login"><span class="fa fa-home mr-3"></span> Login</a>
+                </div>
+            </li>
+            <li>
+                <div sec:authorize="isAuthenticated()">
+                    <div>
+                        <a href="#"><span class="fa fa-gift mr-3"></span> View Accounts</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="/user/account/create"><span class="fa fa-gift mr-3"></span> Create Account</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-trophy mr-3"></span> Track Status</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-cog mr-3"></span> Settings</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
+            </li>
+            <li>
+                <div sec:authorize="isAuthenticated()">
+                    <div>
+                        <a href="javascript: document.logoutForm.submit()"><span class="fa fa-support mr-3"></span> Sign out</a>
+                        <form name="logoutForm" th:action="@{/login}" method="post" th:hidden="true">
+                            <input hidden type="submit" value="Sign Out" />
+                        </form>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
 </div>
