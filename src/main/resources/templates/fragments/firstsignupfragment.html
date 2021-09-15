@@ -1,4 +1,6 @@
-<div th:fragment="firstsignup">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="firstregistration">
     <section class="signup">
         <div class="container">
             <div>
@@ -17,7 +19,7 @@
                             <input type="text" name="accountHolderName" id="accountHolderName" th:field="*{accountHolderName}" placeholder="Account Holder Name"/>
                         </div>
                         <div class="form-group">
-                            <h3>Account Type: </h3><br>
+                            <h3>Account Type: </h3>
                             <div class="form-group">
                                 <input class="form-check-input" name="accountType" th:field="*{accountType}" type="radio" id="option1" value="SAVINGS">
                                 <label class="form-check-label" for="option1">SAVINGS</label>
@@ -32,7 +34,7 @@
                             Your Age: <input type="text" name="age" id="age" th:field="*{age}" placeholder="Age" th:required="true"/>
                         </div>
                         <div class="form-group">
-                            <h3>Identity Proof: </h3><br>
+                            <h3>Identity Proof: </h3>
                             <select th:field="*{identityProof}">
                                 <option value="">Select Identity Proof</option>
                                 <option th:each="identityProof : ${identityProofs}" th:value="${identityProof}" th:text="${identityProof.name}"></option>
@@ -43,7 +45,7 @@
                             <input type="text" name="uniqueIdentityfication" th:field="*{uniqueIdentityfication}" id="uniqueIdentityfication" placeholder="Unique Identification Number" th:required="true"/>
                         </div>
                         <div class="form-group">
-                            <h3>Cards Available: </h3><br>
+                            <h3>Cards Available: </h3>
                             <div class="form-group">
                                 <input class="form-check-input" name="debitCard" th:field="*{debitCard}" type="radio" id="option3" value="true">
                                 <label class="form-check-label" for="option3">DEBIT CARD</label>
@@ -71,3 +73,4 @@
         </div>
     </section>
 </div>
+</html>

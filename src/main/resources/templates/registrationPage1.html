@@ -1,89 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register</title>
-    <link rel="stylesheet" th:href="@{~/forms/fonts/material-icon/css/material-design-iconic-font.min.css}">
-    <link rel="stylesheet" th:href="@{~/forms/css/style.css}">
-
-</head>
+<div th:replace="fragments/headercss :: headercss"/>
 <body>
-<div class="main">
-    <!-- Sign up form -->
-    <section class="signup">
-        <div class="container">
-            <div>
-            <h2 style="text-align: center; color: red;" th:if="${regError}">Registration Failed !!</h2>
-            </div>
-            <div class="signup-content">
-                <div class="signup-form">
-                    <h2 class="form-title">Personal Details</h2>
-                    <form method="POST" class="register-form" id="register-form" th:action="@{/submitRegister1}" th:object="${registerForm1}">
-                        <div class="form-group">
-                            <label for="firstName"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="firstName" id="firstName" th:field="*{firstName}" placeholder="First Name" th:required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="middleName"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="middleName" id="middleName" th:field="*{middleName}" placeholder="Middle Name"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="lastName" id="lastName" th:field="*{lastName}" placeholder="Last Name" th:required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-group">
-                                <input class="form-check-input" name="gender" th:field="*{gender}" type="radio" id="option1" value="MALE">
-                                <label class="form-check-label" for="option1">Male</label>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-check-input" type="radio" th:field="*{gender}" id="option2" value="FEMALE">
-                                <label class="form-check-label" for="option2">Female</label>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-check-input" type="radio" th:field="*{gender}" id="option3" value="OTHERS">
-                                <label class="form-check-label" for="option3">Female</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><i class="zmdi zmdi-email"></i></label>
-                            <input type="email" name="email" id="email" th:field="*{email}" placeholder="Your Email" th:required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="dateOfBirth"><i class="zmdi zmdi-email"></i></label>
-                            <input type="date" name="dateOfBirth" class="form-control" th:field="*{dateOfBirth}" placeholder="yyyy-MM-dd" id="dateOfBirth" th:required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="mobileNumber"><i class="zmdi zmdi-lock-outline"></i></label>
-                            <input type="text" name="mobileNumber" id="mobileNumber" th:field="*{mobileNumber}" placeholder="Mobile Number" th:required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password" th:field="*{password}" id="password" placeholder="Password" th:required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="reTypePassword"><i class="zmdi zmdi-lock-outline"></i></label>
-                            <input type="password" name="reTypePassword" th:field="*{reTypePassword}" id="reTypePassword" placeholder="Repeat your password" th:required="true"/>
-                        </div>
-                        <div class="form-group form-button">
-                            <input type="submit" name="signup" id="signup" class="form-submit" value="Next"/>
-                        </div>
-                    </form>
-                </div>
-                <div class="signup-image">
-                    <figure><img th:src="@{~/forms/images/signup-image.jpg}" alt="sing up image"></figure>
-                    <a th:href="@{~/login}" class="signup-image-link}">I am already a member</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="wrapper d-flex align-items-stretch">
+    <div th:replace="fragments/navbar :: navbar"/>
+    <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5 pt-5">
+        <div th:replace="fragments/header :: header"></div>
+        <div th:replace="fragments/firstregistrationpage :: firstregistration"></div>
+    </div>
 </div>
-
-<!-- JS -->
-<script th:src="@{~/forms/vendor/jquery/jquery.min..js}"></script>
-<script th:src="@{~/forms/js/main..js}"></script>
+<div th:replace="fragments/footerjs :: footerjs"/>
 <script>
     $(function() {
         $("#dateOfBirth").datepicker({dateFormat:"yyyy-MM-dd"});
