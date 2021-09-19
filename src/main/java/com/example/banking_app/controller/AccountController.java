@@ -5,6 +5,7 @@ import com.example.banking_app.enums.CardType;
 import com.example.banking_app.enums.IdentityProof;
 import com.example.banking_app.forms.AccountCreationForm1;
 import com.example.banking_app.forms.AccountCreationForm2;
+import com.example.banking_app.forms.ForgotPasswordForm;
 import com.example.banking_app.models.AccountCreationStatusModel;
 import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.AddressModel;
@@ -102,5 +103,28 @@ public class AccountController {
         accountRepository.save(account);
         return "home";
 
+    }
+
+    @GetMapping("/status")
+    public String getStatus(Model model){
+        model.addAttribute("statusForm",new AccountCreationForm2());
+        return "applicationstatus";
+    }
+
+    @PostMapping("/submitStatus")
+    public String submitStatus(@ModelAttribute AccountCreationForm2 accountCreationForm2,Model model){
+        String result="";
+        try {
+            final AccountModel account= accountRepository.findByApplicationId(accountCreationForm2.getApplicationId());
+
+            if (account!=null){
+                result= null;
+            }
+        }catch (Exception e){
+            model.addAttribute("errorInApplicationId");
+            model.addAttribute("applicationStatusForm",new AccountCreationForm2());
+            result= "applicationstatus";
+        }
+        return result;
     }
 }
