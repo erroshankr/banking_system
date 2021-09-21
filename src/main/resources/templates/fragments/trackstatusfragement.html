@@ -1,0 +1,16 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <div th:fragment="trackstatus">
+
+       <section class="container">
+           <ol class="progtrckr" data-progtrckr-steps="${size}">
+               <th:block th:each="status : ${doneStatus}">
+                   <li class="progtrckr-done"> <th:block th:text="${status.name}"></th:block></li>
+               </th:block>
+               <th:block th:each="status : ${todoStatus}">
+                   <li class="progtrckr-todo"><th:block th:text="${status.name}"></th:block></li>
+               </th:block>
+           </ol>
+       </section>
+
+   </div>
+</html>

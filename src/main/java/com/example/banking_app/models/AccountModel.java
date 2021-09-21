@@ -1,6 +1,7 @@
 package com.example.banking_app.models;
 
 import com.example.banking_app.enums.AccountType;
+import com.example.banking_app.enums.ApplicationStatus;
 import com.example.banking_app.enums.IdentityProof;
 
 import javax.persistence.*;
@@ -31,11 +32,19 @@ public class AccountModel extends BaseEntity{
     private double currentBalance;
     private boolean terms_conditions;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "app_id",referencedColumnName = "PK")
-    private AccountCreationStatusModel accountCreationStatus;
-    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id",referencedColumnName = "PK")
     private AddressModel address;
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private List<ApplicationStatus> applicationStatus;
+
+    public List<ApplicationStatus> getApplicationStatus() {
+        return applicationStatus;
+    }
+
+    public void setApplicationStatus(List<ApplicationStatus> applicationStatus) {
+        this.applicationStatus = applicationStatus;
+    }
 
     public AddressModel getAddress() {
         return address;
@@ -155,14 +164,6 @@ public class AccountModel extends BaseEntity{
 
     public void setTerms_conditions(boolean terms_conditions) {
         this.terms_conditions = terms_conditions;
-    }
-
-    public AccountCreationStatusModel getAccountCreationStatus() {
-        return accountCreationStatus;
-    }
-
-    public void setAccountCreationStatus(AccountCreationStatusModel accountCreationStatus) {
-        this.accountCreationStatus = accountCreationStatus;
     }
 }
 

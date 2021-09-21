@@ -5,8 +5,6 @@ import com.example.banking_app.enums.CardType;
 import com.example.banking_app.enums.IdentityProof;
 import com.example.banking_app.forms.AccountCreationForm1;
 import com.example.banking_app.forms.AccountCreationForm2;
-import com.example.banking_app.forms.ForgotPasswordForm;
-import com.example.banking_app.models.AccountCreationStatusModel;
 import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.AddressModel;
 import com.example.banking_app.models.CardModel;
@@ -16,14 +14,17 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 public class AccountController {
@@ -71,11 +72,9 @@ public class AccountController {
         account.setCards(cards);
         String applicationID = RandomStringUtils.randomAlphanumeric(8).toUpperCase();
         account.setApplicationId(applicationID);
-        AccountCreationStatusModel accStatus = new AccountCreationStatusModel();
-        accStatus.setAccount(account);
-        accStatus.setApplicationId(account.getApplicationId());
-        accStatus.setApplicationStatus(ApplicationStatus.REQUESTED);
-        account.setAccountCreationStatus(accStatus);
+        List<ApplicationStatus> statusList = new ArrayList<>();
+        statusList.add(ApplicationStatus.REQUESTED);
+        account.setApplicationStatus(statusList);
         try {
             accountRepository.save(account);
             model.addAttribute("applicationID",applicationID);
@@ -105,24 +104,46 @@ public class AccountController {
 
     }
 
-    @GetMapping("/status")
+    @GetMapping("/findAppStatus")
     public String getStatus(Model model){
         model.addAttribute("statusForm",new AccountCreationForm2());
         return "applicationstatus";
     }
 
-    @PostMapping("/submitStatus")
+    @PostMapping("/trackAppStatus")
     public String submitStatus(@ModelAttribute AccountCreationForm2 accountCreationForm2,Model model){
         String result="";
         try {
             final AccountModel account= accountRepository.findByApplicationId(accountCreationForm2.getApplicationId());
-
-            if (account!=null){
-                result= null;
+            if(account == null) throw new Exception();
+            List<ApplicationStatus> availableStatus = new ArrayList<>(Arrays.asList(ApplicationStatus.REQUESTED,ApplicationStatus.PENDING_VERIFICATION,ApplicationStatus.KYC_VERIFIED,ApplicationStatus.PROCESSING_DEBITCARD,ApplicationStatus.PROCESSING_CREDITCARD,ApplicationStatus.APPROVED,ApplicationStatus.REJECTED));
+            if (!account.getApplicationStatus().contains(ApplicationStatus.REJECTED)){
+                availableStatus.remove(ApplicationStatus.REJECTED);
             }
+            if(CollectionUtils.isEmpty(account.getCards())) {
+                availableStatus.remove(ApplicationStatus.PROCESSING_DEBITCARD);
+                availableStatus.remove(ApplicationStatus.PROCESSING_CREDITCARD);
+            }else{
+                if(account.getCards().stream().anyMatch(c -> !c.getCardType().equals(CardType.DEBITCARD))){
+                    availableStatus.remove(ApplicationStatus.PROCESSING_DEBITCARD);
+                }
+                if(account.getCards().stream().anyMatch(c -> !c.getCardType().equals(CardType.CREDITCARD))){
+                    availableStatus.remove(ApplicationStatus.PROCESSING_CREDITCARD);
+                }
+            }
+            List<ApplicationStatus> doneStatus = account.getApplicationStatus();
+            availableStatus.removeAll(doneStatus);
+            model.addAttribute("size",availableStatus.size());
+            model.addAttribute("doneStatus",doneStatus);
+            if (account.getApplicationStatus().contains(ApplicationStatus.REJECTED)){
+                availableStatus = Collections.EMPTY_LIST;
+            }
+            model.addAttribute("todoStatus",availableStatus);
+            result = "trackstatus";
+
         }catch (Exception e){
             model.addAttribute("errorInApplicationId");
-            model.addAttribute("applicationStatusForm",new AccountCreationForm2());
+            model.addAttribute("statusForm",new AccountCreationForm2());
             result= "applicationstatus";
         }
         return result;

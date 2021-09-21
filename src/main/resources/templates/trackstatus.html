@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/headercss :: headercss"/>
+<body>
+<div class="wrapper d-flex align-items-stretch">
+    <div th:replace="fragments/navbar :: navbar"/>
+    <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5 pt-5">
+        <div th:replace="fragments/header :: header"></div>
+        <div th:replace="fragments/trackstatusfragement :: trackstatus"></div>
+    </div>
+</div>
+<div th:replace="fragments/footerjs :: footerjs"/>
+</body>
+</html>
