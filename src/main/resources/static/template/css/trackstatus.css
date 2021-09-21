@@ -1,3 +1,13 @@
+.container-track-status{
+ margin-top:5%;
+}
+.heading-track-status{
+ margin-top:0px;
+
+}
+.container-track-status-center{
+  text-align:center;
+}
 ol.progtrckr {
           margin: 0;
           padding: 0;
