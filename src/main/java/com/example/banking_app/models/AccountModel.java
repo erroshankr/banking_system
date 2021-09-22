@@ -37,6 +37,17 @@ public class AccountModel extends BaseEntity{
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<ApplicationStatus> applicationStatus;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserModel user;
+    private boolean isActive;
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     public List<ApplicationStatus> getApplicationStatus() {
         return applicationStatus;
@@ -164,6 +175,14 @@ public class AccountModel extends BaseEntity{
 
     public void setTerms_conditions(boolean terms_conditions) {
         this.terms_conditions = terms_conditions;
+    }
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 }
 

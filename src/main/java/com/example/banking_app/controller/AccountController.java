@@ -10,8 +10,10 @@ import com.example.banking_app.models.AddressModel;
 import com.example.banking_app.models.CardModel;
 import com.example.banking_app.repo.AccountRepository;
 import com.example.banking_app.repo.CardRepository;
+import com.example.banking_app.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -24,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class AccountController {
@@ -33,6 +34,8 @@ public class AccountController {
     private AccountRepository accountRepository;
     @Autowired
     private CardRepository cardRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/user/account/create")
     public String getAccountCreation( Model model){
@@ -75,6 +78,7 @@ public class AccountController {
         List<ApplicationStatus> statusList = new ArrayList<>();
         statusList.add(ApplicationStatus.REQUESTED);
         account.setApplicationStatus(statusList);
+        account.setUser(userService.getCurrentUser());
         try {
             accountRepository.save(account);
             model.addAttribute("applicationID",applicationID);
