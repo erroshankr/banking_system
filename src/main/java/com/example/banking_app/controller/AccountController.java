@@ -8,6 +8,7 @@ import com.example.banking_app.forms.AccountCreationForm2;
 import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.AddressModel;
 import com.example.banking_app.models.CardModel;
+import com.example.banking_app.models.UserModel;
 import com.example.banking_app.repo.AccountRepository;
 import com.example.banking_app.repo.CardRepository;
 import com.example.banking_app.service.UserService;
@@ -22,10 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class AccountController {
@@ -151,5 +149,19 @@ public class AccountController {
             result= "applicationstatus";
         }
         return result;
+    }
+
+    @GetMapping("/user/account/viewAccounts")
+    public String viewAccounts(Model model){
+        UserModel user=userService.getCurrentUser();
+        if (user!=null) {
+            List<AccountModel> accounts = user.getAccounts();
+            model.addAttribute("accounts", accounts);
+        }
+        else{
+            model.addAttribute("notfound",true);
+        }
+        model.addAttribute("symbol","₹");
+        return "viewAccounts";
     }
 }

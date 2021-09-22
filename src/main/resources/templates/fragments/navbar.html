@@ -21,7 +21,7 @@
             <li>
                 <div sec:authorize="isAuthenticated()">
                     <div>
-                        <a href="#"><span class="fa fa-gift mr-3"></span> View Accounts</a>
+                        <a href="/user/account/viewAccounts"><span class="fa fa-gift mr-3"></span> View Accounts</a>
                     </div>
                 </div>
             </li>
@@ -32,10 +32,18 @@
                 <a href="/findAppStatus"><span class="fa fa-trophy mr-3"></span> Track Status</a>
             </li>
             <li>
-                <a href="#"><span class="fa fa-cog mr-3"></span> Settings</a>
+                <div sec:authorize="isAuthenticated()">
+                    <div>
+                        <a href="/user/account/viewAccounts"><span class="fa fa-gift mr-3"></span> Fund Transfer</a>
+                    </div>
+                </div>
             </li>
             <li>
-                <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
+                <div sec:authorize="isAuthenticated()">
+                    <div>
+                        <a href="/user/account/viewAccounts"><span class="fa fa-gift mr-3"></span> More</a>
+                    </div>
+                </div>
             </li>
             <li>
                 <div sec:authorize="isAuthenticated()">

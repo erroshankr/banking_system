@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class AdminController {
@@ -60,6 +61,13 @@ public class AdminController {
            ApplicationStatus status = curr_status.get(curr_status.size() - 1);
            List<ApplicationStatus> availableStatus = Arrays.asList(ApplicationStatus.REQUESTED, ApplicationStatus.PENDING_VERIFICATION, ApplicationStatus.KYC_VERIFIED, ApplicationStatus.PROCESSING_DEBITCARD, ApplicationStatus.PROCESSING_CREDITCARD, ApplicationStatus.APPROVED, ApplicationStatus.REJECTED);
            if (status.equals(ApplicationStatus.APPROVED) || status.equals(ApplicationStatus.REJECTED)) {
+               if(status.equals(ApplicationStatus.APPROVED)){
+                    account.setAccountNumber(getRandom());
+                    account.setBranch("Bokaro");
+                    account.setActive(true);
+                    account.setIfscCode("BOK123456");
+                    accountRepository.save(account);
+               }
                populateApprovaLPageData(model);
                return "accountApproval";
            }
@@ -96,6 +104,12 @@ public class AdminController {
         accountRepository.save(account);
         populateApprovaLPageData(model);
         return "accountApproval";
+    }
+
+    private long getRandom(){
+        Random random=new Random();
+        int number=random.nextInt(999999);
+        return number;
     }
 
 }
