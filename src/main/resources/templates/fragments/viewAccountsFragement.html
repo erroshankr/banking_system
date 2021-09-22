@@ -1,6 +1,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <style>
-    body {margin:2rem;}
+    body {
+    margin:1rem;
+    }
 </style>
 <div th:fragment="viewAccounts">
     <section class="container-cards-accounts">
@@ -11,7 +13,7 @@
             <p class="title">Account Type: <th:block th:text="${account.accountType.name}"></th:block></p>
             <p><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show Balance</button></p>
             <div class="collapse" id="collapseExample">
-                <div class="card card-body"><th:block th:text="${symbol}">&nbsp;</th:block><th:block th:text="${account.currentBalance}"></th:block></div>
+                <div><th:block th:text="${symbol}">&nbsp;</th:block><th:block th:text="${account.currentBalance}"></th:block></div>
             </div>
             <p><button>View Details</button></p>
         </div>

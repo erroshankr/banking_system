@@ -1,12 +1,13 @@
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
-  margin: auto;
   text-align: center;
+  display:inline-block;
+  margin:30px;
 }
 
 .title {
-  color: grey;
+  color: black;
   font-size: 18px;
 }
 
@@ -43,4 +44,7 @@ button:hover, a:hover {
 #panel {
   padding: 50px;
   display: none;
+}
+p{
+margin-bottom:1px;
 }
