@@ -21,6 +21,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -163,5 +164,17 @@ public class AccountController {
         }
         model.addAttribute("symbol","₹");
         return "viewAccounts";
+    }
+
+    @PostMapping("/user/account/submitViewAcounts")
+    public String submitViewAccounts(@RequestParam("accountNumber")String accountNumber,Model model){
+        final AccountModel account=accountRepository.findByAccountNumber(Long.valueOf(accountNumber));
+        if (account!=null){
+            model.addAttribute("account", account);
+        }
+        else{
+            model.addAttribute("notfound",true);
+        }
+        return "viewAccountDetails";
     }
 }
