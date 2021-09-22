@@ -5,6 +5,7 @@ import com.example.banking_app.enums.Gender;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -22,6 +23,8 @@ public class UserModel extends BaseEntity{
     private Date dateOfBirth;
     private String roles;
     private boolean active;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AccountModel> accounts;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -29,12 +32,28 @@ public class UserModel extends BaseEntity{
     @JoinColumn(name = "address_id",referencedColumnName = "PK")
     private AddressModel permanentAddress;
 
-    public AddressModel getPermanentAddress() {
-        return permanentAddress;
+    public String getName() {
+        return name;
     }
 
-    public void setPermanentAddress(AddressModel permanentAddress) {
-        this.permanentAddress = permanentAddress;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public double getCurrentBalance() {
+        return currentBalance;
+    }
+
+    public void setCurrentBalance(double currentBalance) {
+        this.currentBalance = currentBalance;
     }
 
     public String getFirstName() {
@@ -77,46 +96,6 @@ public class UserModel extends BaseEntity{
         this.phoneNumber = phoneNumber;
     }
 
-
-    public UserModel() {
-    }
-
-
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public double getCurrentBalance() {
-        return currentBalance;
-    }
-
-    public void setCurrentBalance(double currentBalance) {
-        this.currentBalance = currentBalance;
-    }
-
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -139,5 +118,29 @@ public class UserModel extends BaseEntity{
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<AccountModel> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<AccountModel> accounts) {
+        this.accounts = accounts;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public AddressModel getPermanentAddress() {
+        return permanentAddress;
+    }
+
+    public void setPermanentAddress(AddressModel permanentAddress) {
+        this.permanentAddress = permanentAddress;
     }
 }

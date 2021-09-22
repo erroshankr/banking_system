@@ -313,7 +313,7 @@ h2, .h2 {
   font-size: 2rem; }
 
 h3, .h3 {
-  font-size: 1.75rem; }
+  font-size: 1.4rem; }
 
 h4, .h4 {
   font-size: 1.5rem; }
@@ -1726,8 +1726,6 @@ textarea.form-control {
   padding-left: 1.25rem; }
 
 .form-check-input {
-  position: absolute;
-  margin-top: 0.3rem;
   margin-left: -1.25rem; }
   .form-check-input:disabled ~ .form-check-label {
     color: #6c757d; }
@@ -6649,7 +6647,7 @@ button.bg-dark:focus {
 .mx-5 {
   margin-right: 3rem !important; }
 
-.mb-5,
+
 .my-5 {
   margin-bottom: 3rem !important; }
 
@@ -8177,6 +8175,7 @@ h1, h2, h3, h4, h5,
   width: 100%; }
 
 #sidebar {
+  height:100%;
   min-width: 300px;
   max-width: 300px;
   background: #32373d;
@@ -8190,7 +8189,7 @@ h1, h2, h3, h4, h5,
   #sidebar.active {
     margin-left: -300px; }
     #sidebar.active .custom-menu {
-      margin-right: -50px; }
+      margin-right: -40px; }
     #sidebar.active .btn.btn-primary:before {
       content: "\f053";
       font-family: "FontAwesome";
@@ -8368,3 +8367,99 @@ a[data-toggle="collapse"] {
 
 .subscribe-form .form-control {
   background: #4897fc; }
+
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 10px 5px;
+  margin-top:-40px;
+}
+
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.header a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.header a.active {
+  color: black;
+}
+
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .header-right {
+    float: none;
+  }
+}
+
+.footer {
+  background-color: #f1f1f1;
+  width:72%;
+  bottom: 0px;
+  position: fixed;
+}
+
+.footer a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.footer a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.footer a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.footer a.active {
+  color: black;
+}
+
+.footer-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .footer a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .footer-right {
+    float: none;
+  }
+}

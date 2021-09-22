@@ -96,11 +96,11 @@ public class HomePageController {
         try {
             final boolean res = userService.validateUser(loginForm.getUsername(), loginForm.getPassword());
             if(res){
+                return "home";
+            }else{
                 model.addAttribute("PasswordError","wrongpass");
                 model.addAttribute("loginForm",new LoginForm());
                 return "login";
-            }else{
-                return "home";
             }
         } catch (UserNotFoundException e) {
             e.printStackTrace();
@@ -144,7 +144,7 @@ public class HomePageController {
 
     @GetMapping("/")
     public String getHome(){
-        return "home";
+        return "template";
     }
 
     @GetMapping("/error")

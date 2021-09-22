@@ -1,0 +1,23 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    body {
+    margin:1rem;
+    }
+</style>
+<div th:fragment="viewAccounts">
+    <section class="container-cards-accounts">
+    <th:block th:each="account : ${accounts}">
+        <div class="card">
+            <p class="title"><th:block th:text="${account.accountHolderName}"></th:block></p>
+            <p class="title">Account Number: <th:block th:text="${account.accountNumber}"></th:block></p>
+            <p class="title">Account Type: <th:block th:text="${account.accountType.name}"></th:block></p>
+            <p><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show Balance</button></p>
+            <div class="collapse" id="collapseExample">
+                <div><th:block th:text="${symbol}">&nbsp;</th:block><th:block th:text="${account.currentBalance}"></th:block></div>
+            </div>
+            <p><button>View Details</button></p>
+        </div>
+    </th:block>
+</section>
+</div>
+</html>

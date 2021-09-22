@@ -1,0 +1,22 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <div th:fragment="trackstatus">
+
+       <section class="container-track-status">
+           <div class="heading-track-status">
+           <h2 style="color:black;text-align:center;">Application Status</h2>
+           </div>
+           <br>
+           <div class="container-track-status-center">
+           <ol class="progtrckr" data-progtrckr-steps="${size}">
+               <th:block th:each="status : ${doneStatus}">
+                   <li class="progtrckr-done"> <th:block th:text="${status.name}"></th:block></li>
+               </th:block>
+               <th:block th:each="status : ${todoStatus}">
+                   <li class="progtrckr-todo"><th:block th:text="${status.name}"></th:block></li>
+               </th:block>
+           </ol>
+           </div>
+       </section>
+
+   </div>
+</html>
