@@ -1,0 +1,97 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="viewAccountDetails">
+
+  <section id="overall-container">
+    <div class="container-1">
+      <h3>PERSONAL DETAILS</h3>
+      <table>
+        <tbody>
+        <tr>
+          <td>NAME</td>
+          <td><th:block th:text="${account.accountHolderName}"></th:block></td>
+        </tr>
+        <tr>
+          <td>EMAIL ID</td>
+          <td><th:block th:text="${account.user.username}"></th:block></td>
+        </tr>
+        <tr>
+          <td>DOB</td>
+          <td><th:block th:text="${account.user.dateOfBirth}"></th:block></td>
+        </tr>
+        <tr>
+          <td>MOBILE</td>
+          <td><th:block th:text="${account.user.phoneNumber}"></th:block></td>
+        </tr>
+        <tr>
+          <td>ID PROOF</td>
+          <td><th:block th:text="${account.identityProof}"></th:block></td>
+        </tr>
+        <tr>
+          <td>U-ID NO</td>
+          <td><th:block th:text="${account.uniqueIdNumber}"></th:block></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container-2">
+      <h3>ADDRESS DETAIL</h3>
+      <table>
+        <tbody>
+        <tr>
+          <td>STREET</td>
+          <td><th:block th:text="${account.address.line1}"></th:block></td>
+        </tr>
+        <tr>
+          <td>CITY</td>
+          <td><th:block th:text="${account.address.city}"></th:block></td>
+        </tr>
+        <tr>
+          <td>STATE</td>
+          <td><th:block th:text="${account.address.state}"></th:block></td>
+        </tr>
+        <tr>
+          <td>COUNTRY</td>
+          <td><th:block th:text="${account.address.country}"></th:block></td>
+        </tr>
+        <tr>
+          <td>ZIP CODE</td>
+          <td><th:block th:text="${account.address.zipCode}"></th:block></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="container-3">
+      <h3>ACCOUNT DETAILS</h3>
+      <table>
+        <tbody>
+        <tr>
+          <td>ACCOUNT HOLDER</td>
+          <td><th:block th:text="${account.accountHolderName}"></th:block></td>
+        </tr>
+        <tr>
+          <td>ACCOUNT NO</td>
+          <td><th:block th:text="${account.accountNumber}"></th:block></td>
+        </tr>
+        <tr>
+          <td>BRANCH</td>
+          <td><th:block th:text="${account.branch}"></th:block></td>
+        </tr>
+        <tr>
+          <td>IFSC CODE</td>
+          <td><th:block th:text="${account.ifscCode}"></th:block></td>
+        </tr>
+        <tr>
+          <td>CURRENT BALANCE</td>
+          <td><th:block th:text="${symbol}">&nbsp;</th:block><th:block th:text="${account.currentBalance}"></th:block></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="container-4">
+      <h3>CARD DETAILS</h3>
+    </div>
+  </section>
+
+</div>
+</html>

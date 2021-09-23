@@ -5,6 +5,7 @@ import com.example.banking_app.enums.CardType;
 import com.example.banking_app.forms.AccountCreationForm1;
 import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.repo.AccountRepository;
+import com.example.banking_app.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,8 @@ public class AdminController {
 
     @Autowired
     private  AccountRepository accountRepository;
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping("/approval")
     public String getApprovalPage(Model model){
@@ -62,7 +65,7 @@ public class AdminController {
            List<ApplicationStatus> availableStatus = Arrays.asList(ApplicationStatus.REQUESTED, ApplicationStatus.PENDING_VERIFICATION, ApplicationStatus.KYC_VERIFIED, ApplicationStatus.PROCESSING_DEBITCARD, ApplicationStatus.PROCESSING_CREDITCARD, ApplicationStatus.APPROVED, ApplicationStatus.REJECTED);
            if (status.equals(ApplicationStatus.APPROVED) || status.equals(ApplicationStatus.REJECTED)) {
                if(status.equals(ApplicationStatus.APPROVED)){
-                    account.setAccountNumber(getRandom());
+                    account.setAccountNumber(accountService.generateRandomNumber(16));
                     account.setBranch("Bokaro");
                     account.setActive(true);
                     account.setIfscCode("BOK123456");
@@ -85,11 +88,14 @@ public class AdminController {
                } else {
                    nextIndex = currentIndex + 3;
                }
-           } else if (status.equals(ApplicationStatus.PROCESSING_DEBITCARD) && !account.getCards().stream().anyMatch(c -> c.getCardType().equals(CardType.CREDITCARD))) {
-               nextIndex = currentIndex + 2;
+           } else if (status.equals(ApplicationStatus.PROCESSING_DEBITCARD)){
+                 if( !account.getCards().stream().anyMatch(c -> c.getCardType().equals(CardType.CREDITCARD))) {
+                     nextIndex = currentIndex + 2;
+                 }
            } else {
                nextIndex = currentIndex + 1;
            }
+        accountService.generateCardDetails(account,status);
         curr_status.add(availableStatus.get(nextIndex));
            account.setApplicationStatus(curr_status);
         accountRepository.save(account);
@@ -106,10 +112,5 @@ public class AdminController {
         return "accountApproval";
     }
 
-    private long getRandom(){
-        Random random=new Random();
-        int number=random.nextInt(999999);
-        return number;
-    }
 
 }

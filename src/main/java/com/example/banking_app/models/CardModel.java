@@ -15,11 +15,36 @@ public class CardModel extends BaseEntity{
     private int cvv;
     @Enumerated(EnumType.STRING)
     private CardType cardType;
-    @Enumerated(EnumType.STRING)
-    private Month month;
+    private int month;
     private int year;
     @ManyToOne(fetch = FetchType.LAZY)
     private AccountModel account;
+    private int pin;
+    private double ccBalance;
+
+    public double getCcBalance() {
+        return ccBalance;
+    }
+
+    public void setCcBalance(double ccBalance) {
+        this.ccBalance = ccBalance;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getPin() {
+        return pin;
+    }
+
+    public void setPin(int pin) {
+        this.pin = pin;
+    }
 
     public long getCardNumber() {
         return cardNumber;
@@ -59,14 +84,6 @@ public class CardModel extends BaseEntity{
 
     public void setAccount(AccountModel account) {
         this.account = account;
-    }
-
-    public Month getMonth() {
-        return month;
-    }
-
-    public void setMonth(Month month) {
-        this.month = month;
     }
 
     public int getYear() {

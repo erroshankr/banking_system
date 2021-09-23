@@ -171,6 +171,7 @@ public class AccountController {
         final AccountModel account=accountRepository.findByAccountNumber(Long.valueOf(accountNumber));
         if (account!=null){
             model.addAttribute("account", account);
+            model.addAttribute("symbol","₹");
         }
         else{
             model.addAttribute("notfound",true);
