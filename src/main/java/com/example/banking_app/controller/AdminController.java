@@ -6,6 +6,7 @@ import com.example.banking_app.forms.AccountCreationForm1;
 import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.repo.AccountRepository;
 import com.example.banking_app.service.AccountService;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,7 +66,7 @@ public class AdminController {
            List<ApplicationStatus> availableStatus = Arrays.asList(ApplicationStatus.REQUESTED, ApplicationStatus.PENDING_VERIFICATION, ApplicationStatus.KYC_VERIFIED, ApplicationStatus.PROCESSING_DEBITCARD, ApplicationStatus.PROCESSING_CREDITCARD, ApplicationStatus.APPROVED, ApplicationStatus.REJECTED);
            if (status.equals(ApplicationStatus.APPROVED) || status.equals(ApplicationStatus.REJECTED)) {
                if(status.equals(ApplicationStatus.APPROVED)){
-                    account.setAccountNumber(accountService.generateRandomNumber(16));
+                    account.setAccountNumber(Long.valueOf(RandomStringUtils.random(16,false,true)));
                     account.setBranch("Bokaro");
                     account.setActive(true);
                     account.setIfscCode("BOK123456");
@@ -110,6 +111,11 @@ public class AdminController {
         accountRepository.save(account);
         populateApprovaLPageData(model);
         return "accountApproval";
+    }
+
+    @GetMapping("/cards")
+    public  String getCardsPage(){
+        return "cards";
     }
 
 

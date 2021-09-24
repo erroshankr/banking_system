@@ -52,6 +52,7 @@ public class AccountServiceImpl implements AccountService {
         cardModel.setCardHolderName(account.getAccountHolderName());
         cardModel.setMonth(Integer.valueOf(RandomStringUtils.random(1,1,12,false,true)));
         cardModel.setYear(LocalDateTime.now().getYear() + 5);
+
         if(cardModel.getCardType().equals(CardType.CREDITCARD)){
             cardModel.setCcBalance(cardModel.getAccount().getCurrentBalance()*3);
         }
