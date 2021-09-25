@@ -21,10 +21,6 @@ public class AccountModel extends BaseEntity{
     private Long uniqueIdNumber;
     @Column(unique = true)
     private Long accountNumber;
-    @Column(unique = true)
-    private Long debitCardNumber;
-    @Column(unique = true)
-    private Long creditCardNumber;
     private String branch;
     private String ifscCode;
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -119,22 +115,6 @@ public class AccountModel extends BaseEntity{
 
     public void setAccountNumber(Long accountNumber) {
         this.accountNumber = accountNumber;
-    }
-
-    public Long getDebitCardNumber() {
-        return debitCardNumber;
-    }
-
-    public void setDebitCardNumber(Long debitCardNumber) {
-        this.debitCardNumber = debitCardNumber;
-    }
-
-    public Long getCreditCardNumber() {
-        return creditCardNumber;
-    }
-
-    public void setCreditCardNumber(Long creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
     }
 
     public String getBranch() {

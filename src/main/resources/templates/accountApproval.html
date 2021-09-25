@@ -73,8 +73,15 @@
             <td th:text="${data.uniqueIdentityfication}"></td>
             <td th:text="${data.status}"></td>
             <input type="hidden" name="applicationId" th:value="${data.applicationId}" />
-            <td><input type="submit" name="action" id="approve" class="form-submit" value="Approve" th:formaction="@{/submitStatus}"/>
-                <input type="submit" name="action" id="reject" class="form-submit" value="Reject" th:formaction="@{/submitStatus}"/></td>
+            <th:block th:if="${data.isApproved}">
+                <td><input type="submit" name="action" disabled="true"  class="form-submit" value="Approve" th:formaction="@{/submitStatus}"/>
+                    <input type="submit"  name="action" disabled="true"  class="form-submit" value="Reject" th:formaction="@{/submitStatus}"/></td>
+            </th:block>
+            <!-- ELSE -->
+            <th:block th:if="${!data.isApproved}">
+                <td><input type="submit" name="action"  id="approve" class="form-submit" value="Approve" th:formaction="@{/submitStatus}"/>
+                    <input type="submit"  name="action"  id="reject" class="form-submit" value="Reject" th:formaction="@{/submitStatus}"/></td>
+            </th:block>
         </form>
     </tr>
     </tbody>

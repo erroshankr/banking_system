@@ -15,6 +15,24 @@ public class AccountCreationForm1 {
     private boolean creditCard;
     private Long mobileNumber;
     private ApplicationStatus status;
+    private boolean isApproved;
+    private boolean isRejected;
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
+    }
+
+    public boolean isRejected() {
+        return isRejected;
+    }
+
+    public void setRejected(boolean rejected) {
+        isRejected = rejected;
+    }
 
     public ApplicationStatus getStatus() {
         return status;

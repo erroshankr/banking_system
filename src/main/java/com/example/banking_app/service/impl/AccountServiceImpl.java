@@ -4,6 +4,7 @@ import com.example.banking_app.enums.ApplicationStatus;
 import com.example.banking_app.enums.CardType;
 import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.CardModel;
+import com.example.banking_app.repo.AccountRepository;
 import com.example.banking_app.repo.CardRepository;
 import com.example.banking_app.service.AccountService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -19,6 +20,8 @@ import java.util.Random;
 public class AccountServiceImpl implements AccountService {
     @Autowired
     private CardRepository cardRepository;
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Override
     public void generateCardDetails(AccountModel account, ApplicationStatus status) {
@@ -28,6 +31,15 @@ public class AccountServiceImpl implements AccountService {
       if(status.equals(ApplicationStatus.PROCESSING_CREDITCARD)){
           createCardDetails(CardType.CREDITCARD,account);
       }
+    }
+
+    @Override
+    public void generateBasicAccountDetails(AccountModel account) {
+        account.setAccountNumber(Long.valueOf(RandomStringUtils.random(8,false,true)));
+        account.setBranch("Bokaro");
+        account.setActive(true);
+        account.setIfscCode("BOK123456");
+        accountRepository.save(account);
     }
 
     private void createCardDetails(CardType type, AccountModel account) {
@@ -50,7 +62,7 @@ public class AccountServiceImpl implements AccountService {
         cardModel.setCvv(Integer.valueOf(RandomStringUtils.random(3,false,true)));
         cardModel.setPin(Integer.valueOf(RandomStringUtils.random(3,false,true)));
         cardModel.setCardHolderName(account.getAccountHolderName());
-        cardModel.setMonth(Integer.valueOf(RandomStringUtils.random(1,1,12,false,true)));
+        cardModel.setMonth(generateRandomInteger(1,12));
         cardModel.setYear(LocalDateTime.now().getYear() + 5);
 
         if(cardModel.getCardType().equals(CardType.CREDITCARD)){
@@ -59,5 +71,8 @@ public class AccountServiceImpl implements AccountService {
         cardRepository.save(cardModel);
     }
 
-
+    private int generateRandomInteger(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min + 1) + min;
+    }
 }

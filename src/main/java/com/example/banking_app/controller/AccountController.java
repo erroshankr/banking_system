@@ -103,7 +103,7 @@ public class AccountController {
         address.setCity(accountCreationForm2.getCity());
         account.setAddress(address);
         accountRepository.save(account);
-        return "home";
+        return "template";
 
     }
 

@@ -91,24 +91,6 @@ public class HomePageController {
         }
         return "redirect:/";
     }
-    @PostMapping("/login")
-    public String login(@ModelAttribute LoginForm loginForm, Model model, RedirectAttributes redirectModel){
-        try {
-            final boolean res = userService.validateUser(loginForm.getUsername(), loginForm.getPassword());
-            if(res){
-                return "home";
-            }else{
-                model.addAttribute("PasswordError","wrongpass");
-                model.addAttribute("loginForm",new LoginForm());
-                return "login";
-            }
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-            model.addAttribute("NullUser","NOT_EQUAL");
-            model.addAttribute("loginForm",new LoginForm());
-            return "login";
-        }
-    }
 
     @GetMapping("/forgotPassword")
     public String getForgotPassword(Model model){

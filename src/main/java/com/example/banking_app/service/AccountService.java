@@ -6,4 +6,5 @@ import com.example.banking_app.models.AccountModel;
 public interface AccountService {
 
     void generateCardDetails(AccountModel account, ApplicationStatus status);
+    void generateBasicAccountDetails(AccountModel account);
 }
