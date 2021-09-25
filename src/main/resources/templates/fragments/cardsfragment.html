@@ -1,6 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="cards">
     <section class="cards-container">
+        <th:block th:each="account : ${accounts}">
         <div class="credit-card-wrap">
             <div class="mk-icon-world-map"></div>
             <div class="credit-card-inner">
@@ -22,50 +23,7 @@
                 </footer>
             </div>
         </div>
-
-        <div class="credit-card-wrap">
-            <div class="mk-icon-world-map"></div>
-            <div class="credit-card-inner">
-                <header class="card-header">
-                    <div class="credit-logo">
-                        <div class="shape"><span class="txt">BB</span></div> <span class="text">Bank Of Bokaro</span>
-                    </div>
-                </header>
-                <div class="mk-icon-sim"></div>
-                <div class="credit-font credit-card-number">4716 6109 5211 3010</div>
-                <footer class="footer-card">
-                    <div class="clearfix">
-                        <div class="pull-left">
-                            <div class="credit-card-date"><span class="title">Expires End</span><span class="credit-font">01/018</span></div>
-                            <div class="credit-font credit-author">MOHAN KHADKA</div>
-                        </div>
-                        <div class="pull-right"><div class="mk-icon-visa"></div></div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-
-        <div class="credit-card-wrap">
-            <div class="mk-icon-world-map"></div>
-            <div class="credit-card-inner">
-                <header class="card-header">
-                    <div class="credit-logo">
-                        <div class="shape"><span class="txt">BB</span></div> <span class="text">Bank Of Bokaro</span>
-                    </div>
-                </header>
-                <div class="mk-icon-sim"></div>
-                <div class="credit-font credit-card-number">4716 6109 5211 3010</div>
-                <footer class="footer-card">
-                    <div class="clearfix">
-                        <div class="pull-left">
-                            <div class="credit-card-date"><span class="title">Expires End</span><span class="credit-font">01/018</span></div>
-                            <div class="credit-font credit-author">MOHAN KHADKA</div>
-                        </div>
-                        <div class="pull-right"><div class="mk-icon-visa"></div></div>
-                    </div>
-                </footer>
-            </div>
-        </div>
+        </th:block>
     </section>
 </div>>
 </html>>
