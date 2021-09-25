@@ -1,7 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="cards">
     <section class="cards-container">
-        <th:block th:each="account : ${accounts}">
+        <th:block th:each="card : ${cards}">
         <div class="credit-card-wrap">
             <div class="mk-icon-world-map"></div>
             <div class="credit-card-inner">
@@ -10,20 +10,21 @@
                         <div class="shape"><span class="txt">BB</span></div> <span class="text">Bank Of Bokaro</span>
                     </div>
                 </header>
-                <div class="mk-icon-sim"></div>
-                <div class="credit-font credit-card-number">4716 6109 5211 3010</div>
+                <div class="mk-icon-sim"><div style="text-align: center;font-size: 1.3rem;padding:3px"><th:block th:text="${card.cardType.name}"></th:block></div></div>
+                <div class="credit-font credit-card-number"><th:block th:text="${card.cardNumber}"></th:block></div>
                 <footer class="footer-card">
                     <div class="clearfix">
                         <div class="pull-left">
-                            <div class="credit-card-date"><span class="title">Expires End</span><span class="credit-font">01/018</span></div>
-                            <div class="credit-font credit-author">MOHAN KHADKA</div>
+                            <div class="credit-card-date"><span class="title">Expires End</span><span class="credit-font"><th:block th:text="${card.month}"></th:block>/<th:block th:text="${card.year}"></th:block></span></div>
+                            <div class="credit-font credit-author"><th:block th:text="${card.cardHolderName}"></th:block></div>
                         </div>
-                        <div class="pull-right"><div class="mk-icon-visa"></div></div>
+                        <div class="pull-right"><div class="mk-icon-visa"><th:block th:text="${card.cvv}"></th:block></div></div>
                     </div>
                 </footer>
             </div>
+            <div class="acc-number"><th:block th:text="${card.account.accountNumber}"></th:block></div>
         </div>
         </th:block>
     </section>
-</div>>
-</html>>
+</div>
+</html>

@@ -10,5 +10,4 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<AccountModel,Integer> {
     AccountModel findByApplicationId(String appID);
     AccountModel findByAccountNumber(Long accountNumber);
-    List<AccountModel> findByUserAndApplicationStatus(Long userID, List<ApplicationStatus> status);
 }

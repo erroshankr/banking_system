@@ -7,7 +7,7 @@
 <div th:fragment="viewAccounts">
     <section class="container-cards-accounts">
             <th:block th:each="account : ${accounts}">
-            <div class="card">
+            <div class="acc-card-short-details">
             <p class="title"><th:block th:text="${account.accountHolderName}"></th:block></p>
             <p class="title">Account Number: <th:block th:text="${account.accountNumber}"></th:block></p>
             <p class="title">Account Type: <th:block th:text="${account.accountType.name}"></th:block></p>
@@ -17,7 +17,7 @@
             </div>
                 <form method="POST" class="register-form" id="login-form" th:action="@{/user/account/submitViewAcounts}" th:object="${accounts}">
                     <input type="hidden" name="accountNumber" th:value="${account.accountNumber}" />
-                   <p><button type="submit">View Details</button></p>
+                   <p class="view-details-button-banking"><button type="submit">View Details</button></p>
                 </form>
         </div>
         </th:block>

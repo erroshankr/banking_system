@@ -126,21 +126,22 @@ body{
   padding-top:10px;
 }
 .credit-card-wrap .mk-icon-sim{
-  width:55px;
-  height:33px;
+  width:19rem;
+  height:27px;
   margin:1px 0;
   border-radius:8px;
-  background-color:#fdd76f;
+  background-color:#e2e3e6;
 }
 .pull-right{
    display:flow-root
 }
  .credit-card-wrap .mk-icon-visa {
-     width: 61px;
-     height: 45px;
-     bottom: -10px;
-     margin-left: 4rem;
-     position: relative;
+     width: 35px;
+         height: 25px;
+         bottom: -1rem;
+         margin-left: 4rem;
+         position: relative;
+         padding:2px;
 }
 .credit-card-wrap .footer{
   left:30px;
@@ -155,4 +156,8 @@ body{
     overflow: hidden;
     padding: 9px 0px;
     margin-top: -30px;
+}
+.acc-number{
+text-align:center;
+color:wheat;
 }

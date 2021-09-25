@@ -13,11 +13,29 @@
             </div>
         </div>
         <ul class="list-unstyled components mb-5">
+
+            <li>
+                <div sec:authorize="!isAuthenticated()">
+                    <div>
+                        <a href="/register1"><span class="fa fa-gift mr-3"></span> Register</a>
+                    </div>
+                </div>
+            </li>
+
             <li class="active">
                 <div sec:authorize="isAnonymous()">
                     <a href="/login"><span class="fa fa-home mr-3"></span> Login</a>
                 </div>
             </li>
+
+            <li>
+                <div sec:authorize="isAuthenticated()">
+                    <div>
+                        <a href="/user/account/create"><span class="fa fa-gift mr-3"></span> Open Account</a>
+                    </div>
+                </div>
+            </li>
+
             <li>
                 <div sec:authorize="isAuthenticated()">
                     <div>
@@ -25,9 +43,7 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <a href="/user/account/create"><span class="fa fa-gift mr-3"></span> Create Account</a>
-            </li>
+
             <li>
                 <a href="/findAppStatus"><span class="fa fa-trophy mr-3"></span> Track Status</a>
             </li>

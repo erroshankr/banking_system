@@ -36,7 +36,7 @@ public class CardController {
         }catch (Exception e){
             model.addAttribute("userNotFoundError");
         }
-        return "cards";
+        return "viewCards";
     }
 
 }
