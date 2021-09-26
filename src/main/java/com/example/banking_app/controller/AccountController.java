@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class AccountController {
@@ -178,4 +179,23 @@ public class AccountController {
         }
         return "viewAccountDetails";
     }
+    @GetMapping("/user/account/transaction")
+    public String getTransactionPage(Model model) {
+        try {
+            final UserModel user = userService.getCurrentUser();
+            if (user != null) {
+                List<AccountModel> accounts = user.getAccounts().stream().filter(a -> a.getApplicationStatus().contains(ApplicationStatus.APPROVED)).collect(Collectors.toList());
+                List<Long> accNumber=new ArrayList<>();
+                for (AccountModel a:accounts) {
+                    accNumber.add(Long.valueOf(a.getAccountNumber()));
+                }
+                model.addAttribute("accNumber", accNumber);
+            }
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+
 }
+
