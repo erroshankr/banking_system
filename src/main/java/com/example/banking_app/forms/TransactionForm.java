@@ -2,44 +2,43 @@ package com.example.banking_app.forms;
 
 public class TransactionForm {
 
-    private int serialNo;
-    private String sender;
-    private String senderEmail;
-    private double currentBalance;
-    private String receiver;
-    private String receiverEmail;
+    private Long accountNumber;
+    private String branch;
+    private String ifscCode;
+    private String accountHolderName;
     private double amount;
+    private boolean add_beneficiary;
 
-    public String getSenderEmail() {
-        return senderEmail;
+    public Long getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setSenderEmail(String senderEmail) {
-        this.senderEmail = senderEmail;
+    public void setAccountNumber(Long accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
-    public String getReceiverEmail() {
-        return receiverEmail;
+    public String getBranch() {
+        return branch;
     }
 
-    public void setReceiverEmail(String receiverEmail) {
-        this.receiverEmail = receiverEmail;
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 
-    public String getSender() {
-        return sender;
+    public String getIfscCode() {
+        return ifscCode;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setIfscCode(String ifscCode) {
+        this.ifscCode = ifscCode;
     }
 
-    public String getReceiver() {
-        return receiver;
+    public String getAccountHolderName() {
+        return accountHolderName;
     }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
+    public void setAccountHolderName(String accountHolderName) {
+        this.accountHolderName = accountHolderName;
     }
 
     public double getAmount() {
@@ -50,19 +49,11 @@ public class TransactionForm {
         this.amount = amount;
     }
 
-    public int getSerialNo() {
-        return serialNo;
+    public boolean isAdd_beneficiary() {
+        return add_beneficiary;
     }
 
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
-    }
-
-    public double getCurrentBalance() {
-        return currentBalance;
-    }
-
-    public void setCurrentBalance(double currentBalance) {
-        this.currentBalance = currentBalance;
+    public void setAdd_beneficiary(boolean add_beneficiary) {
+        this.add_beneficiary = add_beneficiary;
     }
 }

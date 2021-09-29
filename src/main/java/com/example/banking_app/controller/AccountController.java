@@ -5,6 +5,7 @@ import com.example.banking_app.enums.CardType;
 import com.example.banking_app.enums.IdentityProof;
 import com.example.banking_app.forms.AccountCreationForm1;
 import com.example.banking_app.forms.AccountCreationForm2;
+import com.example.banking_app.forms.TransactionForm;
 import com.example.banking_app.models.AccountModel;
 import com.example.banking_app.models.AddressModel;
 import com.example.banking_app.models.CardModel;
@@ -187,12 +188,24 @@ public class AccountController {
                 List<AccountModel> accounts = user.getAccounts().stream().filter(a -> a.getApplicationStatus().contains(ApplicationStatus.APPROVED)).collect(Collectors.toList());
                 List<Long> accNumber=new ArrayList<>();
                 for (AccountModel a:accounts) {
-                    accNumber.add(Long.valueOf(a.getAccountNumber()));
+                    accNumber.add(a.getAccountNumber());
                 }
                 model.addAttribute("accNumber", accNumber);
             }
         }catch (Exception e){
 
+        }
+        return null;
+    }
+    @PostMapping("/user/account/enterAccDetail")
+    public String enterAccountDetails(@RequestParam("accountNumber")String accountNumber,Model model){
+        try {
+            final AccountModel user = accountRepository.findByAccountNumber(Long.valueOf(accountNumber));
+            if(user!=null){
+                model.addAttribute("enterAccDetailForm", new TransactionForm());
+            }
+        }catch (Exception e){
+            model.addAttribute("error");
         }
         return null;
     }
