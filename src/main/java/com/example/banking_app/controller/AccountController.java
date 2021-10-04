@@ -5,12 +5,10 @@ import com.example.banking_app.enums.CardType;
 import com.example.banking_app.enums.IdentityProof;
 import com.example.banking_app.forms.AccountCreationForm1;
 import com.example.banking_app.forms.AccountCreationForm2;
-import com.example.banking_app.forms.TransactionForm;
-import com.example.banking_app.models.AccountModel;
-import com.example.banking_app.models.AddressModel;
-import com.example.banking_app.models.CardModel;
-import com.example.banking_app.models.UserModel;
+import com.example.banking_app.forms.BeneficiaryForm;
+import com.example.banking_app.models.*;
 import com.example.banking_app.repo.AccountRepository;
+import com.example.banking_app.repo.BeneficiaryRepo;
 import com.example.banking_app.repo.CardRepository;
 import com.example.banking_app.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -37,6 +35,8 @@ public class AccountController {
     private CardRepository cardRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private BeneficiaryRepo beneficiaryRepo;
 
     @GetMapping("/user/account/create")
     public String getAccountCreation( Model model){
@@ -180,7 +180,7 @@ public class AccountController {
         }
         return "viewAccountDetails";
     }
-    @GetMapping("/user/account/transaction")
+    @GetMapping("/user/account/fundTransfer")
     public String getTransactionPage(Model model) {
         try {
             final UserModel user = userService.getCurrentUser();
@@ -197,12 +197,38 @@ public class AccountController {
         }
         return null;
     }
-    @PostMapping("/user/account/enterAccDetail")
+    @PostMapping("/user/account/enterRecieverDetail")
     public String enterAccountDetails(@RequestParam("accountNumber")String accountNumber,Model model){
         try {
             final AccountModel user = accountRepository.findByAccountNumber(Long.valueOf(accountNumber));
             if(user!=null){
-                model.addAttribute("enterAccDetailForm", new TransactionForm());
+                model.addAttribute("enterAccDetailForm", new BeneficiaryForm());
+            }
+        }catch (Exception e){
+            model.addAttribute("error");
+        }
+        return null;
+    }
+    @PostMapping("/user/account/createBnf")
+    public String createBeneficiary(@RequestParam("accountNumber")String accountNumber, Model model, BeneficiaryForm beneficiaryForm){
+        try {
+            final AccountModel account = accountRepository.findByAccountNumber(Long.valueOf(accountNumber));
+            if(account!=null){
+                BeneficiaryModel beneficiaryModel=new BeneficiaryModel();
+                beneficiaryModel.setRecieverAccountHolderName(beneficiaryForm.getRecieverAccountHolderName());
+                beneficiaryModel.setRecieverAccountNumber(beneficiaryForm.getRecieverAccountNumber());
+                beneficiaryModel.setRecieverBranch(beneficiaryForm.getRecieverBranch());
+                beneficiaryModel.setRecieverIfscCode(beneficiaryForm.getRecieverIfscCode());
+                if(CollectionUtils.isEmpty(account.getBeneficiaries())){
+                    List<BeneficiaryModel> bnfList = new ArrayList<>();
+                    bnfList.add(beneficiaryModel);
+                    account.setBeneficiaries(bnfList);
+                }else {
+                    List<BeneficiaryModel> bnfList = account.getBeneficiaries();
+                    bnfList.add(beneficiaryModel);
+                    account.setBeneficiaries(bnfList);
+                }
+                accountRepository.save(account);
             }
         }catch (Exception e){
             model.addAttribute("error");

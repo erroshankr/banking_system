@@ -93,4 +93,6 @@ public class CardModel extends BaseEntity{
     public void setYear(int year) {
         this.year = year;
     }
+
+
 }
