@@ -180,7 +180,7 @@ public class AccountController {
         }
         return "viewAccountDetails";
     }
-    @GetMapping("/user/account/fundTransfer")
+    @GetMapping("/user/account/initiateFundTransfer")
     public String getTransactionPage(Model model) {
         try {
             final UserModel user = userService.getCurrentUser();
@@ -190,45 +190,37 @@ public class AccountController {
                 for (AccountModel a:accounts) {
                     accNumber.add(a.getAccountNumber());
                 }
-                model.addAttribute("accNumber", accNumber);
+                model.addAttribute("enterAccDetailForm", new BeneficiaryForm());
+                model.addAttribute("accNumbers", accNumber);
             }
         }catch (Exception e){
 
         }
-        return null;
+        return "fundTransfer";
     }
-    @PostMapping("/user/account/enterRecieverDetail")
-    public String enterAccountDetails(@RequestParam("accountNumber")String accountNumber,Model model){
-        try {
-            final AccountModel user = accountRepository.findByAccountNumber(Long.valueOf(accountNumber));
-            if(user!=null){
-                model.addAttribute("enterAccDetailForm", new BeneficiaryForm());
-            }
-        }catch (Exception e){
-            model.addAttribute("error");
-        }
-        return null;
-    }
-    @PostMapping("/user/account/createBnf")
+
+    @PostMapping("/user/account/fundTransfer")
     public String createBeneficiary(@RequestParam("accountNumber")String accountNumber, Model model, BeneficiaryForm beneficiaryForm){
         try {
             final AccountModel account = accountRepository.findByAccountNumber(Long.valueOf(accountNumber));
-            if(account!=null){
-                BeneficiaryModel beneficiaryModel=new BeneficiaryModel();
-                beneficiaryModel.setRecieverAccountHolderName(beneficiaryForm.getRecieverAccountHolderName());
-                beneficiaryModel.setRecieverAccountNumber(beneficiaryForm.getRecieverAccountNumber());
-                beneficiaryModel.setRecieverBranch(beneficiaryForm.getRecieverBranch());
-                beneficiaryModel.setRecieverIfscCode(beneficiaryForm.getRecieverIfscCode());
-                if(CollectionUtils.isEmpty(account.getBeneficiaries())){
-                    List<BeneficiaryModel> bnfList = new ArrayList<>();
-                    bnfList.add(beneficiaryModel);
-                    account.setBeneficiaries(bnfList);
-                }else {
-                    List<BeneficiaryModel> bnfList = account.getBeneficiaries();
-                    bnfList.add(beneficiaryModel);
-                    account.setBeneficiaries(bnfList);
+            if(account!=null) {
+                if (beneficiaryForm.isAdd_beneficiary() == true) {
+                    BeneficiaryModel beneficiaryModel = new BeneficiaryModel();
+                    beneficiaryModel.setRecieverAccountHolderName(beneficiaryForm.getRecieverAccountHolderName());
+                    beneficiaryModel.setRecieverAccountNumber(beneficiaryForm.getRecieverAccountNumber());
+                    beneficiaryModel.setRecieverBranch(beneficiaryForm.getRecieverBranch());
+                    beneficiaryModel.setRecieverIfscCode(beneficiaryForm.getRecieverIfscCode());
+                    if (CollectionUtils.isEmpty(account.getBeneficiaries())) {
+                        List<BeneficiaryModel> bnfList = new ArrayList<>();
+                        bnfList.add(beneficiaryModel);
+                        account.setBeneficiaries(bnfList);
+                    } else {
+                        List<BeneficiaryModel> bnfList = account.getBeneficiaries();
+                        bnfList.add(beneficiaryModel);
+                        account.setBeneficiaries(bnfList);
+                    }
+                    accountRepository.save(account);
                 }
-                accountRepository.save(account);
             }
         }catch (Exception e){
             model.addAttribute("error");
