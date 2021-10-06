@@ -219,6 +219,7 @@ public class AccountController {
                 beneficiaryModel.setRecieverAccountNumber(fundTransferForm.getRecieverAccountNumber());
                 beneficiaryModel.setRecieverBranch(fundTransferForm.getRecieverBranch());
                 beneficiaryModel.setRecieverIfscCode(fundTransferForm.getRecieverIfscCode());
+                beneficiaryModel.setAccount(senderAccount);
                 if (CollectionUtils.isEmpty(senderAccount.getBeneficiaries())) {
                     List<BeneficiaryModel> bnfList = new ArrayList<>();
                     bnfList.add(beneficiaryModel);
@@ -241,38 +242,37 @@ public class AccountController {
                 //create transaction model
                     TransactionModel transactionModel=new TransactionModel();
                     transactionModel.setSenderName(senderAccount.getAccountHolderName());
-                    transactionModel.setReceiverName(fundTransferForm.getRecieverAccountHolderName());
-                    transactionModel.setTransferFrom(fundTransferForm.getSenderAccNo());
-                    transactionModel.setTransferTo(fundTransferForm.getRecieverAccountNumber());
+                    transactionModel.setReceiverName(recieverAccount.getAccountHolderName());
+                    transactionModel.setTransferFrom(senderAccount.getAccountNumber());
+                    transactionModel.setTransferTo(recieverAccount.getAccountNumber());
                     transactionModel.setAmount(fundTransferForm.getAmount());
                     transactionModel.setFundTransferStatus(FundTransferStatus.SUCCESS);
                     transactionModel.setDate(new Timestamp(new Date().getTime()));
+                    List<TransactionModel> senderTxnList = null;
+                    List<TransactionModel> rcvTxnList =null;
                     if(CollectionUtils.isEmpty(senderAccount.getTransactions())){
-                        List<TransactionModel> txnList = new ArrayList<>();
-                        transactionModel.setTransactionType(TransactionType.DEBIT);
-                        txnList.add(transactionModel);
-                        senderAccount.setTransactions(txnList);
-                    } else {
-                        List<TransactionModel> txnlist = senderAccount.getTransactions();
-                        transactionModel.setTransactionType(TransactionType.DEBIT);
-                        txnlist.add(transactionModel);
-                        senderAccount.setTransactions(txnlist);
+                        senderTxnList = new ArrayList<>();
+                    }else{
+                        senderTxnList= senderAccount.getTransactions();
                     }
-                if(CollectionUtils.isEmpty(recieverAccount.getTransactions())){
-                    List<TransactionModel> txnList = new ArrayList<>();
-                    transactionModel.setTransactionType(TransactionType.CREDIT);
-                    txnList.add(transactionModel);
-                    recieverAccount.setTransactions(txnList);
-                } else {
-                    List<TransactionModel> txnlist = recieverAccount.getTransactions();
-                    transactionModel.setTransactionType(TransactionType.CREDIT);
-                    txnlist.add(transactionModel);
-                    recieverAccount.setTransactions(txnlist);
-                }
-                senderAccount.setCurrentBalance(senderAccount.getCurrentBalance()-transactionModel.getAmount());
-                recieverAccount.setCurrentBalance(recieverAccount.getCurrentBalance()+transactionModel.getAmount());
-                try {
+                    transactionModel.setTransactionType(TransactionType.DEBIT);
+                    transactionModel.setAccount(senderAccount);
+                    senderTxnList.add(transactionModel);
+                    senderAccount.setTransactions(senderTxnList);
+                    senderAccount.setCurrentBalance(senderAccount.getCurrentBalance()-transactionModel.getAmount());
+                  try{
                     accountRepository.save(senderAccount);
+
+                    if(CollectionUtils.isEmpty(recieverAccount.getTransactions())){
+                        rcvTxnList = new ArrayList<>();
+                    }else{
+                        rcvTxnList= recieverAccount.getTransactions();
+                    }
+                    transactionModel.setTransactionType(TransactionType.CREDIT);
+                    transactionModel.setAccount(recieverAccount);
+                    rcvTxnList.add(transactionModel);
+                    recieverAccount.setTransactions(rcvTxnList);
+                    recieverAccount.setCurrentBalance(recieverAccount.getCurrentBalance()+transactionModel.getAmount());
                     accountRepository.save(recieverAccount);
                 }catch (Exception e){
                     System.out.println(e);

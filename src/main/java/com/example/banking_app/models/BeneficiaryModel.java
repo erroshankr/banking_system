@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "transactions")
+@Table(name = "beneficiaries")
 public class BeneficiaryModel extends  BaseEntity{
     private Long recieverAccountNumber;
     private String recieverBranch;

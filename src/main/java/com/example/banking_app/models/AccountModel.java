@@ -3,6 +3,8 @@ package com.example.banking_app.models;
 import com.example.banking_app.enums.AccountType;
 import com.example.banking_app.enums.ApplicationStatus;
 import com.example.banking_app.enums.IdentityProof;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,11 +25,14 @@ public class AccountModel extends BaseEntity{
     private Long accountNumber;
     private String branch;
     private String ifscCode;
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<CardModel> cards;
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<BeneficiaryModel> beneficiaries;
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<TransactionModel> transactions;
     private double currentBalance;
     private boolean terms_conditions;
