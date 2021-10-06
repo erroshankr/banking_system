@@ -1,17 +1,16 @@
 package com.example.banking_app.controller;
 
-import com.example.banking_app.enums.ApplicationStatus;
-import com.example.banking_app.enums.CardType;
-import com.example.banking_app.enums.IdentityProof;
+import com.example.banking_app.enums.*;
 import com.example.banking_app.forms.AccountCreationForm1;
 import com.example.banking_app.forms.AccountCreationForm2;
-import com.example.banking_app.forms.BeneficiaryForm;
+import com.example.banking_app.forms.FundTransferForm;
 import com.example.banking_app.models.*;
 import com.example.banking_app.repo.AccountRepository;
 import com.example.banking_app.repo.BeneficiaryRepo;
 import com.example.banking_app.repo.CardRepository;
 import com.example.banking_app.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -190,7 +190,7 @@ public class AccountController {
                 for (AccountModel a:accounts) {
                     accNumber.add(a.getAccountNumber());
                 }
-                model.addAttribute("enterAccDetailForm", new BeneficiaryForm());
+                model.addAttribute("enterAccDetailForm", new FundTransferForm());
                 model.addAttribute("accNumbers", accNumber);
             }
         }catch (Exception e){
@@ -200,31 +200,85 @@ public class AccountController {
     }
 
     @PostMapping("/user/account/fundTransfer")
-    public String createBeneficiary(@RequestParam("accountNumber")String accountNumber, Model model, BeneficiaryForm beneficiaryForm){
-        try {
-            final AccountModel account = accountRepository.findByAccountNumber(Long.valueOf(accountNumber));
-            if(account!=null) {
-                if (beneficiaryForm.isAdd_beneficiary() == true) {
-                    BeneficiaryModel beneficiaryModel = new BeneficiaryModel();
-                    beneficiaryModel.setRecieverAccountHolderName(beneficiaryForm.getRecieverAccountHolderName());
-                    beneficiaryModel.setRecieverAccountNumber(beneficiaryForm.getRecieverAccountNumber());
-                    beneficiaryModel.setRecieverBranch(beneficiaryForm.getRecieverBranch());
-                    beneficiaryModel.setRecieverIfscCode(beneficiaryForm.getRecieverIfscCode());
-                    if (CollectionUtils.isEmpty(account.getBeneficiaries())) {
-                        List<BeneficiaryModel> bnfList = new ArrayList<>();
-                        bnfList.add(beneficiaryModel);
-                        account.setBeneficiaries(bnfList);
-                    } else {
-                        List<BeneficiaryModel> bnfList = account.getBeneficiaries();
-                        bnfList.add(beneficiaryModel);
-                        account.setBeneficiaries(bnfList);
-                    }
-                    accountRepository.save(account);
+    public String createBeneficiary( Model model, FundTransferForm fundTransferForm){
+         AccountModel recieverAccount=null;
+         AccountModel senderAccount=null;
+            try {
+               recieverAccount  = accountRepository.findByAccountNumber(Long.valueOf(fundTransferForm.getRecieverAccountNumber()));
+               senderAccount = accountRepository.findByAccountNumber(Long.valueOf(fundTransferForm.getSenderAccNo()));
+            }catch (Exception e){
+                model.addAttribute("error");
+            }
+            if(recieverAccount==null || senderAccount==null ) {
+                model.addAttribute("AccountNotFound");
+                return "fundTransfer";
+            }
+            if (fundTransferForm.isAdd_beneficiary() == true) {
+                BeneficiaryModel beneficiaryModel = new BeneficiaryModel();
+                beneficiaryModel.setRecieverAccountHolderName(fundTransferForm.getRecieverAccountHolderName());
+                beneficiaryModel.setRecieverAccountNumber(fundTransferForm.getRecieverAccountNumber());
+                beneficiaryModel.setRecieverBranch(fundTransferForm.getRecieverBranch());
+                beneficiaryModel.setRecieverIfscCode(fundTransferForm.getRecieverIfscCode());
+                if (CollectionUtils.isEmpty(senderAccount.getBeneficiaries())) {
+                    List<BeneficiaryModel> bnfList = new ArrayList<>();
+                    bnfList.add(beneficiaryModel);
+                    senderAccount.setBeneficiaries(bnfList);
+                } else {
+                    List<BeneficiaryModel> bnfList = senderAccount.getBeneficiaries();
+                    bnfList.add(beneficiaryModel);
+                    senderAccount.setBeneficiaries(bnfList);
+                }
+                try {
+                    accountRepository.save(senderAccount);
+                }catch (Exception e){
+                    System.out.println(e);
+                    model.addAttribute("bnfNotCreated");
+
                 }
             }
-        }catch (Exception e){
-            model.addAttribute("error");
-        }
+
+            if(senderAccount.getCurrentBalance() > 0 && fundTransferForm.getAmount() > 0 && senderAccount.getCurrentBalance() > fundTransferForm.getAmount()){
+                //create transaction model
+                    TransactionModel transactionModel=new TransactionModel();
+                    transactionModel.setSenderName(senderAccount.getAccountHolderName());
+                    transactionModel.setReceiverName(fundTransferForm.getRecieverAccountHolderName());
+                    transactionModel.setTransferFrom(fundTransferForm.getSenderAccNo());
+                    transactionModel.setTransferTo(fundTransferForm.getRecieverAccountNumber());
+                    transactionModel.setAmount(fundTransferForm.getAmount());
+                    transactionModel.setFundTransferStatus(FundTransferStatus.SUCCESS);
+                    transactionModel.setDate(new Timestamp(new Date().getTime()));
+                    if(CollectionUtils.isEmpty(senderAccount.getTransactions())){
+                        List<TransactionModel> txnList = new ArrayList<>();
+                        transactionModel.setTransactionType(TransactionType.DEBIT);
+                        txnList.add(transactionModel);
+                        senderAccount.setTransactions(txnList);
+                    } else {
+                        List<TransactionModel> txnlist = senderAccount.getTransactions();
+                        transactionModel.setTransactionType(TransactionType.DEBIT);
+                        txnlist.add(transactionModel);
+                        senderAccount.setTransactions(txnlist);
+                    }
+                if(CollectionUtils.isEmpty(recieverAccount.getTransactions())){
+                    List<TransactionModel> txnList = new ArrayList<>();
+                    transactionModel.setTransactionType(TransactionType.CREDIT);
+                    txnList.add(transactionModel);
+                    recieverAccount.setTransactions(txnList);
+                } else {
+                    List<TransactionModel> txnlist = recieverAccount.getTransactions();
+                    transactionModel.setTransactionType(TransactionType.CREDIT);
+                    txnlist.add(transactionModel);
+                    recieverAccount.setTransactions(txnlist);
+                }
+                senderAccount.setCurrentBalance(senderAccount.getCurrentBalance()-transactionModel.getAmount());
+                recieverAccount.setCurrentBalance(recieverAccount.getCurrentBalance()+transactionModel.getAmount());
+                try {
+                    accountRepository.save(senderAccount);
+                    accountRepository.save(recieverAccount);
+                }catch (Exception e){
+                    System.out.println(e);
+                    model.addAttribute("txnFAILED");
+                }
+            }
         return null;
     }
 

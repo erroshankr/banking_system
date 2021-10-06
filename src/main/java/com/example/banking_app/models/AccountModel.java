@@ -27,6 +27,8 @@ public class AccountModel extends BaseEntity{
     private List<CardModel> cards;
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BeneficiaryModel> beneficiaries;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TransactionModel> transactions;
     private double currentBalance;
     private boolean terms_conditions;
     @OneToOne(cascade = CascadeType.ALL)
@@ -173,6 +175,14 @@ public class AccountModel extends BaseEntity{
 
     public void setBeneficiaries(List<BeneficiaryModel> beneficiaries) {
         this.beneficiaries = beneficiaries;
+    }
+
+    public List<TransactionModel> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<TransactionModel> transactions) {
+        this.transactions = transactions;
     }
 }
 

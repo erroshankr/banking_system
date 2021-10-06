@@ -1,12 +1,29 @@
 package com.example.banking_app.forms;
 
-public class BeneficiaryForm {
-
+public class FundTransferForm {
+    private Long senderAccNo;
     private Long recieverAccountNumber;
     private String recieverBranch;
     private String recieverIfscCode;
     private String recieverAccountHolderName;
     private boolean add_beneficiary;
+    private double amount;
+
+    public Long getSenderAccNo() {
+        return senderAccNo;
+    }
+
+    public void setSenderAccNo(Long senderAccNo) {
+        this.senderAccNo = senderAccNo;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 
     public Long getRecieverAccountNumber() {
         return recieverAccountNumber;
