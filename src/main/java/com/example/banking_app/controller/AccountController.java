@@ -185,13 +185,13 @@ public class AccountController {
         try {
             final UserModel user = userService.getCurrentUser();
             if (user != null) {
+                Map<Long,List<String>> mp = new HashMap<>();
                 List<AccountModel> accounts = user.getAccounts().stream().filter(a -> a.getApplicationStatus().contains(ApplicationStatus.APPROVED)).collect(Collectors.toList());
-                List<Long> accNumber=new ArrayList<>();
                 for (AccountModel a:accounts) {
-                    accNumber.add(a.getAccountNumber());
+                    mp.put(a.getAccountNumber(),a.getBeneficiaries().stream().map(b -> b.getRecieverAccountHolderName() + " - " + b.getRecieverAccountNumber()).collect(Collectors.toList()));
                 }
                 model.addAttribute("enterAccDetailForm", new FundTransferForm());
-                model.addAttribute("accNumbers", accNumber);
+                model.addAttribute("accDetailsMap", mp);
             }
         }catch (Exception e){
 

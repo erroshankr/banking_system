@@ -11,12 +11,15 @@
       <div class="sender-accNo">
           <select th:field="*{senderAccNo}">
               <option value="">Select Your ACC NO</option>
-              <option th:each="senderAccNo : ${accNumbers}" th:value="${senderAccNo}" th:text="${senderAccNo}"></option>
+              <option th:each="senderAccNo : ${accDetailsMap}" th:value="${senderAccNo.key}" th:text="${senderAccNo.key}"></option>
           </select>
       </div>
 
       <div class="fundTransfer-buttons">
-          <button>Select From Beneficiary</button>
+          <select th:field="*{bnfAccNo}">
+              <option value="">Select From Beneficiary</option>
+              <option th:each="bnfAccNo : ${accDetailsMap}" th:value="${bnfAccNo.value}" th:text="${bnfAccNo.value}"></option>
+          </select>
           <button>Enter New Detail</button>
       </div>
 

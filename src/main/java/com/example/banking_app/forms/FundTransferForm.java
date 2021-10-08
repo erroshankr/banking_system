@@ -1,6 +1,7 @@
 package com.example.banking_app.forms;
 
 public class FundTransferForm {
+    private  Long bnfAccNo;
     private Long senderAccNo;
     private Long recieverAccountNumber;
     private String recieverBranch;
@@ -8,6 +9,15 @@ public class FundTransferForm {
     private String recieverAccountHolderName;
     private boolean add_beneficiary;
     private double amount;
+
+
+    public Long getBnfAccNo() {
+        return bnfAccNo;
+    }
+
+    public void setBnfAccNo(Long bnfAccNo) {
+        this.bnfAccNo = bnfAccNo;
+    }
 
     public Long getSenderAccNo() {
         return senderAccNo;
