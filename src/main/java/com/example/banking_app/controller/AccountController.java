@@ -4,6 +4,7 @@ import com.example.banking_app.enums.*;
 import com.example.banking_app.forms.AccountCreationForm1;
 import com.example.banking_app.forms.AccountCreationForm2;
 import com.example.banking_app.forms.FundTransferForm;
+import com.example.banking_app.forms.TxnHistoryForm;
 import com.example.banking_app.models.*;
 import com.example.banking_app.repo.AccountRepository;
 import com.example.banking_app.repo.BeneficiaryRepo;
@@ -326,6 +327,25 @@ public class AccountController {
                 }
             }
             return null;
+    }
+    @GetMapping("/txnHistoryPage")
+    public String getTxnHistoryPage(Model model){
+            final UserModel user = userService.getCurrentUser();
+            Set<String> accNumbers = new HashSet<>();
+            if (user != null) {
+                Set<AccountModel> accounts = user.getAccounts().stream().filter(a -> a.getApplicationStatus().contains(ApplicationStatus.APPROVED)).collect(Collectors.toSet());
+                accNumbers = accounts.stream().map(a -> a.getAccountNumber() + " - " + a.getAccountHolderName()).collect(Collectors.toSet());
+            }
+        model.addAttribute("accNumbers",accNumbers);
+            model.addAttribute("txnHistoryForm",new TxnHistoryForm());
+        return null;
+    }
+    @PostMapping("/txnHistory")
+    public String getTxnHistory(Model model,@RequestParam("accNumber")Long accNumber){
+        final UserModel user=userService.getCurrentUser();
+        AccountModel account=accountRepository.findByAccountNumber(accNumber);
+
+        return null;
     }
 
 }

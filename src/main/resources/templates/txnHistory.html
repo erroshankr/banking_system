@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+  <section class="txnHistory">
+    <form method="post" class="register-form" id="register-form" th:action="@{/txnHistory}">
+        <div class="select-accNo">
+            <select th:field="*{senderAccNo}">
+                <option value="">Select Your ACC NO</option>
+                <option th:each="senderAccNo : ${senderDetails}" th:value="${senderAccNo}" th:text="${senderAccNo}"></option>
+            </select>
+        </div>
+    </form>
+  </section>
+</body>
+</html>
