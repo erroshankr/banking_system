@@ -64,6 +64,13 @@
             <li>
                 <div sec:authorize="isAuthenticated()">
                     <div>
+                        <a href="/user/account/txnHistoryPage"><span class="fa fa-gift mr-3"></span>Txn History</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div sec:authorize="isAuthenticated()">
+                    <div>
                         <a href="javascript: document.logoutForm.submit()"><span class="fa fa-support mr-3"></span> Sign out</a>
                         <form name="logoutForm" th:action="@{/login}" method="post" th:hidden="true">
                             <input hidden type="submit" value="Sign Out" />

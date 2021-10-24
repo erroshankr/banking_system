@@ -328,7 +328,7 @@ public class AccountController {
             }
             return null;
     }
-    @GetMapping("/txnHistoryPage")
+    @GetMapping("/user/account/txnHistoryPage")
     public String getTxnHistoryPage(Model model){
             final UserModel user = userService.getCurrentUser();
             Set<String> accNumbers = new HashSet<>();
@@ -338,9 +338,9 @@ public class AccountController {
             }
         model.addAttribute("accNumbers",accNumbers);
             model.addAttribute("txnHistoryForm",new TxnHistoryForm());
-        return null;
+        return "txnHistory";
     }
-    @PostMapping("/txnHistory")
+    @PostMapping("/user/account/txnHistory")
     public String getTxnHistory(Model model,@RequestParam("accNumber")Long accNumber){
         final UserModel user=userService.getCurrentUser();
         AccountModel account=accountRepository.findByAccountNumber(accNumber);

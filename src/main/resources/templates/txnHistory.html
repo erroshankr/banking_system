@@ -5,11 +5,11 @@
 </head>
 <body>
   <section class="txnHistory">
-    <form method="post" class="register-form" id="register-form" th:action="@{/txnHistory}">
+    <form method="post" class="register-form" id="register-form" th:action="@{/user/account/txnHistory}" th:object="${txnHistoryForm}">
         <div class="select-accNo">
-            <select th:field="*{senderAccNo}">
+            <select th:field="*{accNo}">
                 <option value="">Select Your ACC NO</option>
-                <option th:each="senderAccNo : ${senderDetails}" th:value="${senderAccNo}" th:text="${senderAccNo}"></option>
+                <option th:each="accNo : ${accNumbers}" th:value="${accNo}" th:text="${accNo}"></option>
             </select>
         </div>
     </form>
