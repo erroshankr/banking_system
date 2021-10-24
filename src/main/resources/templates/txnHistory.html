@@ -12,6 +12,9 @@
                 <option th:each="accNo : ${accNumbers}" th:value="${accNo}" th:text="${accNo}"></option>
             </select>
         </div>
+        <div class="form-group form-button">
+            <input type="submit" name="show-transactions" id="show-transactions" class="form-submit" value="Show Transactions"/>
+        </div>
     </form>
   </section>
 </body>

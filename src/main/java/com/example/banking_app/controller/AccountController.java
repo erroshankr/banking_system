@@ -9,6 +9,7 @@ import com.example.banking_app.models.*;
 import com.example.banking_app.repo.AccountRepository;
 import com.example.banking_app.repo.BeneficiaryRepo;
 import com.example.banking_app.repo.CardRepository;
+import com.example.banking_app.repo.TxnRepository;
 import com.example.banking_app.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +40,8 @@ public class AccountController {
     private UserService userService;
     @Autowired
     private BeneficiaryRepo beneficiaryRepo;
+    @Autowired
+    private TxnRepository txnRepository;
 
     @GetMapping("/user/account/create")
     public String getAccountCreation( Model model){
@@ -343,8 +346,10 @@ public class AccountController {
     @PostMapping("/user/account/txnHistory")
     public String getTxnHistory(Model model,@RequestParam("accNumber")Long accNumber){
         final UserModel user=userService.getCurrentUser();
-        AccountModel account=accountRepository.findByAccountNumber(accNumber);
-
+        if (user!=null) {
+            AccountModel account = accountRepository.findByAccountNumber(accNumber);
+            TransactionModel txn = txnRepository.findByAccountnumber(accNumber);
+        }
         return null;
     }
 
