@@ -1,0 +1,63 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="fundtransfer">
+  <section class="fundTransfer">
+    <form method="post" class="register-form" id="register-form" th:action="@{/user/account/fundTransfer}" th:object="${fundTransferForm}" style="margin-top: 17px;">
+
+      <div class="sender-accNo" style="margin-left: 1rem;">
+        <select th:field="*{senderAccNo}">
+          <option value="">Select Your ACC NO</option>
+          <option th:each="senderAccNo : ${senderDetails}" th:value="${senderAccNo}" th:text="${senderAccNo}"></option>
+        </select>
+      </div>
+
+      <div class="fundTransfer-buttons" style="margin-top: 6px;margin-left: 1rem;">
+        <select th:field="*{bnfAccNo}">
+          <option value="">Select From Beneficiary</option>
+          <option th:each="bnfAccNo : ${bnfDetails}" th:value="${bnfAccNo}" th:text="${bnfAccNo}"></option>
+        </select>
+        <button style="margin-left: 7px;">Enter New Detail</button>
+      </div>
+
+      <div class="signup-content" style="margin-top: -3rem;margin-left: -6rem;">
+        <div class="signup-form">
+          <h2 style="font-size:34px;" class="form-title">Receiver Details</h2>
+          <div class="form-group">
+            <label for="recieverAccountNumber"></label>
+            <input type="text" name="recieverAccountNumber" id="recieverAccountNumber" th:field="*{recieverAccountNumber}" placeholder="Acc No" th:required="false"/>
+          </div>
+          <div class="form-group">
+            <label for="recieverAccountHolderName"></label>
+            <input type="text" name="recieverAccountHolderName" id="recieverAccountHolderName" th:field="*{recieverAccountHolderName}" placeholder="Acc Holder Name"/>
+          </div>
+          <div class="form-group">
+            <label for="recieverBranch"></label>
+            <input type="text" name="recieverBranch" id="recieverBranch" th:field="*{recieverBranch}" placeholder="Branch" th:required="false"/>
+          </div>
+          <div class="form-group">
+            <label for="recieverIfscCode"></label>
+            <input type="text" name="recieverIfscCode" id="recieverIfscCode" th:field="*{recieverIfscCode}" placeholder="IFSC Code" th:required="false"/>
+          </div>
+          <div class="form-group">
+            <div class="form-group" style="margin-right: -7rem;">
+              <input class="form-check-input" name="add_beneficiary" th:field="*{add_beneficiary}" type="radio" id="option3" value="false">
+              <label class="form-check-label" for="option3">Want To Add As Beneficiary</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <br>
+
+      <div class="amount-to-send">
+        <label for="amount"></label>
+        <input type="text" class="recieve" path="amount" id="amount" name="amount" placeholder="Enter Amount to Send">
+      </div>
+      <div class="form-group form-button">
+        <input type="submit"  class="form-submit" value="Transfer"/>
+      </div>
+    </form>
+
+  </section>
+</div>
+</html>
